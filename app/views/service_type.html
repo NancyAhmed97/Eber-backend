@@ -1,0 +1,96 @@
+<% include header.html %>
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+  <div class="row">
+    <!-- <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" method="post" action="/add_service_form">
+            <div class="col-md-4" style="text-align: center;">
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+              <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus"></span><%= __('title_add_type') %></button>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div>
+            <div class="col-md-4">
+              <div class="col-md-12">
+                <div class="panel-default">
+                  <div class="panel-body panel-body-search">
+                    <form class="form-horizontal" role="form" method="post" action="/service_types">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" value="<%= search_value %>" onkeypress="return alphaNumSpace(event);" name="search_value" placeholder="<%= __('title_search_text') %>" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="col-md-12">
+                <div class="panel-default">
+                    <form class="form-horizontal" role="form" method="post" action="/add_service_form">
+                      <div class="col-md-12" style="text-align: center;">
+                        <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus"></span><%= __('title_add_type') %></button>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <% service_data.forEach(function(data){ %>
+    <div class="col-md-3">
+      <div class="panel panel-default" style="float:left;">
+        <div class="panel-body profile">
+          <div class="profile-image">
+            <img src="<%= setting_detail.image_base_url + data.type_image_url %>" style="border:none;border-radius:0px;webkit-border-radius: 0px; height: 65px;" />
+          </div>
+          <div class="profile-data">
+            <div class="profile-data-name">
+              <%= data.typename %>
+            </div>
+          </div>
+          <div class="profile-controls">
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="contact-info">
+            <ul class="list-group border-bottom">
+              <li class="list-group-item"><b><%= __('title_service_type') %></b><span class="badge"><%= __(data.name) %></span></li>
+              <li class="list-group-item"><b><%= __('title_is_business') %></b><span class="badge"><% if(data.is_business == 1) { %><%= __('title_on') %>
+                  <% } else { %><%= __('title_off') %></span>
+                <% } %></li>
+              <li class="list-group-item"><b><%= __('default_selected') %></b><span class="badge"><% if(data.is_default_selected == true) { %><%= __('title_yes') %>
+                  <% } else { %><%= __('title_no') %></span>
+                <% } %></li>
+            </ul>
+            <form method="post" action="edit_service_form" class="pt-4">
+              <input type="hidden" name="id" value="<%= data._id %>" />
+              <button type="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= __('button_edit') %></button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- END CONTACT ITEM -->
+    </div>
+    <% }); %>
+  </div>
+</div>
+<% include footer_list.html %>

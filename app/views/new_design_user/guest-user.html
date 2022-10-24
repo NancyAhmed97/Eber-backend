@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="new_design/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="new_design/css/magnific-popup.css" />
+  <link rel="stylesheet" type="text/css" href="new_design/css/style.css" />
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/jquery/jquery-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/fullcalendar/fullcalendar.css" />
+
+  <title><%= setting_detail.app_name %></title>
+  <script type="text/javascript" src="new_design/js/jquery.min.js"></script>
+  <script type="text/javascript" src="new_design/js/jquery-ui.js"></script>
+  <script type="text/javascript" src="new_design/js/jquery.magnific-popup.min.js"></script>
+  <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+  <script src="new_design/js/owl.carousel.js"></script>
+  <script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>
+  <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-timepicker.min.js'></script>
+  <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="top shadownone" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;">
+      <div class="container">
+        <div class="top_l">
+          <h1><a href="javascript:window.location.href=window.location.href">Eber</a></h1>
+          <div class="menu">
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="top_r">
+          <div class="menu2">
+            <ul>
+              <li class="active"><a href="javascript:window.location.href=window.location.href">Book</a></li>
+              <li><a href="track-trip?token=<%= guest_token.token_value %>">Track</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </header>
+
+  <style>
+    .pac-container {
+      color: black;
+      box-shadow: none;
+
+    }
+
+    .pac-item {
+      height: 44px;
+      font-size: 14px;
+      font-weight: 100;
+      padding-top: 7px;
+      color: black;
+      border-top: 0;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .pac-icon.pac-icon-marker {
+      display: none;
+      color: black;
+    }
+
+    .pac-item-query {
+      margin-left: 12px;
+      font-size: 14px;
+      font-weight: 100;
+      color: black;
+    }
+
+    .pac-matched {
+      font-size: 14px;
+      font-weight: 100;
+      color: black;
+    }
+
+    .pac-container:after {
+      background-image: none !important;
+      height: 0px;
+    }
+
+    .pac-icon {
+      display: none !important;
+    }
+
+    .container {
+      max-width: unset;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0px 30px;
+    }
+
+    .fareinfo {
+      width: 100%;
+    }
+
+    .map_page {
+      height: unset;
+    }
+
+    body {
+      height: unset;
+      background: #fff;
+    }
+
+    .option_div {
+      border-bottom: unset;
+    }
+
+    button[disabled] {
+      border: 1px solid #999999 !important;
+      background-color: #cccccc !important;
+      color: #666666 !important;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .error {
+      color: unset;
+      background: unset;
+      border-color: red;
+    }
+
+    label.error {
+      color: red !important;
+    }
+
+    .time_popup_box {
+      width: 350px;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .sign_btn .btn {
+      width: 100%;
+      height: 44px;
+    }
+
+    .top_l h1 {
+      padding-top: 15px;
+      margin-top: 0;
+      font-family: 'Maven Pro', sans-serif;
+    }
+
+    .btn:hover {
+      color: #fff;
+    }
+
+    html {
+      font-family: 'Maven Pro', sans-serif;
+    }
+
+    button,
+    input {
+      border-radius: 0 !important;
+    }
+
+    /* Works on Firefox */
+    * {
+      scrollbar-width: 10px;
+      scrollbar-color: #d6dee1 white;
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background-color: white;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: #d6dee1;
+      border-radius: 20px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background-color: #a8bbbf;
+    }
+
+    .fareinfo {
+      padding: 0px;
+      padding-bottom: 15px;
+    }
+
+    @media only screen and (max-width: 375px) {
+      .container {
+        padding: 0px 10px !important;
+      }
+    }
+  </style>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%=map_key%>&libraries=places"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('.popup-with-form').magnificPopup({
+        type: 'inline',
+        preloader: false,
+        focus: '#name',
+        callbacks: {
+          beforeOpen: function() {
+            if ($(window).width() < 700) {
+              this.st.focus = false;
+            } else {
+              this.st.focus = '#name';
+            }
+          }
+        }
+      });
+
+      $("#signupForm").validate({
+        rules: {
+          first_name: "required",
+          last_name: "required",
+          country_phone_code: "required",
+          source_address: "required",
+          destination_address: "required",
+          service_type_id_list: "required",
+          phone: {
+            required: true,
+            minlength: 8,
+            maxlength: 12,
+            phone_regex: /^\(?([1-9]{1})\)?([0-9]*)$/
+          },
+          email: {
+            required: true,
+            email_regex: /^(([^<>()[\]\\.,;:\s@"”]+(\.[^<>()[\]\\.,;:\s@"”]+)*)|(".+"))+([a-z0-9])@\w+(?:\.[a-zA-Z]{1,5})+$/,
+            minlength: 12,
+            maxlength: 64
+          }
+        },
+        submitHandler: function(form) {
+          $("#trip_message").hide();
+          $.ajax({
+            type: 'POST',
+            url: '/checkuser',
+            data: $("#signupForm").serialize(),
+            dataType: "json",
+            success: function(response) {
+              if (response.success == false) {
+                $('#trip_message').text("Trip is Already Running");
+                $("#trip_message").show();
+              } else {
+                $('#user_id').val(response.user._id);
+                $.ajax({
+                  type: 'POST',
+                  url: '/createtrip',
+                  data: $("#signupForm").serialize(),
+                  datatype: "json",
+                  success: function(response) {
+                    $('#ridenow').attr('disabled', false);
+                    if (response.success) {
+                      alert("Trip Created Successfully !!! \nClick ok to view the trip details.");
+                      window.location.href = "/track-trip?token=<%= guest_token.token_value %>&trip_id=" + response.trip_id;
+                    }
+                  }
+                });
+              }
+            }
+          })
+        }
+      });
+
+      $("#service_type_id_list").change(function() {
+        let selected_service_type = JSON.parse($("#service_type_id_list").val());
+        $('#service_type_id').val(selected_service_type._id);
+        get_near_by_driver(selected_service_type._id);
+      })
+
+      $('#ridelater').on('click', function() {
+        if ($('#server_time').val() && $('#timezone').val()) {
+          var now = $('#server_time').val();
+          var new_time = new Date(now).toLocaleString("en-US", {
+            timeZone: $('#timezone').val()
+          })
+          new_time = new Date(new_time)
+          new_time = new_time.getTime() + (Number("<%= setting_detail.scheduled_request_pre_start_minute %>") * 60000);
+          new_time = new Date(new_time)
+          $('#date').datepicker("setStartDate", new_time);
+
+          $("#date").datepicker().datepicker("setDate", new_time);
+
+          $('#time').timepicker('setTime', new_time);
+
+          $.magnificPopup.open({
+            items: {
+              src: '#popup2'
+            },
+            type: 'inline'
+          });
+        }
+      })
+
+      $('#ride_laters').click(function() {
+        if ($('#date').val() == "" || $('#time').val() == "") {
+          $('#date_time_error').text("Please select date and time first")
+        } else {
+          $.ajax({
+            type: 'POST',
+            url: '/get_server_time',
+            data: {},
+            datatype: "json",
+            success: function(response) {
+              var now = response.server_date;
+              var now1 = new Date(now).toLocaleString("en-US", {
+                timeZone: $('#timezone').val()
+              })
+              now1 = new Date(now1);
+
+              var time = $('#time').val()
+              time = time.split(':');
+
+              var date_time = $('#date').val()
+              date_time = date_time.split('-');
+
+              var cur_date = new Date();
+              if (date_time.getTime() < cur_date.getTime()) {
+                $('#date_time_error').text("Please select valid date and time")
+                return;
+              }
+
+              var new_date_time1 = new Date(Date.now())
+              var new_date_time = new Date(new_date_time1).toLocaleString("en-US", {
+                timeZone: $('#timezone').val()
+              })
+
+              new_date_time = new Date(new_date_time)
+              new_date_time.setDate(date_time[2])
+              new_date_time.setMonth(date_time[1] - 1)
+              new_date_time.setYear(date_time[0])
+              new_date_time.setHours(time[0])
+              new_date_time.setMinutes(time[1])
+              new_date_time.setSeconds(time[2])
+
+              var timeDiff = Math.round(new_date_time.getTime() - now1.getTime());
+
+              if (timeDiff / 60000 >= Number("<%= setting_detail.scheduled_request_pre_start_minute %>")) {
+                $.magnificPopup.close({
+                  items: {
+                    src: '#popup2'
+                  }
+                });
+                $('#date_time_error').text("");
+                $('#is_ride_later').val(1);
+                $('#start_time').val(timeDiff);
+                $("#signupForm").submit();
+              } else {
+                $('#date_time_error').text("Please Select Proper Time");
+              }
+            }
+          });
+        }
+      })
+
+      $('#date').datepicker({
+        format: 'yyyy-mm-dd',
+        startDate: new Date(Date.now())
+      }).on("input change", function(e) {
+        $('.datepicker-dropdown').hide()
+      });
+
+      $('#time').timepicker({
+        format: 'hh-ii-ss',
+        showSeconds: true,
+        showMeridian: false,
+        minuteStep: 5,
+        secondStep: 5
+      });
+
+    });
+    var map;
+    var iconBase = '/map_pin/';
+    var pickup_marker;
+    var destination_marker;
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+      var latitude = "<%= data.latitude %>"
+      var longitude = "<%= data.longitude %>"
+      var d_latitude = "<%= data.d_latitude %>"
+      var d_longitude = "<%= data.d_longitude %>"
+
+      var input = document.getElementById('pichup_address');
+      var searchBox = new google.maps.places.Autocomplete(input, {});
+
+      searchBox.addListener('place_changed', function() {
+        var place = searchBox.getPlace();
+        var location = place.geometry.location;
+        $('#lat').val(location.lat())
+        $('#lng').val(location.lng())
+        if ($('#dlat').val() != '' && $('#dlng').val()) {
+          get_fare_estimate();
+        }
+      });
+
+      var input1 = document.getElementById('destination_adress');
+      var searchBox1 = new google.maps.places.Autocomplete(input1, {});
+
+      searchBox1.addListener('place_changed', function() {
+        var place1 = searchBox1.getPlace();
+        var location = place1.geometry.location;
+        $('#dlat').val(location.lat())
+        $('#dlng').val(location.lng())
+        if ($('#lat').val() != '' && $('#lng').val()) {
+          get_fare_estimate();
+        }
+      });
+    }
+
+    function get_fare_estimate() {
+      var pick_up = new google.maps.LatLng($('#lat').val(), $('#lng').val());
+      var destination = new google.maps.LatLng($('#dlat').val(), $('#dlng').val());
+      var service = new google.maps.DistanceMatrixService;
+      service.getDistanceMatrix({
+        origins: [pick_up],
+        destinations: [destination],
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+      }, function(response, status) {
+
+        var results = response.rows[0].elements;
+        if (results[0].distance == undefined) {
+          alert("please enter pickup and destination same country")
+        } else {
+          var distance = results[0].distance.value;
+          var time = results[0].duration.text;
+          time = time.split(" ");
+          if (time[1] == "hour") {
+            time = parseInt(time[0] * 60) + parseInt(time[2]);
+          } else {
+            time = time[0];
+          }
+        }
+
+        $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            pickup_latitude: $('#lat').val(),
+            pickup_longitude: $('#lng').val(),
+            d_latitude: $('#dlat').val(),
+            d_longitude: $('#dlng').val(),
+            'time': time * 60,
+            'distance': distance
+          },
+          url: "/get_fare_estimate_all_type",
+          success: function(response) {
+            $('#get_fare_estimate_btn').attr("disabled", true);
+            $('#service_type_id_list').empty();
+            $('#service_type_id').val();
+            $("#service_type_id_list_error_msg").hide();
+            if (response.success) {
+              response.type_list.forEach(function(type_data) {
+                $("#service_type_id_list").append("<option value=" + JSON.stringify(type_data) + ">" + type_data.name + "</option>");
+              });
+              $('#get_fare_estimate_btn').removeAttr("disabled");
+              $('#service_type_id').val(response.type_list[0]._id);
+
+              $('#city_id').val(response.city_detail._id);
+              $('#timezone').val(response.city_detail.timezone);
+
+              $('#server_time').val(response.server_time);
+
+              get_near_by_driver(response.type_list[0]._id);
+            } else {
+              $("#service_type_id_list").append("<option selected style='display: none;'>Select Service Type</option>");
+              $("#service_type_id_list_error_msg").show();
+            }
+          }
+        });
+      });
+    }
+
+    function open_fare_estimate_modal() {
+      let selected_service_type = JSON.parse($("#service_type_id_list").val());
+      try {
+        if (selected_service_type) {
+          $('#estimated_fare').text(Number(selected_service_type.estimated_fare).toFixed(2));
+          $('#base_price').text(Number(selected_service_type.base_price).toFixed(2));
+          $('#name').text(selected_service_type.name);
+          $('#price_per_unit_time').text(Number(selected_service_type.price_per_unit_time).toFixed(2));
+          $('#price_per_unit_distance').text(Number(selected_service_type.price_per_unit_distance).toFixed(2));
+          $('#cancellation_fee').text(Number(selected_service_type.cancellation_fee).toFixed(2));
+          $('#min_fare').text(Number(selected_service_type.min_fare).toFixed(2));
+        } else {
+          $('#estimated_fare').text("");
+          $('#base_price').text("");
+          $('#name').text("");
+          $('#price_per_unit_time').text("");
+          $('#price_per_unit_distance').text("");
+          $('#cancellation_fee').text("");
+          $('#min_fare').text("");
+        }
+        $.magnificPopup.open({
+          items: {
+            src: '#popup1'
+          },
+          type: 'inline'
+        });
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    function get_near_by_driver(service_type_id) {
+      var latitude = $('#lat').val();
+      var longitude = $('#lng').val();
+      $.ajax({
+        type: 'POST',
+        url: '/get_nearby_provider',
+        data: {
+          'service_type_id': service_type_id,
+          'latitude': latitude,
+          'longitude': longitude
+        },
+        dataType: "json",
+        success: function(response) {
+          console.log(response.success)
+          if (response.success) {
+            $("#provider_not_found_error").hide();
+            $('#ridenow').attr('disabled', false);
+          } else {
+            $("#provider_not_found_error").show();
+            $('#ridenow').attr('disabled', true);
+          }
+        }
+      });
+    }
+  </script>
+
+  <body class="home">
+    <div class="inner_con">
+      <div class="map_page">
+        <div class="fareinfo">
+
+          <input type="hidden" name="server_time" id="server_time" />
+          <form id="signupForm" method="post">
+            <div class="form_info_fare" style="padding-bottom: 0px;padding-top: 0;margin-top: 0px;">
+              <div class="row col-lg-12" style="padding-bottom: 15px;">User details</div>
+              <div class="row">
+                <div class="col-lg-6" style="padding-bottom: 10px;">
+                  <input type="text" onfocusout="trimSpace(event);" name="first_name" id="first_name" placeholder="First Name">
+                </div>
+                <div class="col-lg-6" style="padding-bottom: 10px;">
+                  <input type="text" onfocusout="trimSpace(event);" name="last_name" id="last_name" placeholder="Last Name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12" style="padding-bottom: 10px;">
+                  <input type="text" name="email" id="email" placeholder="Email">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4" style="padding-bottom: 10px;">
+                  <select style="-moz-appearance: none;" name="country_phone_code" id="country" data-live-search="true">
+                    <option selected disabled hidden style='display: none'><%= config_json.title_select_country %></option>
+                    <% country.forEach(function(data) { %>
+                    <option value="<%= data.countryphonecode %>"><%= data.countryphonecode %> <%= data.countryname %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="col-lg-8" style="padding-bottom: 10px;">
+                  <input type="text" name="phone" id="phone" placeholder="Phone number">
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px;margin-left: 30px;">Address details</div>
+
+            <div class="form_info_fare form_info_fare2" style="margin: 0px;">
+              <div class="left_line"></div>
+              <div class="form_div">
+                <input type="hidden" id="lat" name="latitude" value="">
+                <input type="hidden" id="lng" name="longitude" value="">
+                <input type="text" id="pichup_address" name="source_address" value="" class="pac-target-input" placeholder="Enter a location" autocomplete="off">
+              </div>
+              <div class="form_div2">
+                <input type="hidden" id="dlat" name="d_latitude" value="">
+                <input type="hidden" id="dlng" name="d_longitude" value="">
+                <input type="text" id="destination_adress" name="destination_address" value="" class="pac-target-input" placeholder="Enter a location" autocomplete="off">
+                <button type="button" class="btn" id="get_fare_estimate1" onclick="get_fare_estimate()" style="background-color: rgb(22, 73, 57); height: 44px; display: none;"><i class="fa fa-long-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <input type="hidden" name="payment_mode" value="1" />
+            <input type="hidden" name="city_id" id="city_id" />
+            <input type="hidden" name="is_ride_later" id="is_ride_later" value="0">
+            <input type="hidden" name="start_time" id="start_time">
+            <input type="hidden" name="timezone" id="timezone" />
+            <input type="hidden" name="user_id" id="user_id" />
+            <input type="hidden" name="trip_type" id="trip_type" value="15" />
+            <input type="hidden" name="user_type_id" value="<%= guest_token._id %>" />
+            <input type="hidden" id="service_type_id" name="service_type_id" />
+
+            <div style="margin-top: 20px;margin-left: 30px;padding-bottom: 15px;">Your Options:</div>
+
+            <div class="" id="drop_box" hidden="" style="display: block;padding-left: 30px;padding-right: 30px;">
+              <div class="row">
+                <div class="col-lg-8" style="padding-bottom: 10px;">
+                  <select style="-moz-appearance: none;" name="service_type_id_list" id="service_type_id_list" data-live-search="true">
+                    <option selected="" disabled="" hidden="" style="display: none">Select service type</option>
+                  </select>
+                  <label id="service_type_id_list_error_msg" class="error" style="display: none;">Service Type Not Available</label>
+                </div>
+                <div class="col-lg-4" style="padding-bottom: 10px;cursor: pointer;">
+                  <div class="sign_btn"><button type="button" onclick="open_fare_estimate_modal()" class="btn" id="get_fare_estimate_btn" disabled>Get Fare Estimate<i class="fa fa-long-arrow-right"></i></button></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6" style="padding-bottom: 10px;cursor: pointer;">
+                  <div class="sign_btn"><button class="btn" type="submit" name="ridenow" id="ridenow">Book now<i class="fa fa-long-arrow-right"></i></button></div>
+                  <label id="provider_not_found_error" class="error" style="display: none;">Driver Not Found</label>
+                  <label id="trip_message" class="error" style="display: none;"></label>
+                </div>
+                <div class="col-lg-6" style="padding-bottom: 10px;cursor: pointer;">
+                  <div class="sign_btn"><button class="btn" type="button" name="ridelater" id="ridelater">Book Schedule<i class="fa fa-long-arrow-right"></i></button></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="popup1" class="white-popup-block mfp-hide popup_box">
+      <div class="title">
+        <h2 id="name"></h2>
+        <p>Spacious, Affordable sedans</p>
+      </div>
+      <div class="price_list row">
+
+        <div class="col_2">
+          <div class="price_in">
+            <h4>PICK UP</h4>
+            <div class="price_con">
+              <div class="fl">
+                Base Price
+              </div>
+
+              <div id="base_price" class="fr">
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="price_in">
+            <h4>CANCELLATIONS</h4>
+            <div class="price_con">
+              <div class="fl">
+                Cancellation Fee
+              </div>
+
+              <div id="cancellation_fee" class="fr">
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col_2">
+          <div class="price_in">
+            <h4>ON TRIP</h4>
+            <div class="price_con">
+              <div class="fl">
+                Minimum Fare
+              </div>
+
+              <div id="min_fare" class="fr">
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="price_con">
+              <div class="fl">
+                Time Price
+              </div>
+
+              <div id="price_per_unit_time" class="fr">
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="price_con">
+              <div class="fl">
+                Distance Price
+              </div>
+              <div id="price_per_unit_distance" class="fr">
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="price_con">
+              <div class="fl">
+                Estimated Price
+              </div>
+              <div id="estimated_fare" class="fr">
+              </div>
+              <div class="clear"></div>
+            </div>
+
+          </div>
+        </div>
+        <div class="clear"></div>
+
+      </div>
+      <p class="notice">You agree to pay the fare shown at booking. If your route or destination changes on trip, your fare may change based on the rates above and other applicable taxes, tolls, charges and adjustments. US Partners: Rates used to calculate partner fares are published at partners.eber.com and require an active partner account to view. Additional wait time charges may apply to your trip if the driver has waited 5 minutes: ₹1.05 per minute. Wait time charges will increase when fares are elevated due to higher demand.</p>
+    </div>
+
+    <div id="popup2" class="white-popup-block mfp-hide popup_box time_popup_box">
+      <div class="title">
+        <p>Select Date & Time</p>
+      </div>
+      <div class="price_list">
+        <div>
+          <div class="price_in">
+            <p>Select Date</p>
+            <div class="price_con">
+              <div class="fl">
+                <input type="text" class="form-control datepicker" placeholder="Select date" name="date" id="date" readonly />
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="price_in">
+            <p>Select Time</p>
+            <div class="price_con">
+              <div class="fl">
+                <input type="text" class="form-control timepicker" name="time" id="time" readonly />
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <label id="date_time_error" class="error"></label>
+      <div style="text-align: center;">
+        <input type="button" class="btn" id="ride_laters" value="Apply">
+      </div>
+    </div>
+  </body>
+
+</html>
+<% include validation_script.html %>

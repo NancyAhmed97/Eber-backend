@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- META SECTION -->
+    <title>
+        <%= setting_detail.partner_panel_name %>
+    </title>
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+    <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <script type="text/javascript" src="js/validation.js"></script>
+    <style type="text/css" media="screen">
+        @media screen and (max-width: 500px)  {
+        .page-container .page-content .page-content-wrap{
+            padding-top: 65px !important;
+        }   }
+    </style>
+     <style>
+        #cover-spin {
+            position:fixed;
+            width:100%;
+            left:0;right:0;top:0;bottom:0;
+            background-color: rgba(0,0,0,0.2);
+            z-index:9999;
+            display:none;
+        }
+
+        @-webkit-keyframes spin {
+            from {-webkit-transform:rotate(0deg);}
+            to {-webkit-transform:rotate(360deg);}
+        }
+
+        @keyframes spin {
+            from {transform:rotate(0deg);}
+            to {transform:rotate(360deg);}
+        }
+
+        #cover-spin::after {
+            content:'';
+            display:block;
+            position:absolute;
+            left:50%;top:50%;
+            width:40px;height:40px;
+            border-style:solid;
+            border-color:black;
+            border-top-color:transparent;
+            border-width: 4px;
+            border-radius:50%;
+            -webkit-animation: spin .8s linear infinite;
+            animation: spin .8s linear infinite;
+        }
+
+        .x-navigation button,a{
+            word-break: break-all;
+            overflow: hidden !important;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .x-navigation a{
+            padding-right: 1rem!important;
+        }
+
+        .x-navigation button:hover,.x-navigation a:hover{
+            overflow: visible; 
+            white-space: normal;
+            height:auto;  /* just added this line */
+            padding-right: 1rem!important;
+        }
+
+        .x-navigation-minimized a{
+            overflow: unset !important;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var path = window.location.pathname;
+            var value = path.split('/');
+            $('#'+value[1]).addClass('active');
+            var page_title = $('#'+value[1]).text();
+            $('#page_title').text(page_title);
+
+            $.ajax({
+                type: 'POST',
+                url: '/session_data',
+                data: {'type': 'partner'},
+                dataType: "json",
+                success:function(response){
+                    $('option[value=' + response.cookies + ']').attr('selected',true);
+                    $('.profile-data-name').html(response.session_data.first_name + ' ' + response.session_data.last_name);
+                    $('#partner_profile').attr('src', response.session_data.picture != '' ? "<%=setting_detail.image_base_url %>"+response.session_data.picture : 'default.png');
+                }
+            });
+
+            $("#languageId").change(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/change_language',
+                        data: { 'language': this.value },
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response)
+                            window.location.reload();
+                        }
+                    })
+                });
+        });
+    </script>
+
+    <% include header_title.html %>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+    <!-- END META SECTION -->
+
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" href="css/theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="css/map.css" />
+    <!-- EOF CSS INCLUDE -->
+
+</head>
+
+<body>
+    <!-- START PAGE CONTAINER -->
+    <div class="page-container">
+        <!-- START PAGE SIDEBAR -->
+        <div class="page-sidebar">
+            <!-- START X-NAVIGATION -->
+            <ul class="x-navigation">
+                <li>
+                    <a style="text-align: center;">
+                        <%= setting_detail.app_name %>
+                    </a>
+                    <a href="#" class="x-navigation-control"></a>
+                </li>
+
+                <li class="xn-profile">
+
+                    <div class="profile">
+
+                        <div class="profile-image">
+                            <img id="partner_profile">
+                        </div>
+
+                        <div class="profile-data">
+                            <div class="profile-data-name">
+                            </div>
+                            <!---<div class="profile-data-title">Web Developer/Designer</div>-->
+                        </div>
+
+                    </div>
+                    
+
+                
+                </li>
+
+                <ul id="menu-item">
+                    <!--<li class="xn-title">Navigation</li>-->
+
+
+                    <li id="profile">
+                        <a href="/profile"><span class="fa fa-users"></span> <span class="xn-text"><%= __('menu_title_profile') %></span></a>
+                    </li>
+
+                    <li id="partner_providers">
+                        <a href="/partner_providers"><span class="fa fa-user-plus"></span> <span class="xn-text"><%= __('menu_title_providers') %></span></a>
+                    </li>
+
+                    <li id="partner_requests">
+                        <a href="/partner_requests"><span class="fa fa-paper-plane"></span> <span class="xn-text"><%= __('sub_menu_title_running_requests') %></span></a>
+                    </li>
+
+                    <li id="partner_history">
+                        <a href="/partner_history"><span class="fa fa-calendar"></span> <span class="xn-text"><%= __('sub_menu_title_completed_requests') %></span></a>
+                    </li>
+
+                    <li id="partner_earning">
+                        <a href="/partner_earning"><span class="fa fa-dollar"></span> <span class="xn-text"><%= __('menu_title_partner_earning') %></span></a>
+                    </li>
+
+                    <!--<li id="customers">
+                        <a href="#"><span class="fa  fa-history"></span> <span class="xn-text">Invites</span></a>
+                    </li>-->
+                    
+                    <li id="partner_payments">
+                        <a href="/partner_payments"><span class="fa fa-credit-card"></span> <span class="xn-text"><%= __('sub_menu_title_payments') %></span></a>
+                    </li>
+
+<!--                    <li id="partner_bank_detail">
+                        <a href="/partner_bank_detail"><span class="fa fa-tag"></span> <span class="xn-text"><%= __('menu_title_bank_detail') %></span></a>
+                    </li>-->
+                    
+                     <li id="partner_wallet_history">
+                        <a href="/partner_wallet_history"><span class="fa fa-history"></span> <span class="xn-text"><%= __('sub_menu_title_wallet_history') %></span></a>
+                    </li>
+                     <li id="partner_vehicle">
+                        <a href="/partner_vehicle"><span class="fa fa-car"></span> <span class="xn-text"><%= __('menu_title_manage_vehicle') %></span></a>
+                    </li>
+                    
+                    
+
+                    <li id="partner_sign_out">
+                        <a href="/partner_sign_out"><span class="fa fa-power-off"></span> <span class="xn-text"><%= __('button_logout') %></span></a>
+                    </li>
+
+                </ul>
+            </ul>
+            <!-- END X-NAVIGATION -->
+        </div>
+
+        <!-- END PAGE SIDEBAR -->
+
+
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- START X-NAVIGATION VERTICAL -->
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel" style="">
+
+                <li style="text-align: center;width: 75%;">
+                    <a href="#" class="mb-control pagination-centered"> <span id="page_title" class="mb-control pagination-centered"></span></a>
+                </li>
+                <li>
+                    <div class="form-group">                                       
+                        <select class="form-control" data-live-search="true" id="languageId">
+                            <option selected disabled hidden style='display: none' >Select Language..</option>
+							<option value="<%= LANGUAGES.english %>">English</option>
+							<option value="<%= LANGUAGES.japanese %>">Japanese</option>
+							<option value="<%= LANGUAGES.french %>">French</option>
+							<option value="<%= LANGUAGES.arabic %>">Arabic</option>
+							<option value="<%= LANGUAGES.portuguese %>">Portuguese</option>
+							<option value="<%= LANGUAGES.spanish %>">Spanish</option>
+                        </select>
+                    </div>
+                </li>
+
+
+            </ul>
+<div id="cover-spin"></div>

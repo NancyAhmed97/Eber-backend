@@ -1,0 +1,416 @@
+<% include user_header.html %>
+
+<% if(typeof message != 'undefined'){ %>
+<div class="alert alert-success" role="alert" style="padding-top: 75px;margin-bottom: -135px;">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+  <p align="center"><%= __(message) %></p>
+</div>
+<% } %>
+<div class="alert alert-success" role="alert" id="promo_error" style="display:none;padding-top: 75px;margin-bottom: -135px;">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+  <p align="center" id="message"></p>
+</div>
+<style type="text/css">
+  .modal-dialog {
+    z-index: 999999;
+  }
+</style>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pro_lft1">
+      <div class="row">
+        <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="box_selet_lft">
+            <div class="box_sele_head">
+              <h5><%= __('edit_profile')%></h5>
+            </div>
+            <form class="form-horizontal" id="editForm" enctype="multipart/form-data" method="post" action="/user_profile_update">
+              <div class="edit_pro_cont_bg">
+                <div class="edit_pro">
+                  <div class="box">
+
+                    <input id="sample_input" type="hidden" name="pictureData">
+                    <label for="file-1"><span>
+                        <div class="edit_img"><img src="<%= login1.picture  != '' ?  setting_detail.image_base_url + login1.picture : 'default.png' %>" id="abc"></div>
+                      </span></label>
+                  </div>
+                </div>
+
+                <div class="cont_pro">
+                  <input type="hidden" name="id" value="<%= login1._id %>" />
+
+                  <div class="edit_input">
+                    <div class="edit_label"><label><%= __('title_first_name') %></label></div>
+                    <div class="edit_input_rgt"><input id="first_name" type="text" name="first_name" value="<%= login1.first_name %>" placeholder="<%= __('title_first_name') %>"></div>
+                  </div>
+                  <div class="edit_input">
+                    <div class="edit_label"><label><%= __('title_last_name') %></label></div>
+                    <div class="edit_input_rgt"><input id="last_name" type="text" value="<%= login1.last_name %>" placeholder="<%= __('title_last_name') %>" name="last_name"></div>
+                  </div>
+                  <div class="edit_input">
+                    <div class="edit_label"><label><%= __('title_email') %></label></div>
+                    <div class="edit_input_rgt"><input id="email" type="text" value="<%= login1.email %>" class="form-control" placeholder="<%= __('title_email') %>" name="email" readonly></div>
+                  </div>
+
+                  <div class="edit_input">
+                    <div class="edit_label"><label><%= __('title_phone') %></label></div>
+                    <div class="edit_input_rgt">
+                      <div class="edt_lft"><input id="contry" type="text" name="country_phone_code" class="form-control" value="<%= login1.country_phone_code %>" readonly></div>
+                      <div class="edt_rgt"><input id="number" type="text" name="phone" value="<%= login1.phone %>" onkeypress="return isNumberKey(event)" minlength="<%= setting_detail.minimum_phone_number_length%>" maxlength="<%= setting_detail.maximum_phone_number_length%>"></div>
+                    </div>
+                  </div>
+
+                  <div class="edit_input">
+                    <div class="edit_label"><label><%= __('title_address') %></label></div>
+                    <div class="edit_input_rgt"><input type="text" value="<%= login1.address %>" class="form-control" placeholder="<%= __('title_address') %>" name="address"></div>
+                  </div>
+
+                  <%if(!login1.social_unique_id){%>
+                  <div class="edit_input">
+                    <div class="edit_label"><label><%= __('title_old_password') %></label></div>
+                    <div class="edit_input_rgt"><input id="password" type="Password" name="old_password" placeholder="* * * * * * *"></textarea></div>
+                  </div>
+                  <%}%>
+
+					<div class="edit_input">
+					<div class="edit_label">&nbsp;</div>
+					<div class="edit_input_rgt">
+					<input type="submit" name="" value="<%= __('button_update') %>" class="act">
+                </div>
+              </div>
+          </div>
+
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pro_lft1">
+  <%if(!login1.social_unique_id){%>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="box_selet_lft">
+        <div class="box_sele_head">
+          <h5><%= __('change_password')%></h5>
+        </div>
+
+        <div class="edit_pro_cont_bg">
+          <div class="cont_pro">
+            <form id="change_password_form" method="post" action="/change_password">
+              <input type="hidden" name="id" value="<%= login1._id %>" />
+              <input type="hidden" name="type" value="1" />
+              <div class="edit_input">
+                <div class="edit_label"><label><%= __('old_password')%></label></div>
+                <div class="edit_input_rgt"><input class="form-control" id="old_password" name="old_password" type="Password" placeholder="* * * * * * *"></div>
+              </div>
+
+              <div class="edit_input">
+                <div class="edit_label"><label><%= __('new_password')%></label></div>
+                <div class="edit_input_rgt"><input class="form-control" id="new_password" name="new_password" type="Password" placeholder="* * * * * * *"></textarea></div>
+              </div>
+
+              <div class="edit_input">
+                <div class="edit_label"><label><%= __('re_enter_new_password')%></label></div>
+                <div class="edit_input_rgt"><input class="form-control" id="confirm_password" name="confirm_password" type="Password" placeholder="* * * * * * *"></textarea></div>
+              </div>
+
+              <div class="edit_input">
+                <div class="edit_label">&nbsp;</div>
+                <div class="edit_input_rgt">
+                  <input type="submit" name="" value="<%= __('button_update')%>" class="act">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%}%>
+  <div class="row <%= (!login1.social_unique_id)?'ref_cont_bg':'' %>">
+  <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="box_selet_lft">
+      <div class="box_sele_head">
+        <h5><%= __('title_address') %> </h5>
+</div>
+<div class="box_sele_cont">
+  <div class="box_sele_top">
+    <input type="hidden" name="home_latitude" id="home_latitude" value="<%= login1.home_location[0] %>">
+    <input type="hidden" name="home_longitude" id="home_longitude" value="<%= login1.home_location[1] %>">
+    <div class="box_label"><label style="line-height: 30px;"><%= __('title_home_address') %></label></div>
+    <div class="box_label"><input type="text" value="<%= login1.home_address %>" class="form-control" placeholder="<%= __('title_home_address') %>" id="home_address" name="home_address"></div>
+    <div class="box_label">
+      <span class="fa fa-times-circle-o pull-right" style="font-size: 30px;cursor: pointer;color: black;margin-left:60px;" onclick="remove_home_address()"></span>
+      <span class="fa fa-check-circle-o pull-right" style="font-size: 30px;cursor: pointer;color: black;" onclick="set_home_address()"></span>
+    </div>
+  </div>
+
+  <div class="box_sele_top">
+    <input type="hidden" name="work_latitude" id="work_latitude" value="<%= login1.work_location[0] %>">
+    <input type="hidden" name="work_longitude" id="work_longitude" value="<%= login1.work_location[1] %>">
+    <div class="box_label"><label style="line-height: 30px;"><%= __('title_work_address') %></label></div>
+    <div class="box_label"><input type="text" value="<%= login1.work_address %>" class="form-control" placeholder="<%= __('title_work_address') %>" id="work_address" name="work_address"></div>
+    <div class="box_label">
+      <span class="fa fa-times-circle-o pull-right" style="font-size: 30px;cursor: pointer;color: black;margin-left:60px;" onclick="remove_work_address()"></span>
+      <span class="fa fa-check-circle-o pull-right" style="font-size: 30px;cursor: pointer;color: black;" onclick="set_work_address()"></span>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="row ref_cont_bg">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="box_selet_lft">
+      <div class="box_sele_head">
+        <h5><%= __('title_referral') %> </h5>
+      </div>
+
+      <div class="edit_pro_cont_bg">
+        <div class="cont_pro">
+          <form>
+            <div class="edit_input">
+              <div class="edit_label"><label><%= __('title_referral_code') %></label></div>
+              <div class="edit_label"><label><%= login1.referral_code %></label></div>
+            </div>
+
+            <div class="edit_input">
+              <div class="edit_label"><label><%= __('title_referral_credit') %></label></div>
+              <div class="edit_label"><label><%= total_referral_credit %></label></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</div>
+<script src="js/fixed-image-cropper/jquery.imgareaselect.js"></script>
+<script src="js/fixed-image-cropper/jquery.awesome-cropper1.js"></script>
+<link href="css/fixed-image-cropper/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/fixed-image-cropper/jquery.awesome-cropper.css">
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=setting_detail.web_app_google_key%>&libraries=places"></script>
+
+<script type="text/javascript">
+  // search box 
+  var options = {
+    componentRestrictions: {
+      country: "<%= alpha3%>"
+    }
+  };
+  var input = document.getElementById('home_address');
+  var home_address = new google.maps.places.Autocomplete(input, options);
+
+  home_address.addListener('place_changed', function() {
+    var place = home_address.getPlace();
+    var location = place.geometry.location;
+    $("#home_latitude").val(location.lat());
+    $("#home_longitude").val(location.lng());
+  })
+
+  var input = document.getElementById('work_address');
+  var work_address = new google.maps.places.Autocomplete(input, options);
+
+  work_address.addListener('place_changed', function() {
+    var place = work_address.getPlace();
+    var location = place.geometry.location;
+    $("#work_latitude").val(location.lat());
+    $("#work_longitude").val(location.lng());
+  })
+
+  function set_home_address() {
+    var request = {
+      "user_id": "<%= login1._id %>",
+      "token": "<%= login1.token %>",
+      "home_address": $("#home_address").val(),
+      "home_latitude": $("#home_latitude").val(),
+      "home_longitude": $("#home_longitude").val(),
+      "home_location": [
+        $("#home_latitude").val(),
+        $("#home_longitude").val()
+      ]
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/set_home_address',
+      data: request,
+      dataType: "json",
+      success: function(response) {
+        if (response.success) {
+          $('#promo_error').show();
+          setTimeout(function() {
+            $('#promo_error').hide();
+            location.reload();
+          }, 5000);
+          document.getElementById('message').innerHTML = "<%= __('success_message_address_saved')%>";
+        }else{
+          document.getElementById('message').innerHTML = "<%= __('error_message_address_saved')%>";
+        }
+      }
+    });
+  }
+
+  function remove_home_address() {
+    var request = {
+      "user_id": "<%= login1._id %>",
+      "token": "<%= login1.token %>",
+      "home_address": "",
+      "home_latitude": 0,
+      "home_longitude": 0,
+      "home_location": [0,0]
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/set_home_address',
+      data: request,
+      dataType: "json",
+      success: function(response) {
+        document.getElementById('home_address').value = "";
+        if (response.success) {
+          $('#promo_error').show();
+          setTimeout(function() {
+            $('#promo_error').hide();
+            location.reload();
+          }, 5000);
+          document.getElementById('message').innerHTML = "<%= __('success_message_address_removed')%>";
+        }else{
+          document.getElementById('message').innerHTML = "<%= __('error_message_address_removed')%>";
+        }
+      }
+    });
+  }
+
+  function set_work_address() {
+    var request = {
+      "user_id": "<%= login1._id %>",
+      "token": "<%= login1.token %>",
+      "work_address": $("#work_address").val(),
+      "work_latitude": $("#work_latitude").val(),
+      "work_longitude": $("#work_longitude").val(),
+      "work_location": [
+        $("#work_latitude").val(),
+        $("#work_longitude").val()
+      ]
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/set_home_address',
+      data: request,
+      dataType: "json",
+      success: function(response) {
+        if (response.success) {
+          $('#promo_error').show();
+          setTimeout(function() {
+            $('#promo_error').hide();
+            location.reload();
+          }, 5000);
+          document.getElementById('message').innerHTML = "<%= __('success_message_address_saved')%>";
+        }else{
+          document.getElementById('message').innerHTML = "<%= __('error_message_address_saved')%>";
+        }
+      }
+    });
+  }
+
+  function remove_work_address() {
+    var request = {
+      "user_id": "<%= login1._id %>",
+      "token": "<%= login1.token %>",
+      "work_address": "",
+      "work_latitude": 0,
+      "work_longitude": 0,
+      "work_location": [0,0]
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/set_home_address',
+      data: request,
+      dataType: "json",
+      success: function(response) {
+        document.getElementById('work_address').value = "";
+        if (response.success) {
+          $('#promo_error').show();
+          setTimeout(function() {
+            $('#promo_error').hide();
+            location.reload();
+          }, 5000);
+          document.getElementById('message').innerHTML = "<%= __('success_message_address_removed')%>";
+        }else{
+          document.getElementById('message').innerHTML = "<%= __('error_message_address_removed')%>";
+        }
+      }
+    });
+  }
+
+  function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
+  window.history.forward();
+  $(document).ready(function() {
+    $('#sample_input').awesomeCropper({
+      width: 150,
+      height: 150,
+      debug: false
+    });
+  });
+
+  $(function() {
+    $("#editForm").validate({
+      rules: {
+        first_name: "required",
+        last_name: "required",
+        old_password: {
+          minlength: 6,
+          maxlength: 50,
+          required: true
+        },
+        email: {
+          required: true,
+          email: true
+
+        },
+        phone: {
+          required: true,
+          minlength : <%= setting_detail.minimum_phone_number_length %>,
+          maxlength : <%= setting_detail.maximum_phone_number_length %>,
+          phone_regex: /^\(?([1-9]{1})\)?([0-9]*)$/
+        },
+
+      }
+    });
+    $("#change_password_form").validate({
+      rules: {
+        old_password: {
+          minlength: 6,
+          maxlength: 50,
+          required: true
+        },
+        new_password: {
+          minlength: 6,
+          maxlength: 50,
+          required: true
+        },
+        confirm_password: {
+          minlength: 6,
+          maxlength: 50,
+          equalTo: "#new_password",
+          required: true
+        }
+      }
+    });
+  });
+</script>
+
+<% include user_footer.html %>

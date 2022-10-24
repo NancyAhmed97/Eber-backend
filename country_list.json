@@ -1,0 +1,5190 @@
+[
+   {
+      "alpha2": "AF",
+      "alpha3": "AFG",
+      "code": "+93",
+      "currency_code": "AFN",
+      "decimals": 2,
+      "name": "Afghanistan",
+      "sign": "؋",
+      "timezones": [
+         "Asia/Kabul"
+      ],
+      "timezones_detail": {
+         "Asia/Kabul": {
+            "rawOffsetInMinutes": 270,
+            "abbreviation": "AFT",
+            "rawFormat": "+04:30 Afghanistan Time - Kabul, Kandahār, Mazār-e Sharīf, Herāt"
+         }
+      }
+   },
+   {
+      "alpha2": "AX",
+      "alpha3": "ALA",
+      "code": "+358",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Aland Islands",
+      "sign": "€",
+      "timezones": [
+         "Europe/Mariehamn"
+      ],
+      "timezones_detail": {
+         "Europe/Mariehamn": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Mariehamn"
+         }
+      }
+   },
+   {
+      "alpha2": "AL",
+      "alpha3": "ALB",
+      "code": "+355",
+      "currency_code": "ALL",
+      "decimals": 2,
+      "name": "Albania",
+      "sign": "Lek",
+      "timezones": [
+         "Europe/Tirane"
+      ],
+      "timezones_detail": {
+         "Europe/Tirane": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Tirana, Durrës, Elbasan, Vlorë"
+         }
+      }
+   },
+   {
+      "alpha2": "DZ",
+      "alpha3": "DZA",
+      "code": "+213",
+      "currency_code": "DZD",
+      "decimals": 2,
+      "name": "Algeria",
+      "sign": "دج",
+      "timezones": [
+         "Africa/Algiers"
+      ],
+      "timezones_detail": {
+         "Africa/Algiers": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Algiers, Boumerdas, Oran, Tébessa"
+         }
+      }
+   },
+   {
+      "alpha2": "AS",
+      "alpha3": "ASM",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "American Samoa",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Pago_Pago"
+      ],
+      "timezones_detail": {
+         "Pacific/Pago_Pago": {
+            "rawOffsetInMinutes": -660,
+            "abbreviation": "SST",
+            "rawFormat": "-11:00 Samoa Time - Pago Pago"
+         }
+      }
+   },
+   {
+      "alpha2": "AD",
+      "alpha3": "AND",
+      "code": "+376",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Andorra",
+      "sign": "€",
+      "timezones": [
+         "Europe/Andorra"
+      ],
+      "timezones_detail": {
+         "Europe/Andorra": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Andorra la Vella, les Escaldes"
+         }
+      }
+   },
+   {
+      "alpha2": "AO",
+      "alpha3": "AGO",
+      "code": "+244",
+      "currency_code": "AOA",
+      "decimals": 2,
+      "name": "Angola",
+      "sign": "Kz",
+      "timezones": [
+         "Africa/Luanda"
+      ],
+      "timezones_detail": {
+         "Africa/Luanda": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Luanda, N’dalatando, Huambo, Lobito"
+         }
+      }
+   },
+   {
+      "alpha2": "AI",
+      "alpha3": "AIA",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "Anguilla",
+      "sign": "$",
+      "timezones": [
+         "America/Anguilla"
+      ],
+      "timezones_detail": {
+         "America/Anguilla": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - The Valley"
+         }
+      }
+   },
+   {
+      "alpha2": "AQ",
+      "alpha3": "ATA",
+      "code": "+672",
+      "currency_code": "AQD",
+      "decimals": 2,
+      "name": "Antarctica",
+      "sign": "",
+      "timezones": [
+         "Antarctica/Palmer",
+         "Antarctica/Troll",
+         "Antarctica/Syowa",
+         "Antarctica/Mawson",
+         "Antarctica/Vostok",
+         "Antarctica/Davis",
+         "Antarctica/DumontDUrville",
+         "Antarctica/Casey",
+         "Antarctica/McMurdo"
+      ],
+      "timezones_detail": {
+         "Antarctica/Palmer": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "CLT",
+            "rawFormat": "-03:00 Chile Time - Palmer, Rothera"
+         },
+         "Antarctica/Troll": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Troll"
+         },
+         "Antarctica/Syowa": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "SYOT",
+            "rawFormat": "+03:00 Syowa Time - Syowa"
+         },
+         "Antarctica/Mawson": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "MAWT",
+            "rawFormat": "+05:00 Mawson Time - Mawson"
+         },
+         "Antarctica/Vostok": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "VOST",
+            "rawFormat": "+06:00 Vostok Time - Vostok"
+         },
+         "Antarctica/Davis": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "DAVT",
+            "rawFormat": "+07:00 Davis Time - Davis"
+         },
+         "Antarctica/DumontDUrville": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "GMT+10",
+            "rawFormat": "+10:00 Dumont-d’Urville Time - DumontDUrville"
+         },
+         "Antarctica/Casey": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "CAST",
+            "rawFormat": "+11:00 Casey Time - Casey"
+         },
+         "Antarctica/McMurdo": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "NZST",
+            "rawFormat": "+12:00 New Zealand Time - McMurdo"
+         }
+      }
+   },
+   {
+      "alpha2": "AG",
+      "alpha3": "ATG",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "Antigua & Barbuda",
+      "sign": "$",
+      "timezones": [
+         "America/Antigua"
+      ],
+      "timezones_detail": {
+         "America/Antigua": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Saint John’s"
+         }
+      }
+   },
+   {
+      "alpha2": "AR",
+      "alpha3": "ARG",
+      "code": "+54",
+      "currency_code": "ARS",
+      "decimals": 2,
+      "name": "Argentina",
+      "sign": "$",
+      "timezones": [
+         "America/Argentina/Buenos_Aires"
+      ],
+      "timezones_detail": {
+         "America/Argentina/Buenos_Aires": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "ART",
+            "rawFormat": "-03:00 Argentina Time - Buenos Aires, Córdoba, Rosario, Mendoza"
+         }
+      }
+   },
+   {
+      "alpha2": "AM",
+      "alpha3": "ARM",
+      "code": "+374",
+      "currency_code": "AMD",
+      "decimals": 2,
+      "name": "Armenia",
+      "sign": "դր",
+      "timezones": [
+         "Asia/Yerevan"
+      ],
+      "timezones_detail": {
+         "Asia/Yerevan": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "AMT",
+            "rawFormat": "+04:00 Armenia Time - Yerevan, Gyumri, Vanadzor, Vagharshapat"
+         }
+      }
+   },
+   {
+      "alpha2": "AW",
+      "alpha3": "ABW",
+      "code": "+297",
+      "currency_code": "ANG",
+      "decimals": 2,
+      "name": "Aruba",
+      "sign": "ƒ",
+      "timezones": [
+         "America/Aruba"
+      ],
+      "timezones_detail": {
+         "America/Aruba": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Oranjestad, Tanki Leendert, San Nicolas"
+         }
+      }
+   },
+   {
+      "alpha2": "AC",
+      "alpha3": "",
+      "code": "+247",
+      "currency_code": "SHP",
+      "decimals": 2,
+      "name": "Ascension Island",
+      "sign": "£"
+   },
+   {
+      "alpha2": "AU",
+      "alpha3": "AUS",
+      "code": "+61",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Australia",
+      "sign": "$",
+      "timezones": [
+         "Australia/Perth",
+         "Australia/Eucla",
+         "Australia/Adelaide",
+         "Australia/Darwin",
+         "Australia/Brisbane",
+         "Australia/Sydney",
+         "Australia/Lord_Howe"
+      ],
+      "timezones_detail": {
+         "Australia/Perth": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "AWST",
+            "rawFormat": "+08:00 Australian Western Time - Perth, Rockingham, Mandurah, Bunbury"
+         },
+         "Australia/Eucla": {
+            "rawOffsetInMinutes": 525,
+            "abbreviation": "ACWST",
+            "rawFormat": "+08:45 Australian Central Western Time - Eucla"
+         },
+         "Australia/Adelaide": {
+            "rawOffsetInMinutes": 570,
+            "abbreviation": "ACST",
+            "rawFormat": "+09:30 Australian Central Time - Adelaide, Adelaide Hills, Mount Gambier, Morphett Vale"
+         },
+         "Australia/Darwin": {
+            "rawOffsetInMinutes": 570,
+            "abbreviation": "ACST",
+            "rawFormat": "+09:30 Australian Central Time - Darwin, Alice Springs, Palmerston"
+         },
+         "Australia/Brisbane": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "AEST",
+            "rawFormat": "+10:00 Australian Eastern Time - Brisbane, Gold Coast, Logan City, Townsville"
+         },
+         "Australia/Sydney": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "AEST",
+            "rawFormat": "+10:00 Australian Eastern Time - Sydney, Melbourne, Canberra, Newcastle"
+         },
+         "Australia/Lord_Howe": {
+            "rawOffsetInMinutes": 630,
+            "abbreviation": "LHST",
+            "rawFormat": "+10:30 Lord Howe Time - Lord Howe"
+         }
+      }
+   },
+   {
+      "alpha2": "AT",
+      "alpha3": "AUT",
+      "code": "+43",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Austria",
+      "sign": "€",
+      "timezones": [
+         "Europe/Vienna"
+      ],
+      "timezones_detail": {
+         "Europe/Vienna": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Vienna, Graz, Linz, Favoriten"
+         }
+      }
+   },
+   {
+      "alpha2": "AZ",
+      "alpha3": "AZE",
+      "code": "+994",
+      "currency_code": "AZN",
+      "decimals": 2,
+      "name": "Azerbaijan",
+      "sign": "₼",
+      "timezones": [
+         "Asia/Baku"
+      ],
+      "timezones_detail": {
+         "Asia/Baku": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "AZT",
+            "rawFormat": "+04:00 Azerbaijan Time - Baku, Ganja, Sumqayıt, Lankaran"
+         }
+      }
+   },
+   {
+      "alpha2": "BS",
+      "alpha3": "BHS",
+      "code": "+1",
+      "currency_code": "BSD",
+      "decimals": 2,
+      "name": "Bahamas",
+      "sign": "$",
+      "timezones": [
+         "America/Nassau"
+      ],
+      "timezones_detail": {
+         "America/Nassau": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Nassau, Lucaya, Freeport"
+         }
+      }
+   },
+   {
+      "alpha2": "BH",
+      "alpha3": "BHR",
+      "code": "+973",
+      "currency_code": "BHD",
+      "decimals": 3,
+      "name": "Bahrain",
+      "sign": ".د.ب",
+      "timezones": [
+         "Asia/Bahrain"
+      ],
+      "timezones_detail": {
+         "Asia/Bahrain": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "AST",
+            "rawFormat": "+03:00 Arabian Time - Manama, Al Muharraq, Ar Rifā‘, Dār Kulayb"
+         }
+      }
+   },
+   {
+      "alpha2": "BD",
+      "alpha3": "BGD",
+      "code": "+880",
+      "currency_code": "BDT",
+      "decimals": 2,
+      "name": "Bangladesh",
+      "sign": "৳",
+      "timezones": [
+         "Asia/Dhaka"
+      ],
+      "timezones_detail": {
+         "Asia/Dhaka": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "BST",
+            "rawFormat": "+06:00 Bangladesh Time - Dhaka, Chattogram, Khulna, Rājshāhi"
+         }
+      }
+   },
+   {
+      "alpha2": "BB",
+      "alpha3": "BRB",
+      "code": "+1",
+      "currency_code": "BBD",
+      "decimals": 2,
+      "name": "Barbados",
+      "sign": "$",
+      "timezones": [
+         "America/Barbados"
+      ],
+      "timezones_detail": {
+         "America/Barbados": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Bridgetown"
+         }
+      }
+   },
+   {
+      "alpha2": "BY",
+      "alpha3": "BLR",
+      "code": "+375",
+      "currency_code": "BYR",
+      "decimals": 0,
+      "name": "Belarus",
+      "sign": "Br",
+      "timezones": [
+         "Europe/Minsk"
+      ],
+      "timezones_detail": {
+         "Europe/Minsk": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "MSK",
+            "rawFormat": "+03:00 Moscow Time - Minsk, Homyel', Mahilyow, Vitebsk"
+         }
+      }
+   },
+   {
+      "alpha2": "BE",
+      "alpha3": "BEL",
+      "code": "+32",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Belgium",
+      "sign": "€",
+      "timezones": [
+         "Europe/Brussels"
+      ],
+      "timezones_detail": {
+         "Europe/Brussels": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Brussels, Antwerpen, Gent, Charleroi"
+         }
+      }
+   },
+   {
+      "alpha2": "BZ",
+      "alpha3": "BLZ",
+      "code": "+501",
+      "currency_code": "BZD",
+      "decimals": 2,
+      "name": "Belize",
+      "sign": "BZ$",
+      "timezones": [
+         "America/Belize"
+      ],
+      "timezones_detail": {
+         "America/Belize": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Belize City, San Ignacio, Orange Walk, Belmopan"
+         }
+      }
+   },
+   {
+      "alpha2": "BJ",
+      "alpha3": "BEN",
+      "code": "+229",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Benin",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Porto-Novo"
+      ],
+      "timezones_detail": {
+         "Africa/Porto-Novo": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Cotonou, Abomey-Calavi, Djougou, Porto-Novo"
+         }
+      }
+   },
+   {
+      "alpha2": "BM",
+      "alpha3": "BMU",
+      "code": "+1",
+      "currency_code": "BMD",
+      "decimals": 2,
+      "name": "Bermuda",
+      "sign": "$",
+      "timezones": [
+         "Atlantic/Bermuda"
+      ],
+      "timezones_detail": {
+         "Atlantic/Bermuda": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Hamilton"
+         }
+      }
+   },
+   {
+      "alpha2": "BT",
+      "alpha3": "BTN",
+      "code": "+975",
+      "currency_code": "BTN",
+      "decimals": 2,
+      "name": "Bhutan",
+      "sign": "Nu.",
+      "timezones": [
+         "Asia/Thimphu"
+      ],
+      "timezones_detail": {
+         "Asia/Thimphu": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "BTT",
+            "rawFormat": "+06:00 Bhutan Time - Thimphu, Punākha, Tsirang, Phuntsholing"
+         }
+      }
+   },
+   {
+      "alpha2": "BO",
+      "alpha3": "BOL",
+      "code": "+591",
+      "currency_code": "BOB",
+      "decimals": 2,
+      "name": "Bolivia",
+      "sign": "$b",
+      "timezones": [
+         "America/La_Paz"
+      ],
+      "timezones_detail": {
+         "America/La_Paz": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "BOT",
+            "rawFormat": "-04:00 Bolivia Time - Santa Cruz de la Sierra, Cochabamba, La Paz, Sucre"
+         }
+      }
+   },
+   {
+      "alpha2": "BA",
+      "alpha3": "BIH",
+      "code": "+387",
+      "currency_code": "BAM",
+      "decimals": 2,
+      "name": "Bosnia & Herzegovina",
+      "sign": "KM",
+      "timezones": [
+         "Europe/Sarajevo"
+      ],
+      "timezones_detail": {
+         "Europe/Sarajevo": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Sarajevo, Banja Luka, Zenica, Tuzla"
+         }
+      }
+   },
+   {
+      "alpha2": "BW",
+      "alpha3": "BWA",
+      "code": "+267",
+      "currency_code": "BWP",
+      "decimals": 2,
+      "name": "Botswana",
+      "sign": "P",
+      "timezones": [
+         "Africa/Gaborone"
+      ],
+      "timezones_detail": {
+         "Africa/Gaborone": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Gaborone, Francistown, Molepolole, Selebi-Phikwe"
+         }
+      }
+   },
+   {
+      "alpha2": "BV",
+      "alpha3": "BVT",
+      "code": "+55",
+      "currency_code": "NOK",
+      "decimals": 2,
+      "name": "Bouvet Island",
+      "sign": "kr"
+   },
+   {
+      "alpha2": "BR",
+      "alpha3": "BRA",
+      "code": "+55",
+      "currency_code": "BRL",
+      "decimals": 2,
+      "name": "Brazil",
+      "sign": "R$",
+      "timezones": [
+         "America/Rio_Branco",
+         "America/Manaus",
+         "America/Sao_Paulo",
+         "America/Noronha"
+      ],
+      "timezones_detail": {
+         "America/Rio_Branco": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "ACT",
+            "rawFormat": "-05:00 Acre Time - Rio Branco, Cruzeiro do Sul, Sena Madureira, Eirunepé"
+         },
+         "America/Manaus": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AMT",
+            "rawFormat": "-04:00 Amazon Time - Manaus, Campo Grande, Cuiabá, Porto Velho"
+         },
+         "America/Sao_Paulo": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "BRT",
+            "rawFormat": "-03:00 Brasilia Time - São Paulo, Rio de Janeiro, Salvador, Fortaleza"
+         },
+         "America/Noronha": {
+            "rawOffsetInMinutes": -120,
+            "abbreviation": "FNT",
+            "rawFormat": "-02:00 Fernando de Noronha Time - Noronha"
+         }
+      }
+   },
+   {
+      "alpha2": "IO",
+      "alpha3": "IOT",
+      "code": "+246",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "British Indian Ocean Territory",
+      "sign": "$",
+      "timezones": [
+         "Indian/Chagos"
+      ],
+      "timezones_detail": {
+         "Indian/Chagos": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "GMT+6",
+            "rawFormat": "+06:00 Indian Ocean Time - Chagos"
+         }
+      }
+   },
+   {
+      "alpha2": "VG",
+      "alpha3": "VGB",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "British Virgin Islands",
+      "sign": "$",
+      "timezones": [
+         "America/Tortola"
+      ],
+      "timezones_detail": {
+         "America/Tortola": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Road Town"
+         }
+      }
+   },
+   {
+      "alpha2": "BN",
+      "alpha3": "BRN",
+      "code": "+673",
+      "currency_code": "BND",
+      "decimals": 2,
+      "name": "Brunei",
+      "sign": "$",
+      "timezones": [
+         "Asia/Brunei"
+      ],
+      "timezones_detail": {
+         "Asia/Brunei": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "BNT",
+            "rawFormat": "+08:00 Brunei Darussalam Time - Bandar Seri Begawan, Kuala Belait, Seria, Tutong"
+         }
+      }
+   },
+   {
+      "alpha2": "BG",
+      "alpha3": "BGR",
+      "code": "+359",
+      "currency_code": "BGN",
+      "decimals": 2,
+      "name": "Bulgaria",
+      "sign": "лв",
+      "timezones": [
+         "Europe/Sofia"
+      ],
+      "timezones_detail": {
+         "Europe/Sofia": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Sofia, Plovdiv, Varna, Burgas"
+         }
+      }
+   },
+   {
+      "alpha2": "BF",
+      "alpha3": "BFA",
+      "code": "+226",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Burkina Faso",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Ouagadougou"
+      ],
+      "timezones_detail": {
+         "Africa/Ouagadougou": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Ouagadougou, Bobo-Dioulasso, Koudougou, Ouahigouya"
+         }
+      }
+   },
+   {
+      "alpha2": "BI",
+      "alpha3": "BDI",
+      "code": "+257",
+      "currency_code": "BIF",
+      "decimals": 0,
+      "name": "Burundi",
+      "sign": "FBu",
+      "timezones": [
+         "Africa/Bujumbura"
+      ],
+      "timezones_detail": {
+         "Africa/Bujumbura": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Bujumbura, Muyinga, Gitega, Ruyigi"
+         }
+      }
+   },
+   {
+      "alpha2": "KH",
+      "alpha3": "KHM",
+      "code": "+855",
+      "currency_code": "KHR",
+      "decimals": 2,
+      "name": "Cambodia",
+      "sign": "៛",
+      "timezones": [
+         "Asia/Phnom_Penh"
+      ],
+      "timezones_detail": {
+         "Asia/Phnom_Penh": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "ICT",
+            "rawFormat": "+07:00 Indochina Time - Phnom Penh, Takeo, Sihanoukville, Battambang"
+         }
+      }
+   },
+   {
+      "alpha2": "CM",
+      "alpha3": "CMR",
+      "code": "+237",
+      "currency_code": "XAF",
+      "decimals": 0,
+      "name": "Cameroon",
+      "sign": "FCFA",
+      "timezones": [
+         "Africa/Douala"
+      ],
+      "timezones_detail": {
+         "Africa/Douala": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Douala, Yaoundé, Garoua, Kousséri"
+         }
+      }
+   },
+   {
+      "alpha2": "CA",
+      "alpha3": "CAN",
+      "code": "+1",
+      "currency_code": "CAD",
+      "decimals": 2,
+      "name": "Canada",
+      "sign": "$",
+      "timezones": [
+         "America/Vancouver",
+         "America/Edmonton",
+         "America/Whitehorse",
+         "America/Regina",
+         "America/Winnipeg",
+         "America/Atikokan",
+         "America/Toronto",
+         "America/Halifax",
+         "America/Blanc-Sablon",
+         "America/St_Johns"
+      ],
+      "timezones_detail": {
+         "America/Vancouver": {
+            "rawOffsetInMinutes": -480,
+            "abbreviation": "PST",
+            "rawFormat": "-08:00 Pacific Time - Vancouver, Surrey, Okanagan, Victoria"
+         },
+         "America/Edmonton": {
+            "rawOffsetInMinutes": -420,
+            "abbreviation": "MST",
+            "rawFormat": "-07:00 Mountain Time - Calgary, Edmonton, Fort McMurray, Red Deer"
+         },
+         "America/Whitehorse": {
+            "rawOffsetInMinutes": -420,
+            "abbreviation": "MST",
+            "rawFormat": "-07:00 Mountain Time - Whitehorse, Fort St. John, Creston, Dawson"
+         },
+         "America/Regina": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Saskatoon, Regina, Prince Albert, Moose Jaw"
+         },
+         "America/Winnipeg": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Winnipeg, Brandon, Kenora, Rainy River"
+         },
+         "America/Atikokan": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Atikokan"
+         },
+         "America/Toronto": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Toronto, Montréal, Ottawa, Mississauga"
+         },
+         "America/Halifax": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Halifax, Moncton, Sydney, Dartmouth"
+         },
+         "America/Blanc-Sablon": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Lévis"
+         },
+         "America/St_Johns": {
+            "rawOffsetInMinutes": -210,
+            "abbreviation": "NST",
+            "rawFormat": "-03:30 Newfoundland Time - St. John's, Mount Pearl, Corner Brook, Conception Bay South"
+         }
+      }
+   },
+   {
+      "alpha2": "IC",
+      "alpha3": "",
+      "code": "+34",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Canary Islands",
+      "sign": ""
+   },
+   {
+      "alpha2": "CV",
+      "alpha3": "CPV",
+      "code": "+238",
+      "currency_code": "CVE",
+      "decimals": 0,
+      "name": "Cape Verde",
+      "sign": "$",
+      "timezones": [
+         "Atlantic/Cape_Verde"
+      ],
+      "timezones_detail": {
+         "Atlantic/Cape_Verde": {
+            "rawOffsetInMinutes": -60,
+            "abbreviation": "CVT",
+            "rawFormat": "-01:00 Cape Verde Time - Praia, Mindelo, Santa Maria, Cova Figueira"
+         }
+      }
+   },
+   {
+      "alpha2": "BQ",
+      "alpha3": "BES",
+      "code": "+599",
+      "currency_code": "",
+      "decimals": 2,
+      "name": "Caribbean Netherlands",
+      "sign": "",
+      "timezones": [
+         "America/Kralendijk"
+      ],
+      "timezones_detail": {
+         "America/Kralendijk": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Kralendijk"
+         }
+      }
+   },
+   {
+      "alpha2": "KY",
+      "alpha3": "CYM",
+      "code": "+1",
+      "currency_code": "KYD",
+      "decimals": 2,
+      "name": "Cayman Islands",
+      "sign": "$",
+      "timezones": [
+         "America/Cayman"
+      ],
+      "timezones_detail": {
+         "America/Cayman": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - George Town"
+         }
+      }
+   },
+   {
+      "alpha2": "CF",
+      "alpha3": "CAF",
+      "code": "+236",
+      "currency_code": "XAF",
+      "decimals": 0,
+      "name": "Central African Republic",
+      "sign": "FCFA",
+      "timezones": [
+         "Africa/Bangui"
+      ],
+      "timezones_detail": {
+         "Africa/Bangui": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Bangui, Bimbo, Mbaïki, Berbérati"
+         }
+      }
+   },
+   {
+      "alpha2": "EA",
+      "alpha3": "",
+      "code": "+956",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Ceuta & Melilla",
+      "sign": "€"
+   },
+   {
+      "alpha2": "TD",
+      "alpha3": "TCD",
+      "code": "+235",
+      "currency_code": "XAF",
+      "decimals": 0,
+      "name": "Chad",
+      "sign": "FCFA",
+      "timezones": [
+         "Africa/Ndjamena"
+      ],
+      "timezones_detail": {
+         "Africa/Ndjamena": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - N'Djamena, Moundou, Sarh, Abéché"
+         }
+      }
+   },
+   {
+      "alpha2": "CL",
+      "alpha3": "CHL",
+      "code": "+56",
+      "currency_code": "CLP",
+      "decimals": 0,
+      "name": "Chile",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Easter",
+         "America/Santiago",
+         "America/Punta_Arenas"
+      ],
+      "timezones_detail": {
+         "Pacific/Easter": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "EAST",
+            "rawFormat": "-06:00 Easter Island Time - Easter"
+         },
+         "America/Santiago": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "CLT",
+            "rawFormat": "-04:00 Chile Time - Santiago, Puente Alto, Antofagasta, Viña del Mar"
+         },
+         "America/Punta_Arenas": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "CLT",
+            "rawFormat": "-03:00 Chile Time - Punta Arenas, Puerto Natales"
+         }
+      }
+   },
+   {
+      "alpha2": "CN",
+      "alpha3": "CHN",
+      "code": "+86",
+      "currency_code": "CNY",
+      "decimals": 2,
+      "name": "China",
+      "sign": "¥",
+      "timezones": [
+         "Asia/Urumqi",
+         "Asia/Shanghai"
+      ],
+      "timezones_detail": {
+         "Asia/Urumqi": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "CST",
+            "rawFormat": "+06:00 China Time - Zhongshan, Ürümqi, Zhanjiang, Shihezi"
+         },
+         "Asia/Shanghai": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "CST",
+            "rawFormat": "+08:00 China Time - Shanghai, Beijing, Tianjin, Guangzhou"
+         }
+      }
+   },
+   {
+      "alpha2": "CX",
+      "alpha3": "CXR",
+      "code": "+61",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Christmas Island",
+      "sign": "$",
+      "timezones": [
+         "Indian/Christmas"
+      ],
+      "timezones_detail": {
+         "Indian/Christmas": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "CXT",
+            "rawFormat": "+07:00 Christmas Island Time - Flying Fish Cove"
+         }
+      }
+   },
+   {
+      "alpha2": "CP",
+      "alpha3": "",
+      "code": "+689",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Clipperton Island",
+      "sign": "€"
+   },
+   {
+      "alpha2": "CC",
+      "alpha3": "CCK",
+      "code": "+61",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Cocos (Keeling) Islands",
+      "sign": "$",
+      "timezones": [
+         "Indian/Cocos"
+      ],
+      "timezones_detail": {
+         "Indian/Cocos": {
+            "rawOffsetInMinutes": 390,
+            "abbreviation": "CCT",
+            "rawFormat": "+06:30 Cocos Islands Time - West Island"
+         }
+      }
+   },
+   {
+      "alpha2": "CO",
+      "alpha3": "COL",
+      "code": "+57",
+      "currency_code": "COP",
+      "decimals": 2,
+      "name": "Colombia",
+      "sign": "$",
+      "timezones": [
+         "America/Bogota"
+      ],
+      "timezones_detail": {
+         "America/Bogota": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "COT",
+            "rawFormat": "-05:00 Colombia Time - Bogotá, Cali, Medellín, Barranquilla"
+         }
+      }
+   },
+   {
+      "alpha2": "KM",
+      "alpha3": "COM",
+      "code": "+269",
+      "currency_code": "KMF",
+      "decimals": 0,
+      "name": "Comoros",
+      "sign": "CF",
+      "timezones": [
+         "Indian/Comoro"
+      ],
+      "timezones_detail": {
+         "Indian/Comoro": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Moroni, Moutsamoudou"
+         }
+      }
+   },
+   {
+      "alpha2": "CG",
+      "alpha3": "COG",
+      "code": "+242",
+      "currency_code": "XAF",
+      "decimals": 0,
+      "name": "Congo - Brazzaville",
+      "sign": "FCFA",
+      "timezones": [
+         "Africa/Brazzaville"
+      ],
+      "timezones_detail": {
+         "Africa/Brazzaville": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Brazzaville, Pointe-Noire, Dolisie, Kayes"
+         }
+      }
+   },
+   {
+      "alpha2": "CD",
+      "alpha3": "COD",
+      "code": "+243",
+      "currency_code": "CDF",
+      "decimals": 2,
+      "name": "Congo - Kinshasa",
+      "sign": "FC",
+      "timezones": [
+         "Africa/Kinshasa",
+         "Africa/Lubumbashi"
+      ],
+      "timezones_detail": {
+         "Africa/Kinshasa": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Kinshasa, Masina, Kikwit, Mbandaka"
+         },
+         "Africa/Lubumbashi": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Lubumbashi, Mbuji-Mayi, Kisangani, Kananga"
+         }
+      }
+   },
+   {
+      "alpha2": "CK",
+      "alpha3": "COK",
+      "code": "+682",
+      "currency_code": "NZD",
+      "decimals": 2,
+      "name": "Cook Islands",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Rarotonga"
+      ],
+      "timezones_detail": {
+         "Pacific/Rarotonga": {
+            "rawOffsetInMinutes": -600,
+            "abbreviation": "CKT",
+            "rawFormat": "-10:00 Cook Islands Time - Avarua"
+         }
+      }
+   },
+   {
+      "alpha2": "CR",
+      "alpha3": "CRI",
+      "code": "+506",
+      "currency_code": "CRC",
+      "decimals": 2,
+      "name": "Costa Rica",
+      "sign": "₡",
+      "timezones": [
+         "America/Costa_Rica"
+      ],
+      "timezones_detail": {
+         "America/Costa_Rica": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - San José, Limón, San Francisco, Alajuela"
+         }
+      }
+   },
+   {
+      "alpha2": "HR",
+      "alpha3": "HRV",
+      "code": "+385",
+      "currency_code": "HRK",
+      "decimals": 2,
+      "name": "Croatia",
+      "sign": "kn",
+      "timezones": [
+         "Europe/Zagreb"
+      ],
+      "timezones_detail": {
+         "Europe/Zagreb": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Zagreb, Split, Rijeka, Osijek"
+         }
+      }
+   },
+   {
+      "alpha2": "CU",
+      "alpha3": "CUB",
+      "code": "+53",
+      "currency_code": "CUP",
+      "decimals": 2,
+      "name": "Cuba",
+      "sign": "₱",
+      "timezones": [
+         "America/Havana"
+      ],
+      "timezones_detail": {
+         "America/Havana": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "CST",
+            "rawFormat": "-05:00 Cuba Time - Havana, Santiago de Cuba, Camagüey, Holguín"
+         }
+      }
+   },
+   {
+      "alpha2": "CW",
+      "alpha3": "CUW",
+      "code": "+599",
+      "currency_code": "ANG",
+      "decimals": 2,
+      "name": "Curaçao",
+      "sign": "ƒ",
+      "timezones": [
+         "America/Curacao"
+      ],
+      "timezones_detail": {
+         "America/Curacao": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Willemstad"
+         }
+      }
+   },
+   {
+      "alpha2": "CY",
+      "alpha3": "CYP",
+      "code": "+357",
+      "currency_code": "CYP",
+      "decimals": 2,
+      "name": "Cyprus",
+      "sign": "£",
+      "timezones": [
+         "Asia/Nicosia"
+      ],
+      "timezones_detail": {
+         "Asia/Nicosia": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Nicosia, Limassol, Larnaca, Stróvolos"
+         }
+      }
+   },
+   {
+      "alpha2": "CZ",
+      "alpha3": "CZE",
+      "code": "+420",
+      "currency_code": "CZK",
+      "decimals": 2,
+      "name": "Czechia",
+      "sign": "Kč",
+      "timezones": [
+         "Europe/Prague"
+      ],
+      "timezones_detail": {
+         "Europe/Prague": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Prague, Brno, Ostrava, Pilsen"
+         }
+      }
+   },
+   {
+      "alpha2": "CI",
+      "alpha3": "CIV",
+      "code": "+225",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Côte d’Ivoire",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Abidjan"
+      ],
+      "timezones_detail": {
+         "Africa/Abidjan": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Abidjan, Abobo, Bouaké, Daloa"
+         }
+      }
+   },
+   {
+      "alpha2": "DK",
+      "alpha3": "DNK",
+      "code": "+45",
+      "currency_code": "DKK",
+      "decimals": 2,
+      "name": "Denmark",
+      "sign": "kr.",
+      "timezones": [
+         "Europe/Copenhagen"
+      ],
+      "timezones_detail": {
+         "Europe/Copenhagen": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Copenhagen, Århus, Odense, Aalborg"
+         }
+      }
+   },
+   {
+      "alpha2": "DG",
+      "alpha3": "",
+      "code": "+246",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Diego Garcia",
+      "sign": "$"
+   },
+   {
+      "alpha2": "DJ",
+      "alpha3": "DJI",
+      "code": "+253",
+      "currency_code": "DJF",
+      "decimals": 0,
+      "name": "Djibouti",
+      "sign": "Fdj",
+      "timezones": [
+         "Africa/Djibouti"
+      ],
+      "timezones_detail": {
+         "Africa/Djibouti": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Djibouti, 'Ali Sabieh, Tadjourah, Obock"
+         }
+      }
+   },
+   {
+      "alpha2": "DM",
+      "alpha3": "DMA",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "Dominica",
+      "sign": "$",
+      "timezones": [
+         "America/Dominica"
+      ],
+      "timezones_detail": {
+         "America/Dominica": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Roseau"
+         }
+      }
+   },
+   {
+      "alpha2": "DO",
+      "alpha3": "DOM",
+      "code": "+1",
+      "currency_code": "DOP",
+      "decimals": 2,
+      "name": "Dominican Republic",
+      "sign": "RD$",
+      "timezones": [
+         "America/Santo_Domingo"
+      ],
+      "timezones_detail": {
+         "America/Santo_Domingo": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Santo Domingo, Santiago de los Caballeros, Santo Domingo Oeste, Santo Domingo Este"
+         }
+      }
+   },
+   {
+      "alpha2": "EC",
+      "alpha3": "ECU",
+      "code": "+593",
+      "currency_code": "ECS",
+      "decimals": 2,
+      "name": "Ecuador",
+      "sign": "S/.",
+      "timezones": [
+         "Pacific/Galapagos",
+         "America/Guayaquil"
+      ],
+      "timezones_detail": {
+         "Pacific/Galapagos": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "GALT",
+            "rawFormat": "-06:00 Galapagos Time - Galapagos"
+         },
+         "America/Guayaquil": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "ECT",
+            "rawFormat": "-05:00 Ecuador Time - Guayaquil, Quito, Cuenca, Santo Domingo de los Colorados"
+         }
+      }
+   },
+   {
+      "alpha2": "EG",
+      "alpha3": "EGY",
+      "code": "+20",
+      "currency_code": "EGP",
+      "decimals": 2,
+      "name": "Egypt",
+      "sign": "£",
+      "timezones": [
+         "Africa/Cairo"
+      ],
+      "timezones_detail": {
+         "Africa/Cairo": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Cairo, Alexandria, Giza, Port Said"
+         }
+      }
+   },
+   {
+      "alpha2": "SV",
+      "alpha3": "SLV",
+      "code": "+503",
+      "currency_code": "SVC",
+      "decimals": 2,
+      "name": "El Salvador",
+      "sign": "$",
+      "timezones": [
+         "America/El_Salvador"
+      ],
+      "timezones_detail": {
+         "America/El_Salvador": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - San Salvador, Soyapango, Santa Ana, San Miguel"
+         }
+      }
+   },
+   {
+      "alpha2": "GQ",
+      "alpha3": "GNQ",
+      "code": "+240",
+      "currency_code": "XAF",
+      "decimals": 0,
+      "name": "Equatorial Guinea",
+      "sign": "FCFA",
+      "timezones": [
+         "Africa/Malabo"
+      ],
+      "timezones_detail": {
+         "Africa/Malabo": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Bata, Malabo, Ebebiyin"
+         }
+      }
+   },
+   {
+      "alpha2": "ER",
+      "alpha3": "ERI",
+      "code": "+291",
+      "currency_code": "ETB",
+      "decimals": 2,
+      "name": "Eritrea",
+      "sign": "ብር",
+      "timezones": [
+         "Africa/Asmara"
+      ],
+      "timezones_detail": {
+         "Africa/Asmara": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Asmara, Keren, Massawa, Assab"
+         }
+      }
+   },
+   {
+      "alpha2": "EE",
+      "alpha3": "EST",
+      "code": "+372",
+      "currency_code": "EEK",
+      "decimals": 2,
+      "name": "Estonia",
+      "sign": "EEK",
+      "timezones": [
+         "Europe/Tallinn"
+      ],
+      "timezones_detail": {
+         "Europe/Tallinn": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Tallinn, Tartu, Narva, Kohtla-Järve"
+         }
+      }
+   },
+   {
+      "alpha2": "SZ",
+      "alpha3": "SWZ",
+      "code": "+268",
+      "currency_code": "SZL",
+      "decimals": 2,
+      "name": "Eswatini",
+      "sign": "E",
+      "timezones": [
+         "Africa/Mbabane"
+      ],
+      "timezones_detail": {
+         "Africa/Mbabane": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "SAST",
+            "rawFormat": "+02:00 South Africa Time - Manzini, Mbabane, Lobamba"
+         }
+      }
+   },
+   {
+      "alpha2": "ET",
+      "alpha3": "ETH",
+      "code": "+251",
+      "currency_code": "ETB",
+      "decimals": 2,
+      "name": "Ethiopia",
+      "sign": "ብር",
+      "timezones": [
+         "Africa/Addis_Ababa"
+      ],
+      "timezones_detail": {
+         "Africa/Addis_Ababa": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Addis Ababa, Dire Dawa, Mek'ele, Nazrēt"
+         }
+      }
+   },
+   {
+      "alpha2": "FK",
+      "alpha3": "FLK",
+      "code": "+500",
+      "currency_code": "FKP",
+      "decimals": 2,
+      "name": "Falkland Islands (Islas Malvinas)",
+      "sign": "£",
+      "timezones": [
+         "Atlantic/Stanley"
+      ],
+      "timezones_detail": {
+         "Atlantic/Stanley": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "FKT",
+            "rawFormat": "-03:00 Falkland Islands Time - Stanley"
+         }
+      }
+   },
+   {
+      "alpha2": "FO",
+      "alpha3": "FRO",
+      "code": "+298",
+      "currency_code": "DKK",
+      "decimals": 2,
+      "name": "Faroe Islands",
+      "sign": "kr.",
+      "timezones": [
+         "Atlantic/Faroe"
+      ],
+      "timezones_detail": {
+         "Atlantic/Faroe": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "WET",
+            "rawFormat": "+00:00 Western European Time - Tórshavn"
+         }
+      }
+   },
+   {
+      "alpha2": "FJ",
+      "alpha3": "FJI",
+      "code": "+679",
+      "currency_code": "FJD",
+      "decimals": 2,
+      "name": "Fiji",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Fiji"
+      ],
+      "timezones_detail": {
+         "Pacific/Fiji": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "FJT",
+            "rawFormat": "+12:00 Fiji Time - Suva, Lautoka, Nadi, Labasa"
+         }
+      }
+   },
+   {
+      "alpha2": "FI",
+      "alpha3": "FIN",
+      "code": "+358",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Finland",
+      "sign": "€",
+      "timezones": [
+         "Europe/Helsinki"
+      ],
+      "timezones_detail": {
+         "Europe/Helsinki": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Helsinki, Espoo, Tampere, Vantaa"
+         }
+      }
+   },
+   {
+      "alpha2": "FR",
+      "alpha3": "FRA",
+      "code": "+33",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "France",
+      "sign": "€",
+      "timezones": [
+         "Europe/Paris"
+      ],
+      "timezones_detail": {
+         "Europe/Paris": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Paris, Marseille, Lyon, Toulouse"
+         }
+      }
+   },
+   {
+      "alpha2": "GF",
+      "alpha3": "GUF",
+      "code": "+594",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "French Guiana",
+      "sign": "€",
+      "timezones": [
+         "America/Cayenne"
+      ],
+      "timezones_detail": {
+         "America/Cayenne": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "GFT",
+            "rawFormat": "-03:00 French Guiana Time - Cayenne, Matoury, Saint-Laurent-du-Maroni, Kourou"
+         }
+      }
+   },
+   {
+      "alpha2": "PF",
+      "alpha3": "PYF",
+      "code": "+689",
+      "currency_code": "XPF",
+      "decimals": 0,
+      "name": "French Polynesia",
+      "sign": "₣",
+      "timezones": [
+         "Pacific/Tahiti",
+         "Pacific/Marquesas",
+         "Pacific/Gambier"
+      ],
+      "timezones_detail": {
+         "Pacific/Tahiti": {
+            "rawOffsetInMinutes": -600,
+            "abbreviation": "TAHT",
+            "rawFormat": "-10:00 Tahiti Time - Faaa, Papeete, Punaauia"
+         },
+         "Pacific/Marquesas": {
+            "rawOffsetInMinutes": -570,
+            "abbreviation": "MART",
+            "rawFormat": "-09:30 Marquesas Time - Marquesas"
+         },
+         "Pacific/Gambier": {
+            "rawOffsetInMinutes": -540,
+            "abbreviation": "GAMT",
+            "rawFormat": "-09:00 Gambier Time - Gambier"
+         }
+      }
+   },
+   {
+      "alpha2": "TF",
+      "alpha3": "ATF",
+      "code": "+262",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "French Southern Territories",
+      "sign": "€",
+      "timezones": [
+         "Indian/Kerguelen"
+      ],
+      "timezones_detail": {
+         "Indian/Kerguelen": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "TFT",
+            "rawFormat": "+05:00 French Southern & Antarctic Time - Port-aux-Français"
+         }
+      }
+   },
+   {
+      "alpha2": "GA",
+      "alpha3": "GAB",
+      "code": "+241",
+      "currency_code": "XAF",
+      "decimals": 0,
+      "name": "Gabon",
+      "sign": "FCFA",
+      "timezones": [
+         "Africa/Libreville"
+      ],
+      "timezones_detail": {
+         "Africa/Libreville": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Libreville, Port-Gentil, Franceville, Oyem"
+         }
+      }
+   },
+   {
+      "alpha2": "GM",
+      "alpha3": "GMB",
+      "code": "+220",
+      "currency_code": "GMD",
+      "decimals": 2,
+      "name": "Gambia",
+      "sign": "D",
+      "timezones": [
+         "Africa/Banjul"
+      ],
+      "timezones_detail": {
+         "Africa/Banjul": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Serekunda, Brikama, Bakau, Banjul"
+         }
+      }
+   },
+   {
+      "alpha2": "GE",
+      "alpha3": "GEO",
+      "code": "+995",
+      "currency_code": "GEL",
+      "decimals": 2,
+      "name": "Georgia",
+      "sign": "ლ",
+      "timezones": [
+         "Asia/Tbilisi"
+      ],
+      "timezones_detail": {
+         "Asia/Tbilisi": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "GET",
+            "rawFormat": "+04:00 Georgia Time - Tbilisi, Kutaisi, Batumi, Sokhumi"
+         }
+      }
+   },
+   {
+      "alpha2": "DE",
+      "alpha3": "DEU",
+      "code": "+49",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Germany",
+      "sign": "€",
+      "timezones": [
+         "Europe/Berlin"
+      ],
+      "timezones_detail": {
+         "Europe/Berlin": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Berlin, Hamburg, Munich, Köln"
+         }
+      }
+   },
+   {
+      "alpha2": "GH",
+      "alpha3": "GHA",
+      "code": "+233",
+      "currency_code": "GHS",
+      "decimals": 2,
+      "name": "Ghana",
+      "sign": "GH₵",
+      "timezones": [
+         "Africa/Accra"
+      ],
+      "timezones_detail": {
+         "Africa/Accra": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Accra, Kumasi, Tamale, Takoradi"
+         }
+      }
+   },
+   {
+      "alpha2": "GI",
+      "alpha3": "GIB",
+      "code": "+350",
+      "currency_code": "GIP",
+      "decimals": 2,
+      "name": "Gibraltar",
+      "sign": "£",
+      "timezones": [
+         "Europe/Gibraltar"
+      ],
+      "timezones_detail": {
+         "Europe/Gibraltar": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Gibraltar"
+         }
+      }
+   },
+   {
+      "alpha2": "GR",
+      "alpha3": "GRC",
+      "code": "+30",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Greece",
+      "sign": "€",
+      "timezones": [
+         "Europe/Athens"
+      ],
+      "timezones_detail": {
+         "Europe/Athens": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Athens, Thessaloníki, Pátra, Piraeus"
+         }
+      }
+   },
+   {
+      "alpha2": "GL",
+      "alpha3": "GRL",
+      "code": "+299",
+      "currency_code": "DKK",
+      "decimals": 2,
+      "name": "Greenland",
+      "sign": "kr.",
+      "timezones": [
+         "America/Thule",
+         "America/Godthab",
+         "America/Scoresbysund",
+         "America/Danmarkshavn"
+      ],
+      "timezones_detail": {
+         "America/Thule": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Thule"
+         },
+         "America/Godthab": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "WGT",
+            "rawFormat": "-03:00 West Greenland Time - Nuuk"
+         },
+         "America/Scoresbysund": {
+            "rawOffsetInMinutes": -60,
+            "abbreviation": "EGT",
+            "rawFormat": "-01:00 East Greenland Time - Scoresbysund"
+         },
+         "America/Danmarkshavn": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Danmarkshavn"
+         }
+      }
+   },
+   {
+      "alpha2": "GD",
+      "alpha3": "GRD",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "Grenada",
+      "sign": "$",
+      "timezones": [
+         "America/Grenada"
+      ],
+      "timezones_detail": {
+         "America/Grenada": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Saint George's"
+         }
+      }
+   },
+   {
+      "alpha2": "GP",
+      "alpha3": "GLP",
+      "code": "+590",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Guadeloupe",
+      "sign": "€",
+      "timezones": [
+         "America/Guadeloupe"
+      ],
+      "timezones_detail": {
+         "America/Guadeloupe": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Les Abymes, Baie-Mahault, Le Gosier, Petit-Bourg"
+         }
+      }
+   },
+   {
+      "alpha2": "GU",
+      "alpha3": "GUM",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Guam",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Guam"
+      ],
+      "timezones_detail": {
+         "Pacific/Guam": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "ChST",
+            "rawFormat": "+10:00 Chamorro Time - Dededo Village, Yigo Village, Tamuning-Tumon-Harmon Village, Tamuning"
+         }
+      }
+   },
+   {
+      "alpha2": "GT",
+      "alpha3": "GTM",
+      "code": "+502",
+      "currency_code": "GTQ",
+      "decimals": 2,
+      "name": "Guatemala",
+      "sign": "Q",
+      "timezones": [
+         "America/Guatemala"
+      ],
+      "timezones_detail": {
+         "America/Guatemala": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Guatemala City, Mixco, Villa Nueva, Petapa"
+         }
+      }
+   },
+   {
+      "alpha2": "GG",
+      "alpha3": "GGY",
+      "code": "+44",
+      "currency_code": "GGP",
+      "decimals": 2,
+      "name": "Guernsey",
+      "sign": "£",
+      "timezones": [
+         "Europe/Guernsey"
+      ],
+      "timezones_detail": {
+         "Europe/Guernsey": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Saint Peter Port"
+         }
+      }
+   },
+   {
+      "alpha2": "GN",
+      "alpha3": "GIN",
+      "code": "+224",
+      "currency_code": "GNF",
+      "decimals": 0,
+      "name": "Guinea",
+      "sign": "FG",
+      "timezones": [
+         "Africa/Conakry"
+      ],
+      "timezones_detail": {
+         "Africa/Conakry": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Camayenne, Conakry, Nzérékoré, Kindia"
+         }
+      }
+   },
+   {
+      "alpha2": "GW",
+      "alpha3": "GNB",
+      "code": "+245",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Guinea-Bissau",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Bissau"
+      ],
+      "timezones_detail": {
+         "Africa/Bissau": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Bissau, Bafatá"
+         }
+      }
+   },
+   {
+      "alpha2": "GY",
+      "alpha3": "GUY",
+      "code": "+592",
+      "currency_code": "GYD",
+      "decimals": 2,
+      "name": "Guyana",
+      "sign": "$",
+      "timezones": [
+         "America/Guyana"
+      ],
+      "timezones_detail": {
+         "America/Guyana": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "GYT",
+            "rawFormat": "-04:00 Guyana Time - Georgetown, Linden, New Amsterdam"
+         }
+      }
+   },
+   {
+      "alpha2": "HT",
+      "alpha3": "HTI",
+      "code": "+509",
+      "currency_code": "HTG",
+      "decimals": 2,
+      "name": "Haiti",
+      "sign": "G",
+      "timezones": [
+         "America/Port-au-Prince"
+      ],
+      "timezones_detail": {
+         "America/Port-au-Prince": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Port-au-Prince, Carrefour, Delmas 73, Pétionville"
+         }
+      }
+   },
+   {
+      "alpha2": "HM",
+      "alpha3": "HMD",
+      "code": "+672",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Heard & McDonald Islands",
+      "sign": "$"
+   },
+   {
+      "alpha2": "HN",
+      "alpha3": "HND",
+      "code": "+504",
+      "currency_code": "HNL",
+      "decimals": 2,
+      "name": "Honduras",
+      "sign": "L",
+      "timezones": [
+         "America/Tegucigalpa"
+      ],
+      "timezones_detail": {
+         "America/Tegucigalpa": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Tegucigalpa, San Pedro Sula, Choloma, La Ceiba"
+         }
+      }
+   },
+   {
+      "alpha2": "HK",
+      "alpha3": "HKG",
+      "code": "+852",
+      "currency_code": "HKD",
+      "decimals": 2,
+      "name": "Hong Kong",
+      "sign": "$",
+      "timezones": [
+         "Asia/Hong_Kong"
+      ],
+      "timezones_detail": {
+         "Asia/Hong_Kong": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "HKT",
+            "rawFormat": "+08:00 Hong Kong Time - Hong Kong, Kowloon, Tsuen Wan, Yuen Long Kau Hui"
+         }
+      }
+   },
+   {
+      "alpha2": "HU",
+      "alpha3": "HUN",
+      "code": "+36",
+      "currency_code": "HUF",
+      "decimals": 2,
+      "name": "Hungary",
+      "sign": "Ft",
+      "timezones": [
+         "Europe/Budapest"
+      ],
+      "timezones_detail": {
+         "Europe/Budapest": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Budapest, Debrecen, Miskolc, Szeged"
+         }
+      }
+   },
+   {
+      "alpha2": "IS",
+      "alpha3": "ISL",
+      "code": "+354",
+      "currency_code": "ISK",
+      "decimals": 0,
+      "name": "Iceland",
+      "sign": "kr",
+      "timezones": [
+         "Atlantic/Reykjavik"
+      ],
+      "timezones_detail": {
+         "Atlantic/Reykjavik": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Reykjavík, Kópavogur, Hafnarfjörður, Akureyri"
+         }
+      }
+   },
+   {
+      "alpha2": "IN",
+      "alpha3": "IND",
+      "code": "+91",
+      "currency_code": "INR",
+      "decimals": 2,
+      "name": "India",
+      "sign": "₹",
+      "timezones": [
+         "Asia/Kolkata"
+      ],
+      "timezones_detail": {
+         "Asia/Kolkata": {
+            "rawOffsetInMinutes": 330,
+            "abbreviation": "IST",
+            "rawFormat": "+05:30 India Time - Mumbai, Delhi, Bengaluru, Kolkata"
+         }
+      }
+   },
+   {
+      "alpha2": "ID",
+      "alpha3": "IDN",
+      "code": "+62",
+      "currency_code": "IDR",
+      "decimals": 2,
+      "name": "Indonesia",
+      "sign": "Rp",
+      "timezones": [
+         "Asia/Jakarta",
+         "Asia/Makassar",
+         "Asia/Jayapura"
+      ],
+      "timezones_detail": {
+         "Asia/Jakarta": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "GMT+7",
+            "rawFormat": "+07:00 Western Indonesia Time - Jakarta, Surabaya, Medan, Bandung"
+         },
+         "Asia/Makassar": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "WITA",
+            "rawFormat": "+08:00 Central Indonesia Time - Makassar, Denpasar, City of Balikpapan, Banjarmasin"
+         },
+         "Asia/Jayapura": {
+            "rawOffsetInMinutes": 540,
+            "abbreviation": "GMT+9",
+            "rawFormat": "+09:00 Eastern Indonesia Time - Ambon, Jayapura, Sorong, Ternate"
+         }
+      }
+   },
+   {
+      "alpha2": "IR",
+      "alpha3": "IRN",
+      "code": "+98",
+      "currency_code": "IRR",
+      "decimals": 0,
+      "name": "Iran",
+      "sign": "﷼",
+      "timezones": [
+         "Asia/Tehran"
+      ],
+      "timezones_detail": {
+         "Asia/Tehran": {
+            "rawOffsetInMinutes": 210,
+            "abbreviation": "IRST",
+            "rawFormat": "+03:30 Iran Time - Tehran, Mashhad, Isfahan, Karaj"
+         }
+      }
+   },
+   {
+      "alpha2": "IQ",
+      "alpha3": "IRQ",
+      "code": "+964",
+      "currency_code": "IQD",
+      "decimals": 3,
+      "name": "Iraq",
+      "sign": "ع.د",
+      "timezones": [
+         "Asia/Baghdad"
+      ],
+      "timezones_detail": {
+         "Asia/Baghdad": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "AST",
+            "rawFormat": "+03:00 Arabian Time - Baghdad, Basrah, Al Mawşil al Jadīdah, Al Başrah al Qadīmah"
+         }
+      }
+   },
+   {
+      "alpha2": "IE",
+      "alpha3": "IRL",
+      "code": "+353",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Ireland",
+      "sign": "€",
+      "timezones": [
+         "Europe/Dublin"
+      ],
+      "timezones_detail": {
+         "Europe/Dublin": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Dublin, Cork, Luimneach, Gaillimh"
+         }
+      }
+   },
+   {
+      "alpha2": "IM",
+      "alpha3": "IMN",
+      "code": "+44",
+      "currency_code": "GBP",
+      "decimals": 2,
+      "name": "Isle of Man",
+      "sign": "£",
+      "timezones": [
+         "Europe/Isle_of_Man"
+      ],
+      "timezones_detail": {
+         "Europe/Isle_of_Man": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Douglas"
+         }
+      }
+   },
+   {
+      "alpha2": "IL",
+      "alpha3": "ISR",
+      "code": "+972",
+      "currency_code": "ILS",
+      "decimals": 2,
+      "name": "Israel",
+      "sign": "₪",
+      "timezones": [
+         "Asia/Jerusalem"
+      ],
+      "timezones_detail": {
+         "Asia/Jerusalem": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "IST",
+            "rawFormat": "+02:00 Israel Time - Jerusalem, Tel Aviv, West Jerusalem, Haifa"
+         }
+      }
+   },
+   {
+      "alpha2": "IT",
+      "alpha3": "ITA",
+      "code": "+39",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Italy",
+      "sign": "€",
+      "timezones": [
+         "Europe/Rome"
+      ],
+      "timezones_detail": {
+         "Europe/Rome": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Rome, Milan, Naples, Turin"
+         }
+      }
+   },
+   {
+      "alpha2": "JM",
+      "alpha3": "JAM",
+      "code": "+1",
+      "currency_code": "JMD",
+      "decimals": 2,
+      "name": "Jamaica",
+      "sign": "J$",
+      "timezones": [
+         "America/Jamaica"
+      ],
+      "timezones_detail": {
+         "America/Jamaica": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Kingston, New Kingston, Spanish Town, Portmore"
+         }
+      }
+   },
+   {
+      "alpha2": "JP",
+      "alpha3": "JPN",
+      "code": "+81",
+      "currency_code": "JPY",
+      "decimals": 0,
+      "name": "Japan",
+      "sign": "¥",
+      "timezones": [
+         "Asia/Tokyo"
+      ],
+      "timezones_detail": {
+         "Asia/Tokyo": {
+            "rawOffsetInMinutes": 540,
+            "abbreviation": "JST",
+            "rawFormat": "+09:00 Japan Time - Tokyo, Yokohama, Osaka, Nagoya"
+         }
+      }
+   },
+   {
+      "alpha2": "JE",
+      "alpha3": "JEY",
+      "code": "+44",
+      "currency_code": "GBP",
+      "decimals": 2,
+      "name": "Jersey",
+      "sign": "£",
+      "timezones": [
+         "Europe/Jersey"
+      ],
+      "timezones_detail": {
+         "Europe/Jersey": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Saint Helier"
+         }
+      }
+   },
+   {
+      "alpha2": "JO",
+      "alpha3": "JOR",
+      "code": "+962",
+      "currency_code": "JOD",
+      "decimals": 3,
+      "name": "Jordan",
+      "sign": "د.ا",
+      "timezones": [
+         "Asia/Amman"
+      ],
+      "timezones_detail": {
+         "Asia/Amman": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Amman, Zarqa, Irbid, Russeifa"
+         }
+      }
+   },
+   {
+      "alpha2": "KZ",
+      "alpha3": "KAZ",
+      "code": "+7",
+      "currency_code": "KZT",
+      "decimals": 2,
+      "name": "Kazakhstan",
+      "sign": "лв",
+      "timezones": [
+         "Asia/Qyzylorda",
+         "Asia/Almaty"
+      ],
+      "timezones_detail": {
+         "Asia/Qyzylorda": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "GMT+5",
+            "rawFormat": "+05:00 West Kazakhstan Time - Kyzylorda, Aktobe, Oral, Atyrau"
+         },
+         "Asia/Almaty": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "GMT+6",
+            "rawFormat": "+06:00 East Kazakhstan Time - Almaty, Karagandy, Shymkent, Taraz"
+         }
+      }
+   },
+   {
+      "alpha2": "KE",
+      "alpha3": "KEN",
+      "code": "+254",
+      "currency_code": "KES",
+      "decimals": 2,
+      "name": "Kenya",
+      "sign": "KSh,",
+      "timezones": [
+         "Africa/Nairobi"
+      ],
+      "timezones_detail": {
+         "Africa/Nairobi": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Nairobi, Mombasa, Nakuru, Eldoret"
+         }
+      }
+   },
+   {
+      "alpha2": "KI",
+      "alpha3": "KIR",
+      "code": "+686",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Kiribati",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Tarawa",
+         "Pacific/Enderbury",
+         "Pacific/Kiritimati"
+      ],
+      "timezones_detail": {
+         "Pacific/Tarawa": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "GMT+12",
+            "rawFormat": "+12:00 Gilbert Islands Time - Tarawa"
+         },
+         "Pacific/Enderbury": {
+            "rawOffsetInMinutes": 780,
+            "abbreviation": "GMT+13",
+            "rawFormat": "+13:00 Phoenix Islands Time - Enderbury"
+         },
+         "Pacific/Kiritimati": {
+            "rawOffsetInMinutes": 840,
+            "abbreviation": "LINT",
+            "rawFormat": "+14:00 Line Islands Time - Kiritimati"
+         }
+      }
+   },
+   {
+      "alpha2": "XK",
+      "alpha3": "XKX",
+      "code": "+383",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Kosovo",
+      "sign": "€"
+   },
+   {
+      "alpha2": "KW",
+      "alpha3": "KWT",
+      "code": "+965",
+      "currency_code": "KWD",
+      "decimals": 3,
+      "name": "Kuwait",
+      "sign": "د.ك",
+      "timezones": [
+         "Asia/Kuwait"
+      ],
+      "timezones_detail": {
+         "Asia/Kuwait": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "AST",
+            "rawFormat": "+03:00 Arabian Time - Al Aḩmadī, Ḩawallī, As Sālimīyah, Şabāḩ as Sālim"
+         }
+      }
+   },
+   {
+      "alpha2": "KG",
+      "alpha3": "KGZ",
+      "code": "+996",
+      "currency_code": "KGS",
+      "decimals": 2,
+      "name": "Kyrgyzstan",
+      "sign": "лв",
+      "timezones": [
+         "Asia/Bishkek"
+      ],
+      "timezones_detail": {
+         "Asia/Bishkek": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "KGT",
+            "rawFormat": "+06:00 Kyrgyzstan Time - Bishkek, Osh, Jalal-Abad, Karakol"
+         }
+      }
+   },
+   {
+      "alpha2": "LA",
+      "alpha3": "LAO",
+      "code": "+856",
+      "currency_code": "LAK",
+      "decimals": 0,
+      "name": "Laos",
+      "sign": "₭",
+      "timezones": [
+         "Asia/Vientiane"
+      ],
+      "timezones_detail": {
+         "Asia/Vientiane": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "ICT",
+            "rawFormat": "+07:00 Indochina Time - Vientiane, Pakse, Thakhèk, Savannakhet"
+         }
+      }
+   },
+   {
+      "alpha2": "LV",
+      "alpha3": "LVA",
+      "code": "+371",
+      "currency_code": "LVL",
+      "decimals": 2,
+      "name": "Latvia",
+      "sign": "Ls",
+      "timezones": [
+         "Europe/Riga"
+      ],
+      "timezones_detail": {
+         "Europe/Riga": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Riga, Daugavpils, Liepāja, Jelgava"
+         }
+      }
+   },
+   {
+      "alpha2": "LB",
+      "alpha3": "LBN",
+      "code": "+961",
+      "currency_code": "LBP",
+      "decimals": 0,
+      "name": "Lebanon",
+      "sign": "£",
+      "timezones": [
+         "Asia/Beirut"
+      ],
+      "timezones_detail": {
+         "Asia/Beirut": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Beirut, Ra’s Bayrūt, Tripoli, Sidon"
+         }
+      }
+   },
+   {
+      "alpha2": "LS",
+      "alpha3": "LSO",
+      "code": "+266",
+      "currency_code": "LSL",
+      "decimals": 2,
+      "name": "Lesotho",
+      "sign": "L",
+      "timezones": [
+         "Africa/Maseru"
+      ],
+      "timezones_detail": {
+         "Africa/Maseru": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "SAST",
+            "rawFormat": "+02:00 South Africa Time - Maseru, Mafeteng, Leribe, Maputsoe"
+         }
+      }
+   },
+   {
+      "alpha2": "LR",
+      "alpha3": "LBR",
+      "code": "+231",
+      "currency_code": "LRD",
+      "decimals": 2,
+      "name": "Liberia",
+      "sign": "$",
+      "timezones": [
+         "Africa/Monrovia"
+      ],
+      "timezones_detail": {
+         "Africa/Monrovia": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Monrovia, Gbarnga, Kakata, Bensonville"
+         }
+      }
+   },
+   {
+      "alpha2": "LY",
+      "alpha3": "LBY",
+      "code": "+218",
+      "currency_code": "LYD",
+      "decimals": 3,
+      "name": "Libya",
+      "sign": "ل.د",
+      "timezones": [
+         "Africa/Tripoli"
+      ],
+      "timezones_detail": {
+         "Africa/Tripoli": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Tripoli, Benghazi, Mişrātah, Tarhuna"
+         }
+      }
+   },
+   {
+      "alpha2": "LI",
+      "alpha3": "LIE",
+      "code": "+423",
+      "currency_code": "CHF",
+      "decimals": 2,
+      "name": "Liechtenstein",
+      "sign": "CHF",
+      "timezones": [
+         "Europe/Vaduz"
+      ],
+      "timezones_detail": {
+         "Europe/Vaduz": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Vaduz"
+         }
+      }
+   },
+   {
+      "alpha2": "LT",
+      "alpha3": "LTU",
+      "code": "+370",
+      "currency_code": "LTL",
+      "decimals": 2,
+      "name": "Lithuania",
+      "sign": "Lt",
+      "timezones": [
+         "Europe/Vilnius"
+      ],
+      "timezones_detail": {
+         "Europe/Vilnius": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Vilnius, Kaunas, Klaipėda, Šiauliai"
+         }
+      }
+   },
+   {
+      "alpha2": "LU",
+      "alpha3": "LUX",
+      "code": "+352",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Luxembourg",
+      "sign": "€",
+      "timezones": [
+         "Europe/Luxembourg"
+      ],
+      "timezones_detail": {
+         "Europe/Luxembourg": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Luxembourg, Esch-sur-Alzette, Dudelange"
+         }
+      }
+   },
+   {
+      "alpha2": "MO",
+      "alpha3": "MAC",
+      "code": "+853",
+      "currency_code": "MOP",
+      "decimals": 2,
+      "name": "Macao",
+      "sign": "MOP$",
+      "timezones": [
+         "Asia/Macau"
+      ],
+      "timezones_detail": {
+         "Asia/Macau": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "CST",
+            "rawFormat": "+08:00 China Time - Macau"
+         }
+      }
+   },
+   {
+      "alpha2": "MG",
+      "alpha3": "MDG",
+      "code": "+261",
+      "currency_code": "MGA",
+      "decimals": 0,
+      "name": "Madagascar",
+      "sign": "Ar",
+      "timezones": [
+         "Indian/Antananarivo"
+      ],
+      "timezones_detail": {
+         "Indian/Antananarivo": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Antananarivo, Toamasina, Antsirabe, Fianarantsoa"
+         }
+      }
+   },
+   {
+      "alpha2": "MW",
+      "alpha3": "MWI",
+      "code": "+265",
+      "currency_code": "MWK",
+      "decimals": 2,
+      "name": "Malawi",
+      "sign": "MK",
+      "timezones": [
+         "Africa/Blantyre"
+      ],
+      "timezones_detail": {
+         "Africa/Blantyre": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Lilongwe, Blantyre, Mzuzu, Zomba"
+         }
+      }
+   },
+   {
+      "alpha2": "MY",
+      "alpha3": "MYS",
+      "code": "+60",
+      "currency_code": "MYR",
+      "decimals": 2,
+      "name": "Malaysia",
+      "sign": "RM",
+      "timezones": [
+         "Asia/Kuala_Lumpur"
+      ],
+      "timezones_detail": {
+         "Asia/Kuala_Lumpur": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "MYT",
+            "rawFormat": "+08:00 Malaysia Time - Kota Bharu, Kuala Lumpur, Klang, Kampung Baru Subang"
+         }
+      }
+   },
+   {
+      "alpha2": "MV",
+      "alpha3": "MDV",
+      "code": "+960",
+      "currency_code": "MVR",
+      "decimals": 2,
+      "name": "Maldives",
+      "sign": "Rf",
+      "timezones": [
+         "Indian/Maldives"
+      ],
+      "timezones_detail": {
+         "Indian/Maldives": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "MVT",
+            "rawFormat": "+05:00 Maldives Time - Male"
+         }
+      }
+   },
+   {
+      "alpha2": "ML",
+      "alpha3": "MLI",
+      "code": "+223",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Mali",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Bamako"
+      ],
+      "timezones_detail": {
+         "Africa/Bamako": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Bamako, Ségou, Sikasso, Mopti"
+         }
+      }
+   },
+   {
+      "alpha2": "MT",
+      "alpha3": "MLT",
+      "code": "+356",
+      "currency_code": "MTL",
+      "decimals": 2,
+      "name": "Malta",
+      "sign": "₤",
+      "timezones": [
+         "Europe/Malta"
+      ],
+      "timezones_detail": {
+         "Europe/Malta": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Birkirkara, Qormi, Mosta, Żabbar"
+         }
+      }
+   },
+   {
+      "alpha2": "MH",
+      "alpha3": "MHL",
+      "code": "+692",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Marshall Islands",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Majuro"
+      ],
+      "timezones_detail": {
+         "Pacific/Majuro": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "MHT",
+            "rawFormat": "+12:00 Marshall Islands Time - Majuro, Kwajalein, RMI Capitol"
+         }
+      }
+   },
+   {
+      "alpha2": "MQ",
+      "alpha3": "MTQ",
+      "code": "+596",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Martinique",
+      "sign": "€",
+      "timezones": [
+         "America/Martinique"
+      ],
+      "timezones_detail": {
+         "America/Martinique": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Fort-de-France, Le Lamentin, Le Robert, Sainte-Marie"
+         }
+      }
+   },
+   {
+      "alpha2": "MR",
+      "alpha3": "MRT",
+      "code": "+222",
+      "currency_code": "MRO",
+      "decimals": 0,
+      "name": "Mauritania",
+      "sign": "UM",
+      "timezones": [
+         "Africa/Nouakchott"
+      ],
+      "timezones_detail": {
+         "Africa/Nouakchott": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Nouakchott, Nouadhibou, Néma, Kaédi"
+         }
+      }
+   },
+   {
+      "alpha2": "MU",
+      "alpha3": "MUS",
+      "code": "+230",
+      "currency_code": "MUR",
+      "decimals": 2,
+      "name": "Mauritius",
+      "sign": "₨",
+      "timezones": [
+         "Indian/Mauritius"
+      ],
+      "timezones_detail": {
+         "Indian/Mauritius": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "MUT",
+            "rawFormat": "+04:00 Mauritius Time - Port Louis, Beau Bassin-Rose Hill, Vacoas, Curepipe"
+         }
+      }
+   },
+   {
+      "alpha2": "YT",
+      "alpha3": "MYT",
+      "code": "+262",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Mayotte",
+      "sign": "€",
+      "timezones": [
+         "Indian/Mayotte"
+      ],
+      "timezones_detail": {
+         "Indian/Mayotte": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Mamoudzou, Koungou, Dzaoudzi"
+         }
+      }
+   },
+   {
+      "alpha2": "MX",
+      "alpha3": "MEX",
+      "code": "+52",
+      "currency_code": "MXN",
+      "decimals": 2,
+      "name": "Mexico",
+      "sign": "$",
+      "timezones": [
+         "America/Tijuana",
+         "America/Hermosillo",
+         "America/Ojinaga",
+         "America/Mexico_City",
+         "America/Cancun"
+      ],
+      "timezones_detail": {
+         "America/Tijuana": {
+            "rawOffsetInMinutes": -480,
+            "abbreviation": "PST",
+            "rawFormat": "-08:00 Pacific Time - Tijuana, Mexicali, Ensenada, Rosarito"
+         },
+         "America/Hermosillo": {
+            "rawOffsetInMinutes": -420,
+            "abbreviation": "GMT-7",
+            "rawFormat": "-07:00 Mexican Pacific Time - Hermosillo, Ciudad Obregón, Nogales, San Luis Río Colorado"
+         },
+         "America/Ojinaga": {
+            "rawOffsetInMinutes": -420,
+            "abbreviation": "MST",
+            "rawFormat": "-07:00 Mountain Time - Ciudad Juárez, Chihuahua, Culiacán, Mazatlán"
+         },
+         "America/Mexico_City": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Mexico City, Iztapalapa, Ecatepec de Morelos, Guadalajara"
+         },
+         "America/Cancun": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Cancún, Chetumal, Playa del Carmen, Cozumel"
+         }
+      }
+   },
+   {
+      "alpha2": "FM",
+      "alpha3": "FSM",
+      "code": "+691",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Micronesia",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Chuuk",
+         "Pacific/Kosrae"
+      ],
+      "timezones_detail": {
+         "Pacific/Chuuk": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "CHUT",
+            "rawFormat": "+10:00 Chuuk Time - Chuuk"
+         },
+         "Pacific/Kosrae": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "KOST",
+            "rawFormat": "+11:00 Kosrae Time - Kosrae, Palikir - National Government Center"
+         }
+      }
+   },
+   {
+      "alpha2": "MD",
+      "alpha3": "MDA",
+      "code": "+373",
+      "currency_code": "MDL",
+      "decimals": 2,
+      "name": "Moldova",
+      "sign": "L",
+      "timezones": [
+         "Europe/Chisinau"
+      ],
+      "timezones_detail": {
+         "Europe/Chisinau": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Chisinau, Tiraspol, Bălţi, Bender"
+         }
+      }
+   },
+   {
+      "alpha2": "MC",
+      "alpha3": "MCO",
+      "code": "+377",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Monaco",
+      "sign": "€",
+      "timezones": [
+         "Europe/Monaco"
+      ],
+      "timezones_detail": {
+         "Europe/Monaco": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Monaco, Monte-Carlo"
+         }
+      }
+   },
+   {
+      "alpha2": "MN",
+      "alpha3": "MNG",
+      "code": "+976",
+      "currency_code": "MNT",
+      "decimals": 2,
+      "name": "Mongolia",
+      "sign": "₮",
+      "timezones": [
+         "Asia/Hovd",
+         "Asia/Ulaanbaatar"
+      ],
+      "timezones_detail": {
+         "Asia/Hovd": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "HOVT",
+            "rawFormat": "+07:00 Hovd Time - Khovd, Ölgii, Ulaangom, Uliastay"
+         },
+         "Asia/Ulaanbaatar": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "ULAT",
+            "rawFormat": "+08:00 Ulaanbaatar Time - Ulan Bator, Erdenet, Darhan, Hovd"
+         }
+      }
+   },
+   {
+      "alpha2": "ME",
+      "alpha3": "MNE",
+      "code": "+382",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Montenegro",
+      "sign": "€",
+      "timezones": [
+         "Europe/Podgorica"
+      ],
+      "timezones_detail": {
+         "Europe/Podgorica": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Podgorica, Nikšić, Herceg Novi, Pljevlja"
+         }
+      }
+   },
+   {
+      "alpha2": "MS",
+      "alpha3": "MSR",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "Montserrat",
+      "sign": "$",
+      "timezones": [
+         "America/Montserrat"
+      ],
+      "timezones_detail": {
+         "America/Montserrat": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Brades, Plymouth"
+         }
+      }
+   },
+   {
+      "alpha2": "MA",
+      "alpha3": "MAR",
+      "code": "+212",
+      "currency_code": "MAD",
+      "decimals": 2,
+      "name": "Morocco",
+      "sign": "DH",
+      "timezones": [
+         "Africa/Casablanca"
+      ],
+      "timezones_detail": {
+         "Africa/Casablanca": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "WET",
+            "rawFormat": "+00:00 Western European Time - Casablanca, Rabat, Fès, Sale"
+         }
+      }
+   },
+   {
+      "alpha2": "MZ",
+      "alpha3": "MOZ",
+      "code": "+258",
+      "currency_code": "MZN",
+      "decimals": 2,
+      "name": "Mozambique",
+      "sign": "MT",
+      "timezones": [
+         "Africa/Maputo"
+      ],
+      "timezones_detail": {
+         "Africa/Maputo": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Maputo, Matola, Beira, Nampula"
+         }
+      }
+   },
+   {
+      "alpha2": "MM",
+      "alpha3": "MMR",
+      "code": "+95",
+      "currency_code": "MMK",
+      "decimals": 0,
+      "name": "Myanmar (Burma)",
+      "sign": "K",
+      "timezones": [
+         "Asia/Yangon"
+      ],
+      "timezones_detail": {
+         "Asia/Yangon": {
+            "rawOffsetInMinutes": 390,
+            "abbreviation": "MMT",
+            "rawFormat": "+06:30 Myanmar Time - Yangon, Mandalay, Nay Pyi Taw, Mawlamyine"
+         }
+      }
+   },
+   {
+      "alpha2": "NA",
+      "alpha3": "NAM",
+      "code": "+264",
+      "currency_code": "NAD",
+      "decimals": 2,
+      "name": "Namibia",
+      "sign": "$",
+      "timezones": [
+         "Africa/Windhoek"
+      ],
+      "timezones_detail": {
+         "Africa/Windhoek": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CAT",
+            "rawFormat": "+01:00 Central Africa Time - Windhoek, Rundu, Walvis Bay, Oshakati"
+         }
+      }
+   },
+   {
+      "alpha2": "NR",
+      "alpha3": "NRU",
+      "code": "+674",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Nauru",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Nauru"
+      ],
+      "timezones_detail": {
+         "Pacific/Nauru": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "NRT",
+            "rawFormat": "+12:00 Nauru Time - Yaren"
+         }
+      }
+   },
+   {
+      "alpha2": "NP",
+      "alpha3": "NPL",
+      "code": "+977",
+      "currency_code": "NPR",
+      "decimals": 2,
+      "name": "Nepal",
+      "sign": "₨",
+      "timezones": [
+         "Asia/Kathmandu"
+      ],
+      "timezones_detail": {
+         "Asia/Kathmandu": {
+            "rawOffsetInMinutes": 345,
+            "abbreviation": "NPT",
+            "rawFormat": "+05:45 Nepal Time - Kathmandu, Pokhara, Pātan, Biratnagar"
+         }
+      }
+   },
+   {
+      "alpha2": "NL",
+      "alpha3": "NLD",
+      "code": "+31",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Netherlands",
+      "sign": "€",
+      "timezones": [
+         "Europe/Amsterdam"
+      ],
+      "timezones_detail": {
+         "Europe/Amsterdam": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Amsterdam, Rotterdam, The Hague, Utrecht"
+         }
+      }
+   },
+   {
+      "alpha2": "NC",
+      "alpha3": "NCL",
+      "code": "+687",
+      "currency_code": "XPF",
+      "decimals": 0,
+      "name": "New Caledonia",
+      "sign": "₣",
+      "timezones": [
+         "Pacific/Noumea"
+      ],
+      "timezones_detail": {
+         "Pacific/Noumea": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "NCT",
+            "rawFormat": "+11:00 New Caledonia Time - Nouméa, Mont-Dore, Dumbéa"
+         }
+      }
+   },
+   {
+      "alpha2": "NZ",
+      "alpha3": "NZL",
+      "code": "+64",
+      "currency_code": "NZD",
+      "decimals": 2,
+      "name": "New Zealand",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Auckland",
+         "Pacific/Chatham"
+      ],
+      "timezones_detail": {
+         "Pacific/Auckland": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "NZST",
+            "rawFormat": "+12:00 New Zealand Time - Auckland, Wellington, Christchurch, Manukau City"
+         },
+         "Pacific/Chatham": {
+            "rawOffsetInMinutes": 765,
+            "abbreviation": "GMT+13:45",
+            "rawFormat": "+12:45 Chatham Time - Chatham"
+         }
+      }
+   },
+   {
+      "alpha2": "NI",
+      "alpha3": "NIC",
+      "code": "+505",
+      "currency_code": "NIO",
+      "decimals": 2,
+      "name": "Nicaragua",
+      "sign": "C$",
+      "timezones": [
+         "America/Managua"
+      ],
+      "timezones_detail": {
+         "America/Managua": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Managua, León, Masaya, Chinandega"
+         }
+      }
+   },
+   {
+      "alpha2": "NE",
+      "alpha3": "NER",
+      "code": "+227",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Niger",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Niamey"
+      ],
+      "timezones_detail": {
+         "Africa/Niamey": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Niamey, Zinder, Maradi, Agadez"
+         }
+      }
+   },
+   {
+      "alpha2": "NG",
+      "alpha3": "NGA",
+      "code": "+234",
+      "currency_code": "NGN",
+      "decimals": 2,
+      "name": "Nigeria",
+      "sign": "₦",
+      "timezones": [
+         "Africa/Lagos"
+      ],
+      "timezones_detail": {
+         "Africa/Lagos": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "WAT",
+            "rawFormat": "+01:00 West Africa Time - Lagos, Kano, Ibadan, Kaduna"
+         }
+      }
+   },
+   {
+      "alpha2": "NU",
+      "alpha3": "NIU",
+      "code": "+683",
+      "currency_code": "NZD",
+      "decimals": 2,
+      "name": "Niue",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Niue"
+      ],
+      "timezones_detail": {
+         "Pacific/Niue": {
+            "rawOffsetInMinutes": -660,
+            "abbreviation": "NUT",
+            "rawFormat": "-11:00 Niue Time - Alofi"
+         }
+      }
+   },
+   {
+      "alpha2": "NF",
+      "alpha3": "NFK",
+      "code": "+672",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Norfolk Island",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Norfolk"
+      ],
+      "timezones_detail": {
+         "Pacific/Norfolk": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "GMT+12",
+            "rawFormat": "+11:00 Norfolk Island Time - Kingston"
+         }
+      }
+   },
+   {
+      "alpha2": "KP",
+      "alpha3": "PRK",
+      "code": "+850",
+      "currency_code": "KPW",
+      "decimals": 0,
+      "name": "North Korea",
+      "sign": "₩",
+      "timezones": [
+         "Asia/Pyongyang"
+      ],
+      "timezones_detail": {
+         "Asia/Pyongyang": {
+            "rawOffsetInMinutes": 540,
+            "abbreviation": "GMT+9",
+            "rawFormat": "+09:00 Korean Time - Pyongyang, Hamhŭng, Namp’o, Sunch’ŏn"
+         }
+      }
+   },
+   {
+      "alpha2": "MK",
+      "alpha3": "MKD",
+      "code": "+389",
+      "currency_code": "MKD",
+      "decimals": 0,
+      "name": "North Macedonia",
+      "sign": "ден",
+      "timezones": [
+         "Europe/Skopje"
+      ],
+      "timezones_detail": {
+         "Europe/Skopje": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Skopje, Bitola, Kumanovo, Prilep"
+         }
+      }
+   },
+   {
+      "alpha2": "MP",
+      "alpha3": "MNP",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Northern Mariana Islands",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Saipan"
+      ],
+      "timezones_detail": {
+         "Pacific/Saipan": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "ChST",
+            "rawFormat": "+10:00 Chamorro Time - Saipan"
+         }
+      }
+   },
+   {
+      "alpha2": "NO",
+      "alpha3": "NOR",
+      "code": "+47",
+      "currency_code": "NOK",
+      "decimals": 2,
+      "name": "Norway",
+      "sign": "kr",
+      "timezones": [
+         "Europe/Oslo"
+      ],
+      "timezones_detail": {
+         "Europe/Oslo": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Oslo, Bergen, Trondheim, Stavanger"
+         }
+      }
+   },
+   {
+      "alpha2": "OM",
+      "alpha3": "OMN",
+      "code": "+968",
+      "currency_code": "OMR",
+      "decimals": 3,
+      "name": "Oman",
+      "sign": "﷼",
+      "timezones": [
+         "Asia/Muscat"
+      ],
+      "timezones_detail": {
+         "Asia/Muscat": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "GST",
+            "rawFormat": "+04:00 Gulf Time - Muscat, Seeb, Şalālah, Bawshar"
+         }
+      }
+   },
+   {
+      "alpha2": "PK",
+      "alpha3": "PAK",
+      "code": "+92",
+      "currency_code": "PKR",
+      "decimals": 2,
+      "name": "Pakistan",
+      "sign": "₨",
+      "timezones": [
+         "Asia/Karachi"
+      ],
+      "timezones_detail": {
+         "Asia/Karachi": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "PKT",
+            "rawFormat": "+05:00 Pakistan Time - Karachi, Lahore, Faisalabad, Rawalpindi"
+         }
+      }
+   },
+   {
+      "alpha2": "PW",
+      "alpha3": "PLW",
+      "code": "+680",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Palau",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Palau"
+      ],
+      "timezones_detail": {
+         "Pacific/Palau": {
+            "rawOffsetInMinutes": 540,
+            "abbreviation": "PWT",
+            "rawFormat": "+09:00 Palau Time - Ngerulmud"
+         }
+      }
+   },
+   {
+      "alpha2": "PS",
+      "alpha3": "PSE",
+      "code": "+970",
+      "currency_code": "JOD",
+      "decimals": 3,
+      "name": "Palestine",
+      "sign": "د.ا",
+      "timezones": [
+         "Asia/Hebron"
+      ],
+      "timezones_detail": {
+         "Asia/Hebron": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - East Jerusalem, Gaza, Khān Yūnis, Jabālyā"
+         }
+      }
+   },
+   {
+      "alpha2": "PA",
+      "alpha3": "PAN",
+      "code": "+507",
+      "currency_code": "PAB",
+      "decimals": 2,
+      "name": "Panama",
+      "sign": "B/.",
+      "timezones": [
+         "America/Panama"
+      ],
+      "timezones_detail": {
+         "America/Panama": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Panamá, San Miguelito, Juan Díaz, David"
+         }
+      }
+   },
+   {
+      "alpha2": "PG",
+      "alpha3": "PNG",
+      "code": "+675",
+      "currency_code": "PGK",
+      "decimals": 2,
+      "name": "Papua New Guinea",
+      "sign": "K",
+      "timezones": [
+         "Pacific/Port_Moresby",
+         "Pacific/Bougainville"
+      ],
+      "timezones_detail": {
+         "Pacific/Port_Moresby": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "PGT",
+            "rawFormat": "+10:00 Papua New Guinea Time - Port Moresby, Lae, Mount Hagen, Popondetta"
+         },
+         "Pacific/Bougainville": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "BST",
+            "rawFormat": "+11:00 Bougainville Time - Arawa"
+         }
+      }
+   },
+   {
+      "alpha2": "PY",
+      "alpha3": "PRY",
+      "code": "+595",
+      "currency_code": "PYG",
+      "decimals": 0,
+      "name": "Paraguay",
+      "sign": "Gs",
+      "timezones": [
+         "America/Asuncion"
+      ],
+      "timezones_detail": {
+         "America/Asuncion": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "PYT",
+            "rawFormat": "-04:00 Paraguay Time - Asunción, Ciudad del Este, San Lorenzo, Capiatá"
+         }
+      }
+   },
+   {
+      "alpha2": "PE",
+      "alpha3": "PER",
+      "code": "+51",
+      "currency_code": "PEN",
+      "decimals": 2,
+      "name": "Peru",
+      "sign": "S/.",
+      "timezones": [
+         "America/Lima"
+      ],
+      "timezones_detail": {
+         "America/Lima": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "PET",
+            "rawFormat": "-05:00 Peru Time - Lima, Arequipa, Callao, Trujillo"
+         }
+      }
+   },
+   {
+      "alpha2": "PH",
+      "alpha3": "PHL",
+      "code": "+63",
+      "currency_code": "PHP",
+      "decimals": 2,
+      "name": "Philippines",
+      "sign": "₱",
+      "timezones": [
+         "Asia/Manila"
+      ],
+      "timezones_detail": {
+         "Asia/Manila": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "PHT",
+            "rawFormat": "+08:00 Philippine Time - Quezon City, Manila, Caloocan City, Budta"
+         }
+      }
+   },
+   {
+      "alpha2": "PN",
+      "alpha3": "PCN",
+      "code": "+64",
+      "currency_code": "NZD",
+      "decimals": 2,
+      "name": "Pitcairn Islands",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Pitcairn"
+      ],
+      "timezones_detail": {
+         "Pacific/Pitcairn": {
+            "rawOffsetInMinutes": -480,
+            "abbreviation": "PST",
+            "rawFormat": "-08:00 Pitcairn Time - Adamstown"
+         }
+      }
+   },
+   {
+      "alpha2": "PL",
+      "alpha3": "POL",
+      "code": "+48",
+      "currency_code": "PLN",
+      "decimals": 2,
+      "name": "Poland",
+      "sign": "zł",
+      "timezones": [
+         "Europe/Warsaw"
+      ],
+      "timezones_detail": {
+         "Europe/Warsaw": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Warsaw, Łódź, Kraków, Wrocław"
+         }
+      }
+   },
+   {
+      "alpha2": "PT",
+      "alpha3": "PRT",
+      "code": "+351",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Portugal",
+      "sign": "€",
+      "timezones": [
+         "Atlantic/Azores",
+         "Europe/Lisbon"
+      ],
+      "timezones_detail": {
+         "Atlantic/Azores": {
+            "rawOffsetInMinutes": -60,
+            "abbreviation": "AZOT",
+            "rawFormat": "-01:00 Azores Time - Ponta Delgada"
+         },
+         "Europe/Lisbon": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "WET",
+            "rawFormat": "+00:00 Western European Time - Lisbon, Porto, Amadora, Braga"
+         }
+      }
+   },
+   {
+      "alpha2": "PR",
+      "alpha3": "PRI",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Puerto Rico",
+      "sign": "$",
+      "timezones": [
+         "America/Puerto_Rico"
+      ],
+      "timezones_detail": {
+         "America/Puerto_Rico": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - San Juan, Bayamón, Carolina, Ponce"
+         }
+      }
+   },
+   {
+      "alpha2": "QA",
+      "alpha3": "QAT",
+      "code": "+974",
+      "currency_code": "QAR",
+      "decimals": 2,
+      "name": "Qatar",
+      "sign": "﷼",
+      "timezones": [
+         "Asia/Qatar"
+      ],
+      "timezones_detail": {
+         "Asia/Qatar": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "AST",
+            "rawFormat": "+03:00 Arabian Time - Doha, Ar Rayyān, Umm Şalāl Muḩammad, Al Wakrah"
+         }
+      }
+   },
+   {
+      "alpha2": "RO",
+      "alpha3": "ROU",
+      "code": "+40",
+      "currency_code": "RON",
+      "decimals": 2,
+      "name": "Romania",
+      "sign": "lei",
+      "timezones": [
+         "Europe/Bucharest"
+      ],
+      "timezones_detail": {
+         "Europe/Bucharest": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Bucharest, Sector 3, Sector 6, Sector 2"
+         }
+      }
+   },
+   {
+      "alpha2": "RU",
+      "alpha3": "RUS",
+      "code": "+7",
+      "currency_code": "RUB",
+      "decimals": 2,
+      "name": "Russia",
+      "sign": "₽",
+      "timezones": [
+         "Europe/Kaliningrad",
+         "Europe/Moscow",
+         "Europe/Samara",
+         "Asia/Yekaterinburg",
+         "Asia/Omsk",
+         "Asia/Novosibirsk",
+         "Asia/Irkutsk",
+         "Asia/Chita",
+         "Asia/Vladivostok",
+         "Asia/Sakhalin",
+         "Asia/Kamchatka"
+      ],
+      "timezones_detail": {
+         "Europe/Kaliningrad": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Kaliningrad, Chernyakhovsk, Sovetsk, Baltiysk"
+         },
+         "Europe/Moscow": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "MSK",
+            "rawFormat": "+03:00 Moscow Time - Moscow, Saint Petersburg, Nizhniy Novgorod, Kazan"
+         },
+         "Europe/Samara": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "SAMT",
+            "rawFormat": "+04:00 Samara Time - Samara, Saratov, Togliatti-on-the-Volga, Ulyanovsk"
+         },
+         "Asia/Yekaterinburg": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "YEKT",
+            "rawFormat": "+05:00 Yekaterinburg Time - Yekaterinburg, Chelyabinsk, Ufa, Perm"
+         },
+         "Asia/Omsk": {
+            "rawOffsetInMinutes": 360,
+            "abbreviation": "OMST",
+            "rawFormat": "+06:00 Omsk Time - Omsk, Tara, Kalachinsk"
+         },
+         "Asia/Novosibirsk": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "NOVT",
+            "rawFormat": "+07:00 Novosibirsk Time - Novosibirsk, Krasnoyarsk, Barnaul, Novokuznetsk"
+         },
+         "Asia/Irkutsk": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "IRKT",
+            "rawFormat": "+08:00 Irkutsk Time - Irkutsk, Ulan-Ude, Bratsk, Angarsk"
+         },
+         "Asia/Chita": {
+            "rawOffsetInMinutes": 540,
+            "abbreviation": "YAKT",
+            "rawFormat": "+09:00 Yakutsk Time - Chita, Yakutsk, Blagoveshchensk, Belogorsk"
+         },
+         "Asia/Vladivostok": {
+            "rawOffsetInMinutes": 600,
+            "abbreviation": "VLAT",
+            "rawFormat": "+10:00 Vladivostok Time - Vladivostok, Khabarovsk, Khabarovsk Vtoroy, Komsomolsk-on-Amur"
+         },
+         "Asia/Sakhalin": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "SAKT",
+            "rawFormat": "+11:00 Sakhalin Time - Yuzhno-Sakhalinsk, Magadan, Korsakov, Kholmsk"
+         },
+         "Asia/Kamchatka": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "GMT+12",
+            "rawFormat": "+12:00 Petropavlovsk-Kamchatski Time - Petropavlovsk-Kamchatsky, Yelizovo, Vilyuchinsk, Anadyr"
+         }
+      }
+   },
+   {
+      "alpha2": "RW",
+      "alpha3": "RWA",
+      "code": "+250",
+      "currency_code": "RWF",
+      "decimals": 0,
+      "name": "Rwanda",
+      "sign": "FRw",
+      "timezones": [
+         "Africa/Kigali"
+      ],
+      "timezones_detail": {
+         "Africa/Kigali": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Kigali, Butare, Gitarama, Musanze"
+         }
+      }
+   },
+   {
+      "alpha2": "RE",
+      "alpha3": "REU",
+      "code": "+262",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Réunion",
+      "sign": "€",
+      "timezones": [
+         "Indian/Reunion"
+      ],
+      "timezones_detail": {
+         "Indian/Reunion": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "RET",
+            "rawFormat": "+04:00 Réunion Time - Saint-Denis, Saint-Paul, Saint-Pierre, Le Tampon"
+         }
+      }
+   },
+   {
+      "alpha2": "WS",
+      "alpha3": "WSM",
+      "code": "+685",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Samoa",
+      "sign": "€",
+      "timezones": [
+         "Pacific/Apia"
+      ],
+      "timezones_detail": {
+         "Pacific/Apia": {
+            "rawOffsetInMinutes": 780,
+            "abbreviation": "GMT+14",
+            "rawFormat": "+13:00 Apia Time - Apia"
+         }
+      }
+   },
+   {
+      "alpha2": "SM",
+      "alpha3": "SMR",
+      "code": "+378",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "San Marino",
+      "sign": "€",
+      "timezones": [
+         "Europe/San_Marino"
+      ],
+      "timezones_detail": {
+         "Europe/San_Marino": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - San Marino"
+         }
+      }
+   },
+   {
+      "alpha2": "SA",
+      "alpha3": "SAU",
+      "code": "+966",
+      "currency_code": "SAR",
+      "decimals": 2,
+      "name": "Saudi Arabia",
+      "sign": "﷼",
+      "timezones": [
+         "Asia/Riyadh"
+      ],
+      "timezones_detail": {
+         "Asia/Riyadh": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "AST",
+            "rawFormat": "+03:00 Arabian Time - Riyadh, Jeddah, Mecca, Medina"
+         }
+      }
+   },
+   {
+      "alpha2": "SN",
+      "alpha3": "SEN",
+      "code": "+221",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Senegal",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Dakar"
+      ],
+      "timezones_detail": {
+         "Africa/Dakar": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Dakar, Pikine, Touba, Thiès"
+         }
+      }
+   },
+   {
+      "alpha2": "RS",
+      "alpha3": "SRB",
+      "code": "+381",
+      "currency_code": "RSD",
+      "decimals": 2,
+      "name": "Serbia",
+      "sign": "Дин.",
+      "timezones": [
+         "Europe/Belgrade"
+      ],
+      "timezones_detail": {
+         "Europe/Belgrade": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Belgrade, Niš, Novi Sad, Zemun"
+         }
+      }
+   },
+   {
+      "alpha2": "SC",
+      "alpha3": "SYC",
+      "code": "+248",
+      "currency_code": "SCR",
+      "decimals": 2,
+      "name": "Seychelles",
+      "sign": "₨",
+      "timezones": [
+         "Indian/Mahe"
+      ],
+      "timezones_detail": {
+         "Indian/Mahe": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "SCT",
+            "rawFormat": "+04:00 Seychelles Time - Victoria"
+         }
+      }
+   },
+   {
+      "alpha2": "SL",
+      "alpha3": "SLE",
+      "code": "+232",
+      "currency_code": "SLL",
+      "decimals": 0,
+      "name": "Sierra Leone",
+      "sign": "Le",
+      "timezones": [
+         "Africa/Freetown"
+      ],
+      "timezones_detail": {
+         "Africa/Freetown": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Freetown, Bo, Kenema, Koidu"
+         }
+      }
+   },
+   {
+      "alpha2": "SG",
+      "alpha3": "SGP",
+      "code": "+65",
+      "currency_code": "SGD",
+      "decimals": 2,
+      "name": "Singapore",
+      "sign": "$",
+      "timezones": [
+         "Asia/Singapore"
+      ],
+      "timezones_detail": {
+         "Asia/Singapore": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "SGT",
+            "rawFormat": "+08:00 Singapore Time - Singapore, Woodlands"
+         }
+      }
+   },
+   {
+      "alpha2": "SX",
+      "alpha3": "SXM",
+      "code": "+1",
+      "currency_code": "ANG",
+      "decimals": 2,
+      "name": "Sint Maarten",
+      "sign": "",
+      "timezones": [
+         "America/Lower_Princes"
+      ],
+      "timezones_detail": {
+         "America/Lower_Princes": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Philipsburg"
+         }
+      }
+   },
+   {
+      "alpha2": "SK",
+      "alpha3": "SVK",
+      "code": "+421",
+      "currency_code": "SKK",
+      "decimals": 2,
+      "name": "Slovakia",
+      "sign": "Sk",
+      "timezones": [
+         "Europe/Bratislava"
+      ],
+      "timezones_detail": {
+         "Europe/Bratislava": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Bratislava, Košice, Prešov, Nitra"
+         }
+      }
+   },
+   {
+      "alpha2": "SI",
+      "alpha3": "SVN",
+      "code": "+386",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Slovenia",
+      "sign": "€",
+      "timezones": [
+         "Europe/Ljubljana"
+      ],
+      "timezones_detail": {
+         "Europe/Ljubljana": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Ljubljana, Maribor, Celje, Kranj"
+         }
+      }
+   },
+   {
+      "alpha2": "SB",
+      "alpha3": "SLB",
+      "code": "+677",
+      "currency_code": "SBD",
+      "decimals": 2,
+      "name": "Solomon Islands",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Guadalcanal"
+      ],
+      "timezones_detail": {
+         "Pacific/Guadalcanal": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "SBT",
+            "rawFormat": "+11:00 Solomon Islands Time - Honiara"
+         }
+      }
+   },
+   {
+      "alpha2": "SO",
+      "alpha3": "SOM",
+      "code": "+252",
+      "currency_code": "SOS",
+      "decimals": 2,
+      "name": "Somalia",
+      "sign": "S",
+      "timezones": [
+         "Africa/Mogadishu"
+      ],
+      "timezones_detail": {
+         "Africa/Mogadishu": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Mogadishu, Hargeysa, Berbera, Kismayo"
+         }
+      }
+   },
+   {
+      "alpha2": "ZA",
+      "alpha3": "ZAF",
+      "code": "+27",
+      "currency_code": "ZAR",
+      "decimals": 2,
+      "name": "South Africa",
+      "sign": "R",
+      "timezones": [
+         "Africa/Johannesburg"
+      ],
+      "timezones_detail": {
+         "Africa/Johannesburg": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "SAST",
+            "rawFormat": "+02:00 South Africa Time - Cape Town, Durban, Johannesburg, Soweto"
+         }
+      }
+   },
+   {
+      "alpha2": "GS",
+      "alpha3": "SGS",
+      "code": "+500",
+      "currency_code": "GBP",
+      "decimals": 2,
+      "name": "South Georgia & South Sandwich Islands",
+      "sign": "£",
+      "timezones": [
+         "Atlantic/South_Georgia"
+      ],
+      "timezones_detail": {
+         "Atlantic/South_Georgia": {
+            "rawOffsetInMinutes": -120,
+            "abbreviation": "GST",
+            "rawFormat": "-02:00 South Georgia Time - Grytviken"
+         }
+      }
+   },
+   {
+      "alpha2": "KR",
+      "alpha3": "KOR",
+      "code": "+82",
+      "currency_code": "KRW",
+      "decimals": 0,
+      "name": "South Korea",
+      "sign": "₩",
+      "timezones": [
+         "Asia/Seoul"
+      ],
+      "timezones_detail": {
+         "Asia/Seoul": {
+            "rawOffsetInMinutes": 540,
+            "abbreviation": "GMT+9",
+            "rawFormat": "+09:00 Korean Time - Seoul, Busan, Incheon, Daegu"
+         }
+      }
+   },
+   {
+      "alpha2": "SS",
+      "alpha3": "SSD",
+      "code": "+211",
+      "currency_code": "SSP",
+      "decimals": 2,
+      "name": "South Sudan",
+      "sign": "SS£",
+      "timezones": [
+         "Africa/Juba"
+      ],
+      "timezones_detail": {
+         "Africa/Juba": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EAT",
+            "rawFormat": "+02:00 East Africa Time - Juba, Winejok, Malakal, Wau"
+         }
+      }
+   },
+   {
+      "alpha2": "ES",
+      "alpha3": "ESP",
+      "code": "+34",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Spain",
+      "sign": "€",
+      "timezones": [
+         "Atlantic/Canary",
+         "Europe/Madrid"
+      ],
+      "timezones_detail": {
+         "Atlantic/Canary": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "WET",
+            "rawFormat": "+00:00 Western European Time - Las Palmas de Gran Canaria, Santa Cruz de Tenerife, La Laguna, Telde"
+         },
+         "Europe/Madrid": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Madrid, Barcelona, Valencia, Sevilla"
+         }
+      }
+   },
+   {
+      "alpha2": "LK",
+      "alpha3": "LKA",
+      "code": "+94",
+      "currency_code": "LKR",
+      "decimals": 2,
+      "name": "Sri Lanka",
+      "sign": "₨",
+      "timezones": [
+         "Asia/Colombo"
+      ],
+      "timezones_detail": {
+         "Asia/Colombo": {
+            "rawOffsetInMinutes": 330,
+            "abbreviation": "IST",
+            "rawFormat": "+05:30 India Time - Colombo, Dehiwala-Mount Lavinia, Moratuwa, Jaffna"
+         }
+      }
+   },
+   {
+      "alpha2": "BL",
+      "alpha3": "BLM",
+      "code": "+590",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "St. Barthélemy",
+      "sign": "€",
+      "timezones": [
+         "America/St_Barthelemy"
+      ],
+      "timezones_detail": {
+         "America/St_Barthelemy": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Gustavia"
+         }
+      }
+   },
+   {
+      "alpha2": "SH",
+      "alpha3": "SHN",
+      "code": "+290",
+      "currency_code": "GBP",
+      "decimals": 2,
+      "name": "St. Helena",
+      "sign": "£",
+      "timezones": [
+         "Atlantic/St_Helena"
+      ],
+      "timezones_detail": {
+         "Atlantic/St_Helena": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Jamestown"
+         }
+      }
+   },
+   {
+      "alpha2": "KN",
+      "alpha3": "KNA",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "St. Kitts & Nevis",
+      "sign": "$",
+      "timezones": [
+         "America/St_Kitts"
+      ],
+      "timezones_detail": {
+         "America/St_Kitts": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Basseterre"
+         }
+      }
+   },
+   {
+      "alpha2": "LC",
+      "alpha3": "LCA",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "St. Lucia",
+      "sign": "$",
+      "timezones": [
+         "America/St_Lucia"
+      ],
+      "timezones_detail": {
+         "America/St_Lucia": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Castries"
+         }
+      }
+   },
+   {
+      "alpha2": "MF",
+      "alpha3": "MAF",
+      "code": "+590",
+      "currency_code": "ANG",
+      "decimals": 2,
+      "name": "St. Martin",
+      "sign": "ƒ",
+      "timezones": [
+         "America/Marigot"
+      ],
+      "timezones_detail": {
+         "America/Marigot": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Marigot"
+         }
+      }
+   },
+   {
+      "alpha2": "PM",
+      "alpha3": "SPM",
+      "code": "+508",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "St. Pierre & Miquelon",
+      "sign": "€",
+      "timezones": [
+         "America/Miquelon"
+      ],
+      "timezones_detail": {
+         "America/Miquelon": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "GMT-3",
+            "rawFormat": "-03:00 St. Pierre & Miquelon Time - Saint-Pierre"
+         }
+      }
+   },
+   {
+      "alpha2": "VC",
+      "alpha3": "VCT",
+      "code": "+1",
+      "currency_code": "XCD",
+      "decimals": 2,
+      "name": "St. Vincent & Grenadines",
+      "sign": "$",
+      "timezones": [
+         "America/St_Vincent"
+      ],
+      "timezones_detail": {
+         "America/St_Vincent": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Kingstown, Kingstown Park"
+         }
+      }
+   },
+   {
+      "alpha2": "SD",
+      "alpha3": "SDN",
+      "code": "+249",
+      "currency_code": "SDG",
+      "decimals": 2,
+      "name": "Sudan",
+      "sign": "SD",
+      "timezones": [
+         "Africa/Khartoum"
+      ],
+      "timezones_detail": {
+         "Africa/Khartoum": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Khartoum, Omdurman, Nyala, Port Sudan"
+         }
+      }
+   },
+   {
+      "alpha2": "SR",
+      "alpha3": "SUR",
+      "code": "+597",
+      "currency_code": "SRD",
+      "decimals": 2,
+      "name": "Suriname",
+      "sign": "$",
+      "timezones": [
+         "America/Paramaribo"
+      ],
+      "timezones_detail": {
+         "America/Paramaribo": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "SRT",
+            "rawFormat": "-03:00 Suriname Time - Paramaribo, Lelydorp"
+         }
+      }
+   },
+   {
+      "alpha2": "SJ",
+      "alpha3": "SJM",
+      "code": "+47",
+      "currency_code": "NOK",
+      "decimals": 2,
+      "name": "Svalbard & Jan Mayen",
+      "sign": "kr",
+      "timezones": [
+         "Arctic/Longyearbyen"
+      ],
+      "timezones_detail": {
+         "Arctic/Longyearbyen": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Longyearbyen"
+         }
+      }
+   },
+   {
+      "alpha2": "SE",
+      "alpha3": "SWE",
+      "code": "+46",
+      "currency_code": "SEK",
+      "decimals": 2,
+      "name": "Sweden",
+      "sign": "kr",
+      "timezones": [
+         "Europe/Stockholm"
+      ],
+      "timezones_detail": {
+         "Europe/Stockholm": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Stockholm, Göteborg, Malmö, Uppsala"
+         }
+      }
+   },
+   {
+      "alpha2": "CH",
+      "alpha3": "CHE",
+      "code": "+41",
+      "currency_code": "CHF",
+      "decimals": 2,
+      "name": "Switzerland",
+      "sign": "CHF",
+      "timezones": [
+         "Europe/Zurich"
+      ],
+      "timezones_detail": {
+         "Europe/Zurich": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Zürich, Genève, Basel, Lausanne"
+         }
+      }
+   },
+   {
+      "alpha2": "SY",
+      "alpha3": "SYR",
+      "code": "+963",
+      "currency_code": "SYP",
+      "decimals": 2,
+      "name": "Syria",
+      "sign": "£",
+      "timezones": [
+         "Asia/Damascus"
+      ],
+      "timezones_detail": {
+         "Asia/Damascus": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Aleppo, Damascus, Homs, Ḩamāh"
+         }
+      }
+   },
+   {
+      "alpha2": "ST",
+      "alpha3": "STP",
+      "code": "+239",
+      "currency_code": "STD",
+      "decimals": 0,
+      "name": "São Tomé & Príncipe",
+      "sign": "Db",
+      "timezones": [
+         "Africa/Sao_Tome"
+      ],
+      "timezones_detail": {
+         "Africa/Sao_Tome": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - São Tomé"
+         }
+      }
+   },
+   {
+      "alpha2": "TW",
+      "alpha3": "TWN",
+      "code": "+886",
+      "currency_code": "TWD",
+      "decimals": 2,
+      "name": "Taiwan",
+      "sign": "NT$",
+      "timezones": [
+         "Asia/Taipei"
+      ],
+      "timezones_detail": {
+         "Asia/Taipei": {
+            "rawOffsetInMinutes": 480,
+            "abbreviation": "GMT+8",
+            "rawFormat": "+08:00 Taipei Time - Taipei, Kaohsiung, Taichung, Tainan"
+         }
+      }
+   },
+   {
+      "alpha2": "TJ",
+      "alpha3": "TJK",
+      "code": "+992",
+      "currency_code": "TJS",
+      "decimals": 2,
+      "name": "Tajikistan",
+      "sign": "ЅM",
+      "timezones": [
+         "Asia/Dushanbe"
+      ],
+      "timezones_detail": {
+         "Asia/Dushanbe": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "TJT",
+            "rawFormat": "+05:00 Tajikistan Time - Dushanbe, Khujand, Kŭlob, Bokhtar"
+         }
+      }
+   },
+   {
+      "alpha2": "TZ",
+      "alpha3": "TZA",
+      "code": "+255",
+      "currency_code": "TZS",
+      "decimals": 2,
+      "name": "Tanzania",
+      "sign": "TSh",
+      "timezones": [
+         "Africa/Dar_es_Salaam"
+      ],
+      "timezones_detail": {
+         "Africa/Dar_es_Salaam": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Dar es Salaam, Mwanza, Zanzibar, Arusha"
+         }
+      }
+   },
+   {
+      "alpha2": "TH",
+      "alpha3": "THA",
+      "code": "+66",
+      "currency_code": "THB",
+      "decimals": 2,
+      "name": "Thailand",
+      "sign": "฿",
+      "timezones": [
+         "Asia/Bangkok"
+      ],
+      "timezones_detail": {
+         "Asia/Bangkok": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "ICT",
+            "rawFormat": "+07:00 Indochina Time - Bangkok, Samut Prakan, Mueang Nonthaburi, Udon Thani"
+         }
+      }
+   },
+   {
+      "alpha2": "TL",
+      "alpha3": "TLS",
+      "code": "+670",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Timor-Leste",
+      "sign": "$",
+      "timezones": [
+         "Asia/Dili"
+      ],
+      "timezones_detail": {
+         "Asia/Dili": {
+            "rawOffsetInMinutes": 540,
+            "abbreviation": "TLT",
+            "rawFormat": "+09:00 East Timor Time - Dili, Maliana, Suai, Likisá"
+         }
+      }
+   },
+   {
+      "alpha2": "TG",
+      "alpha3": "TGO",
+      "code": "+228",
+      "currency_code": "XOF",
+      "decimals": 0,
+      "name": "Togo",
+      "sign": "CFA",
+      "timezones": [
+         "Africa/Lome"
+      ],
+      "timezones_detail": {
+         "Africa/Lome": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - Lomé, Sokodé, Kara, Atakpamé"
+         }
+      }
+   },
+   {
+      "alpha2": "TK",
+      "alpha3": "TKL",
+      "code": "+690",
+      "currency_code": "NZD",
+      "decimals": 2,
+      "name": "Tokelau",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Fakaofo"
+      ],
+      "timezones_detail": {
+         "Pacific/Fakaofo": {
+            "rawOffsetInMinutes": 780,
+            "abbreviation": "TKT",
+            "rawFormat": "+13:00 Tokelau Time - Fakaofo"
+         }
+      }
+   },
+   {
+      "alpha2": "TO",
+      "alpha3": "TON",
+      "code": "+676",
+      "currency_code": "TOP",
+      "decimals": 2,
+      "name": "Tonga",
+      "sign": "T$",
+      "timezones": [
+         "Pacific/Tongatapu"
+      ],
+      "timezones_detail": {
+         "Pacific/Tongatapu": {
+            "rawOffsetInMinutes": 780,
+            "abbreviation": "TOT",
+            "rawFormat": "+13:00 Tonga Time - Nuku‘alofa"
+         }
+      }
+   },
+   {
+      "alpha2": "TT",
+      "alpha3": "TTO",
+      "code": "+1",
+      "currency_code": "TTD",
+      "decimals": 2,
+      "name": "Trinidad & Tobago",
+      "sign": "TT$",
+      "timezones": [
+         "America/Port_of_Spain"
+      ],
+      "timezones_detail": {
+         "America/Port_of_Spain": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Chaguanas, Mon Repos, San Fernando, Port of Spain"
+         }
+      }
+   },
+   {
+      "alpha2": "TA",
+      "alpha3": null,
+      "code": "+290",
+      "currency_code": "GBP",
+      "decimals": 2,
+      "name": "Tristan da Cunha",
+      "sign": "£"
+   },
+   {
+      "alpha2": "TN",
+      "alpha3": "TUN",
+      "code": "+216",
+      "currency_code": "TND",
+      "decimals": 3,
+      "name": "Tunisia",
+      "sign": "د.ت",
+      "timezones": [
+         "Africa/Tunis"
+      ],
+      "timezones_detail": {
+         "Africa/Tunis": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Tunis, Sfax, Sousse, Kairouan"
+         }
+      }
+   },
+   {
+      "alpha2": "TR",
+      "alpha3": "TUR",
+      "code": "+90",
+      "currency_code": "TRY",
+      "decimals": 2,
+      "name": "Turkey",
+      "sign": "₺",
+      "timezones": [
+         "Europe/Istanbul"
+      ],
+      "timezones_detail": {
+         "Europe/Istanbul": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "TRT",
+            "rawFormat": "+03:00 Turkey Time - Istanbul, Ankara, İzmir, Bursa"
+         }
+      }
+   },
+   {
+      "alpha2": "TM",
+      "alpha3": "TKM",
+      "code": "+993",
+      "currency_code": "TMT",
+      "decimals": 2,
+      "name": "Turkmenistan",
+      "sign": "T",
+      "timezones": [
+         "Asia/Ashgabat"
+      ],
+      "timezones_detail": {
+         "Asia/Ashgabat": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "TMT",
+            "rawFormat": "+05:00 Turkmenistan Time - Ashgabat, Türkmenabat, Daşoguz, Mary"
+         }
+      }
+   },
+   {
+      "alpha2": "TC",
+      "alpha3": "TCA",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "Turks & Caicos Islands",
+      "sign": "$",
+      "timezones": [
+         "America/Grand_Turk"
+      ],
+      "timezones_detail": {
+         "America/Grand_Turk": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - Cockburn Town"
+         }
+      }
+   },
+   {
+      "alpha2": "TV",
+      "alpha3": "TUV",
+      "code": "+688",
+      "currency_code": "AUD",
+      "decimals": 2,
+      "name": "Tuvalu",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Funafuti"
+      ],
+      "timezones_detail": {
+         "Pacific/Funafuti": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "TVT",
+            "rawFormat": "+12:00 Tuvalu Time - Funafuti"
+         }
+      }
+   },
+   {
+      "alpha2": "UM",
+      "alpha3": "UMI",
+      "code": "+246",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "U.S. Outlying Islands",
+      "sign": "$",
+      "timezones": [
+         "Pacific/Midway",
+         "Pacific/Wake"
+      ],
+      "timezones_detail": {
+         "Pacific/Midway": {
+            "rawOffsetInMinutes": -660,
+            "abbreviation": "SST",
+            "rawFormat": "-11:00 Samoa Time - Midway"
+         },
+         "Pacific/Wake": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "GMT+12",
+            "rawFormat": "+12:00 Wake Island Time - Wake"
+         }
+      }
+   },
+   {
+      "alpha2": "VI",
+      "alpha3": "VIR",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "U.S. Virgin Islands",
+      "sign": "$",
+      "timezones": [
+         "America/St_Thomas"
+      ],
+      "timezones_detail": {
+         "America/St_Thomas": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "AST",
+            "rawFormat": "-04:00 Atlantic Time - Saint Croix, Charlotte Amalie"
+         }
+      }
+   },
+   {
+      "alpha2": "UG",
+      "alpha3": "UGA",
+      "code": "+256",
+      "currency_code": "UGX",
+      "decimals": 2,
+      "name": "Uganda",
+      "sign": "USh",
+      "timezones": [
+         "Africa/Kampala"
+      ],
+      "timezones_detail": {
+         "Africa/Kampala": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "EAT",
+            "rawFormat": "+03:00 East Africa Time - Kampala, Gulu, Lira, Mbarara"
+         }
+      }
+   },
+   {
+      "alpha2": "UA",
+      "alpha3": "UKR",
+      "code": "+380",
+      "currency_code": "UAH",
+      "decimals": 2,
+      "name": "Ukraine",
+      "sign": "₴",
+      "timezones": [
+         "Europe/Kiev"
+      ],
+      "timezones_detail": {
+         "Europe/Kiev": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "EET",
+            "rawFormat": "+02:00 Eastern European Time - Kyiv, Kharkiv, Donetsk, Odessa"
+         }
+      }
+   },
+   {
+      "alpha2": "AE",
+      "alpha3": "ARE",
+      "code": "+971",
+      "currency_code": "AED",
+      "decimals": 2,
+      "name": "United Arab Emirates",
+      "sign": "د.إ",
+      "timezones": [
+         "Asia/Dubai"
+      ],
+      "timezones_detail": {
+         "Asia/Dubai": {
+            "rawOffsetInMinutes": 240,
+            "abbreviation": "GST",
+            "rawFormat": "+04:00 Gulf Time - Dubai, Sharjah, Abu Dhabi, Ajman City"
+         }
+      }
+   },
+   {
+      "alpha2": "GB",
+      "alpha3": "GBR",
+      "code": "+44",
+      "currency_code": "GBP",
+      "decimals": 2,
+      "name": "United Kingdom",
+      "sign": "£",
+      "timezones": [
+         "Europe/London"
+      ],
+      "timezones_detail": {
+         "Europe/London": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "GMT",
+            "rawFormat": "+00:00 Greenwich Mean Time - London, Birmingham, Liverpool, Sheffield"
+         }
+      }
+   },
+   {
+      "alpha2": "US",
+      "alpha3": "USA",
+      "code": "+1",
+      "currency_code": "USD",
+      "decimals": 2,
+      "name": "United States",
+      "sign": "$",
+      "timezones": [
+         "America/Adak",
+         "Pacific/Honolulu",
+         "America/Anchorage",
+         "America/Los_Angeles",
+         "America/Denver",
+         "America/Phoenix",
+         "America/Chicago",
+         "America/New_York"
+      ],
+      "timezones_detail": {
+         "America/Adak": {
+            "rawOffsetInMinutes": -600,
+            "abbreviation": "HST",
+            "rawFormat": "-10:00 Hawaii-Aleutian Time - Adak"
+         },
+         "Pacific/Honolulu": {
+            "rawOffsetInMinutes": -600,
+            "abbreviation": "HST",
+            "rawFormat": "-10:00 Hawaii-Aleutian Time - Honolulu, East Honolulu, Pearl City, Hilo"
+         },
+         "America/Anchorage": {
+            "rawOffsetInMinutes": -540,
+            "abbreviation": "AKST",
+            "rawFormat": "-09:00 Alaska Time - Anchorage, Juneau, Fairbanks, Eagle River"
+         },
+         "America/Los_Angeles": {
+            "rawOffsetInMinutes": -480,
+            "abbreviation": "PST",
+            "rawFormat": "-08:00 Pacific Time - Los Angeles, San Diego, San Jose, San Francisco"
+         },
+         "America/Denver": {
+            "rawOffsetInMinutes": -420,
+            "abbreviation": "MST",
+            "rawFormat": "-07:00 Mountain Time - Denver, El Paso, Albuquerque, Colorado Springs"
+         },
+         "America/Phoenix": {
+            "rawOffsetInMinutes": -420,
+            "abbreviation": "MST",
+            "rawFormat": "-07:00 Mountain Time - Phoenix, Tucson, Mesa, Chandler"
+         },
+         "America/Chicago": {
+            "rawOffsetInMinutes": -360,
+            "abbreviation": "CST",
+            "rawFormat": "-06:00 Central Time - Chicago, Houston, San Antonio, Dallas"
+         },
+         "America/New_York": {
+            "rawOffsetInMinutes": -300,
+            "abbreviation": "EST",
+            "rawFormat": "-05:00 Eastern Time - New York City, Brooklyn, Queens, Philadelphia"
+         }
+      }
+   },
+   {
+      "alpha2": "UY",
+      "alpha3": "URY",
+      "code": "+598",
+      "currency_code": "UYU",
+      "decimals": 2,
+      "name": "Uruguay",
+      "sign": "$U",
+      "timezones": [
+         "America/Montevideo"
+      ],
+      "timezones_detail": {
+         "America/Montevideo": {
+            "rawOffsetInMinutes": -180,
+            "abbreviation": "UYT",
+            "rawFormat": "-03:00 Uruguay Time - Montevideo, Salto, Paysandú, Las Piedras"
+         }
+      }
+   },
+   {
+      "alpha2": "UZ",
+      "alpha3": "UZB",
+      "code": "+998",
+      "currency_code": "UZS",
+      "decimals": 2,
+      "name": "Uzbekistan",
+      "sign": "лв",
+      "timezones": [
+         "Asia/Tashkent"
+      ],
+      "timezones_detail": {
+         "Asia/Tashkent": {
+            "rawOffsetInMinutes": 300,
+            "abbreviation": "UZT",
+            "rawFormat": "+05:00 Uzbekistan Time - Tashkent, Namangan, Samarkand, Andijon"
+         }
+      }
+   },
+   {
+      "alpha2": "VU",
+      "alpha3": "VUT",
+      "code": "+678",
+      "currency_code": "VUV",
+      "decimals": 0,
+      "name": "Vanuatu",
+      "sign": "VT",
+      "timezones": [
+         "Pacific/Efate"
+      ],
+      "timezones_detail": {
+         "Pacific/Efate": {
+            "rawOffsetInMinutes": 660,
+            "abbreviation": "VUT",
+            "rawFormat": "+11:00 Vanuatu Time - Port-Vila"
+         }
+      }
+   },
+   {
+      "alpha2": "VA",
+      "alpha3": "VAT",
+      "code": "+379",
+      "currency_code": "EUR",
+      "decimals": 2,
+      "name": "Vatican City",
+      "sign": "€",
+      "timezones": [
+         "Europe/Vatican"
+      ],
+      "timezones_detail": {
+         "Europe/Vatican": {
+            "rawOffsetInMinutes": 60,
+            "abbreviation": "CET",
+            "rawFormat": "+01:00 Central European Time - Vatican City"
+         }
+      }
+   },
+   {
+      "alpha2": "VE",
+      "alpha3": "VEN",
+      "code": "+58",
+      "currency_code": "VEF",
+      "decimals": 2,
+      "name": "Venezuela",
+      "sign": "Bs",
+      "timezones": [
+         "America/Caracas"
+      ],
+      "timezones_detail": {
+         "America/Caracas": {
+            "rawOffsetInMinutes": -240,
+            "abbreviation": "VET",
+            "rawFormat": "-04:00 Venezuela Time - Caracas, Maracaibo, Maracay, Valencia"
+         }
+      }
+   },
+   {
+      "alpha2": "VN",
+      "alpha3": "VNM",
+      "code": "+84",
+      "currency_code": "VND",
+      "decimals": 0,
+      "name": "Vietnam",
+      "sign": "₫",
+      "timezones": [
+         "Asia/Ho_Chi_Minh"
+      ],
+      "timezones_detail": {
+         "Asia/Ho_Chi_Minh": {
+            "rawOffsetInMinutes": 420,
+            "abbreviation": "ICT",
+            "rawFormat": "+07:00 Indochina Time - Ho Chi Minh City, Da Nang, Biên Hòa, Nha Trang"
+         }
+      }
+   },
+   {
+      "alpha2": "WF",
+      "alpha3": "WLF",
+      "code": "+681",
+      "currency_code": "XPF",
+      "decimals": 0,
+      "name": "Wallis & Futuna",
+      "sign": "₣",
+      "timezones": [
+         "Pacific/Wallis"
+      ],
+      "timezones_detail": {
+         "Pacific/Wallis": {
+            "rawOffsetInMinutes": 720,
+            "abbreviation": "GMT+12",
+            "rawFormat": "+12:00 Wallis & Futuna Time - Mata-Utu"
+         }
+      }
+   },
+   {
+      "alpha2": "EH",
+      "alpha3": "ESH",
+      "code": "+212",
+      "currency_code": "MAD",
+      "decimals": 2,
+      "name": "Western Sahara",
+      "sign": "DH",
+      "timezones": [
+         "Africa/El_Aaiun"
+      ],
+      "timezones_detail": {
+         "Africa/El_Aaiun": {
+            "rawOffsetInMinutes": 0,
+            "abbreviation": "WET",
+            "rawFormat": "+00:00 Western European Time - Laayoune, Dakhla"
+         }
+      }
+   },
+   {
+      "alpha2": "YE",
+      "alpha3": "YEM",
+      "code": "+967",
+      "currency_code": "YER",
+      "decimals": 2,
+      "name": "Yemen",
+      "sign": "﷼",
+      "timezones": [
+         "Asia/Aden"
+      ],
+      "timezones_detail": {
+         "Asia/Aden": {
+            "rawOffsetInMinutes": 180,
+            "abbreviation": "AST",
+            "rawFormat": "+03:00 Arabian Time - Sanaa, Al Ḩudaydah, Taiz, Aden"
+         }
+      }
+   },
+   {
+      "alpha2": "ZM",
+      "alpha3": "ZMB",
+      "code": "+260",
+      "currency_code": "ZMK",
+      "decimals": 2,
+      "name": "Zambia",
+      "sign": "ZK",
+      "timezones": [
+         "Africa/Lusaka"
+      ],
+      "timezones_detail": {
+         "Africa/Lusaka": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Lusaka, Kitwe, Ndola, Kabwe"
+         }
+      }
+   },
+   {
+      "alpha2": "ZW",
+      "alpha3": "ZWE",
+      "code": "+263",
+      "currency_code": "ZWD",
+      "decimals": 2,
+      "name": "Zimbabwe",
+      "sign": "$",
+      "timezones": [
+         "Africa/Harare"
+      ],
+      "timezones_detail": {
+         "Africa/Harare": {
+            "rawOffsetInMinutes": 120,
+            "abbreviation": "CAT",
+            "rawFormat": "+02:00 Central Africa Time - Harare, Bulawayo, Chitungwiza, Mutare"
+         }
+      }
+   }
+]

@@ -1,0 +1,978 @@
+<% include header.html %>
+               
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+          <p align="center"> <strong><%= __(message) %></strong></p>
+      </div>
+      <% } %>   
+                <!-- START TIMELINE FILTER --> 
+               <% if(request == "requests" || request == "running_requests"){ %>
+      <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form class="form-horizontal" role="form" method="post" action="/<%= request %>">
+                <div class="form-group">
+                  <input type="hidden" name="page" id="page" value="0" />   
+                   <input type="hidden" name="request" value="<%= request %>" />
+
+                  
+                <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= __('title_sort') %></label>   
+                </div>
+                <div class="col-md-6" id="sort_option">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_field == "user_detail.first_name") { %>
+                        <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='created_at'><%= __('title_created_date') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name' selected="selected"><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' ><%= __('title_provider_name') %></option>
+                        
+                      <% } else if(sort_field == "provider_detail.first_name") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                          <option value='created_at'><%= __('title_created_date') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' selected="selected"><%= __('title_provider_name') %></option>
+                        
+                      <% } else if(sort_field == "user_detail.unique_id") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                          <option value='created_at'><%= __('title_created_date') %></option>
+                        <option value='user_detail.unique_id' selected><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                       
+                      <% } else if(sort_field == "provider_detail.unique_id") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                          <option value='created_at'><%= __('title_created_date') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id' selected><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        
+                       <% } else if(sort_field == "created_at") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                          <option value='created_at' selected><%= __('title_created_date') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+
+                      <% } else { %>
+                        <option value='unique_id' selected="selected"><%= __('title_id') %>
+                          <option value='created_at'><%= __('title_created_date') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' ><%= __('title_provider_name') %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_order == "1") { %>
+                      <option value="1" selected><%= __('sort_asc') %></option>
+                      <option value="-1"><%= __('sort_desc') %></option>
+                      <% } else{ %>
+                      <option value="1" ><%= __('sort_asc') %></option>
+                      <option value="-1" selected><%= __('sort_desc') %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= __('title_search') %></label>   
+                </div>
+                <div class="col-md-6" id="search_option">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="sel" placeholder="Select to Sort" name="search_item">
+                      <% if(search_item == "user_detail.first_name") { %>
+                      <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name' selected="selected"><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <option value='promo_detail.promocode'><%= __('title_promo') %></option>
+                        <% } else if(search_item == "user_detail.unique_id") { %>
+                        <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id' selected="selected"><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <option value='promo_detail.promocode'><%= __('title_promo') %></option>
+                        <% } else if(search_item == "provider_detail.unique_id") { %>
+                        <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id' selected="selected"><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <option value='promo_detail.promocode'><%= __('title_promo') %></option>
+                        <% } else if(search_item == "unique_id") { %>
+                        <option value='unique_id' selected="selected"><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <option value='promo_detail.promocode'><%= __('title_promo') %></option>
+                        <% } else if(search_item == "type_detail.typename") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id' ><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename' selected><%= __('title_service_type') %></option>
+                        <option value='promo_detail.promocode'><%= __('title_promo') %></option>
+                        <% } else if(search_item == "promo_detail.promocode") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id' ><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <option value='promo_detail.promocode' selected><%= __('title_promo') %></option>
+                      <% } else { %>
+                       <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' selected><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <option value='promo_detail.promocode'><%= __('title_promo') %></option>
+                      <% } %>
+                    </select>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body panel-body-search">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" value="<%= search_value %>" onkeypress="return alphaNumSpace(event);"name="search_value" placeholder="<%= __('title_search') %>"/>
+                      </div>                                                                
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= __('title_date_filter') %></label>   
+                </div>
+                <div class="col-md-12">
+
+                  <div class="btn-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="<%= __('title_start_date') %>" name="start_date" id="start_date" readonly/>
+                      <span class="input-group-addon add-on">-</span>
+                      <input type="text" class="form-control datepicker"  value="<%= filter_end_date %>" placeholder="<%= __('title_end_date') %>" name="end_date" id="end_date" readonly/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            
+           <div class="col-md-6">
+              <div class="col-md-12">
+                <ul class="pagination">
+                    <% include paginate_lookup.html %>
+                </ul> 
+              </div> 
+            </div> 
+            <div class="col-md-3">
+              <% if(request == "requests"){ %>
+                <div class="col-md-6">
+                <div class="col-md-12" style="padding: 0px;">
+               <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="status" placeholder="Select Status" name="status">
+                    <% if(status == 1) { %>
+                      <option value='3'><%= __('title_all') %></option>
+                      <option value='2'><%= __('title_cancelled_request') %></option>
+                      <option value='1' selected><%= __('title_trip_status_completed') %></option>
+                      <option value='0'><%= __('title_total_running_trip') %></option>
+                    <% } else if(status == 0){ %>
+                    <option value='3'><%= __('title_all') %></option>
+                      <option value='2'><%= __('title_cancelled_request') %></option>
+                      <option value='1'><%= __('title_trip_status_completed') %></option>
+                      <option value='0' selected><%= __('title_total_running_trip') %></option>
+                      <% } else if(status == 3){ %>
+                    <option value='3' selected><%= __('title_all') %></option>
+                      <option value='2'><%= __('title_cancelled_request') %></option>
+                      <option value='1'><%= __('title_trip_status_completed') %></option>
+                      <option value='0' ><%= __('title_total_running_trip') %></option>
+                    <% } else { %>
+                    <option value='3'><%= __('title_all') %></option>
+                      <option value='2' selected><%= __('title_cancelled_request') %></option>
+                      <option value='1'><%= __('title_trip_status_completed') %></option>
+                      <option value='0'><%= __('title_total_running_trip') %></option>
+                    <% } %>
+                 </select>
+               </div>
+             </div>
+           <% } %>
+             <div class="col-md-6">
+                <div class="col-md-12" style="padding: 0px;">
+               <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="payment" placeholder="Select Payment Mode" name="payment">
+                    <% if(payment == 1) { %>
+                      <option value='2'><%= __('title_both') %></option>
+                      <option value='1' selected><%= __('title_cash') %></option>
+                      <option value='0'><%= __('title_card') %></option>
+                    <% } else if(payment == 0){ %>
+                      <option value='2'><%= __('title_both') %></option>
+                      <option value='1'><%= __('title_cash') %></option>
+                      <option value='0' selected><%= __('title_card') %></option>
+                    <% } else { %>
+                      <option value='2' selected><%= __('title_both') %></option>
+                      <option value='1'><%= __('title_cash') %></option>
+                      <option value='0'><%= __('title_card') %></option>
+                    <% } %>
+                 </select>
+               </div>
+             </div>
+           </div>
+            <div  class="form-group col-md-3" >
+              <div class="col-md-6">
+                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= __('button_apply') %></span></button>
+              </div>
+              <div class="col-md-6">
+                    
+                   <!--  <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="$('#customers2').tableExport({type:'excel', escape:'false', ignoreColumn: [8]});"><i class="fa fa-bars"></i> <%= __('button_export_excel') %></button> -->
+                   <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= __('button_export_excel') %></button>
+              </div>
+            </div>     
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div> 
+                
+                
+                
+                
+                
+        <% } else { %>
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form class="form-horizontal" role="form" method="post" action="/<%= request %>">
+                <div class="form-group">
+                  <input type="hidden" name="page" id="page" value="0" />   
+                   <input type="hidden" name="request" value="<%= request %>" />
+
+                  
+                <div class="col-md-6">
+                <div style="text-align: center;">
+                  <label><%= __('title_sort') %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_field == "user_detail.first_name") { %>
+                        <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name' selected="selected"><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' ><%= __('title_provider_name') %></option>
+
+                      <% } else if(sort_field == "provider_detail.first_name") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' selected="selected"><%= __('title_provider_name') %></option>
+                      
+                      <% } else if(sort_field == "user_detail.unique_id") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                        <option value='user_detail.unique_id' selected><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+
+                      <% } else if(sort_field == "provider_detail.unique_id") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id' selected><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+
+                      <% } else { %>
+                        <option value='unique_id' selected="selected"><%= __('title_id') %>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' ><%= __('title_provider_name') %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                     <% if(sort_order == "1") { %>
+                      <option value="1" selected><%= __('sort_asc') %></option>
+                      <option value="-1"><%= __('sort_desc') %></option>
+                      <% } else{ %>
+                      <option value="1" ><%= __('sort_asc') %></option>
+                      <option value="-1" selected><%= __('sort_desc') %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+               
+              <div class="col-md-6">
+                <div style="text-align: center;">
+                  <label><%= __('title_search') %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="sel" placeholder="Select to Sort" name="search_item">
+                      <% if(search_item == "user_detail.first_name") { %>
+                        <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name' selected="selected"><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <% } else if(search_item == "user_detail.unique_id") { %>
+                        <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id' selected="selected"><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <% } else if(search_item == "provider_detail.unique_id") { %>
+                        <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id' selected="selected"><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <% } else if(search_item == "unique_id") { %>
+                        <option value='unique_id' selected="selected"><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                        <% } else if(search_item == "type_detail.typename") { %>
+                        <option value='unique_id' ><%= __('title_id') %>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id' ><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename' selected><%= __('title_service_type') %></option>
+
+                      <% } else { %>
+                      <option value='unique_id'><%= __('title_id') %></option>
+                        <option value='user_detail.unique_id'><%= __('title_user_id') %></option>
+                        <option value='user_detail.first_name'><%= __('title_user_name') %></option>
+                        <option value='provider_detail.unique_id'><%= __('title_provider_id') %></option>
+                        <option value='provider_detail.first_name' selected><%= __('title_provider_name') %></option>
+                        <option value='type_detail.typename'><%= __('title_service_type') %></option>
+                      <% } %>
+                    </select>
+                    </select>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body panel-body-search">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" value="<%= search_value %>" onkeypress="return alphaNumSpace(event);"name="search_value" placeholder="<%= __('title_search') %>"/>
+                      </div>                                                                
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+            
+           <div class="col-md-6">
+              <div class="col-md-12">
+                <ul class="pagination" >
+                 
+
+                    <% include paginate_lookup.html %>
+
+                   
+                </ul> 
+              </div> 
+            </div> 
+            <div class="col-md-3">
+              <div class="col-md-6">
+              <div class="col-md-12" style="padding: 0px;">
+             <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="status" placeholder="Select Status" name="status">
+                  <% if(status == 1) { %>
+                    <option value='3'><%= __('title_all') %></option>
+                    <option value='2'><%= __('title_cancelled_request') %></option>
+                    <option value='1' selected><%= __('title_trip_status_completed') %></option>
+                    <option value='0'><%= __('title_total_running_trip') %></option>
+                  <% } else if(status == 0){ %>
+                  <option value='3'><%= __('title_all') %></option>
+                    <option value='2'><%= __('title_cancelled_request') %></option>
+                    <option value='1'><%= __('title_trip_status_completed') %></option>
+                    <option value='0' selected><%= __('title_total_running_trip') %></option>
+                    <% } else if(status == 3){ %>
+                  <option value='3' selected><%= __('title_all') %></option>
+                    <option value='2'><%= __('title_cancelled_request') %></option>
+                    <option value='1'><%= __('title_trip_status_completed') %></option>
+                    <option value='0' ><%= __('title_total_running_trip') %></option>
+                  <% } else { %>
+                  <option value='3'><%= __('title_all') %></option>
+                    <option value='2' selected><%= __('title_cancelled_request') %></option>
+                    <option value='1'><%= __('title_trip_status_completed') %></option>
+                    <option value='0'><%= __('title_total_running_trip') %></option>
+                  <% } %>
+               </select>
+             </div>
+           </div>
+          <div class="col-md-6">
+              <div class="col-md-12" style="padding: 0px;">
+             <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="payment" placeholder="Select Payment Mode" name="payment">
+                  <% if(payment == 1) { %>
+                    <option value='2'><%= __('title_both') %></option>
+                    <option value='1' selected><%= __('title_cash') %></option>
+                    <option value='0'><%= __('title_card') %></option>
+                  <% } else if(payment == 0){ %>
+                    <option value='2'><%= __('title_both') %></option>
+                    <option value='1'><%= __('title_cash') %></option>
+                    <option value='0' selected><%= __('title_card') %></option>
+                  <% } else { %>
+                    <option value='2' selected><%= __('title_both') %></option>
+                    <option value='1'><%= __('title_cash') %></option>
+                    <option value='0'><%= __('title_card') %></option>
+                  <% } %>
+               </select>
+             </div>
+           </div>
+            </div>
+            <div  class="form-group col-md-3" >
+              <div class="col-md-6">
+                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= __('button_apply') %></span></button>
+              </div>
+            
+              <div class="col-md-6">
+                    
+                    <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= __('button_export_excel') %></button>
+
+                    <!-- <button class="btn btn-danger pull-right" style="height: 35px; width: 100%;" onClick ="$('#customers2').tableExport({type:'excel', escape:'false', ignoreColumn: [8]});"><i class="fa fa-bars"></i><%= __('button_export_excel') %></button> -->
+              </div>
+            </div>     
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div> 
+        <% } %>
+      <!-- END TIMELINE FILTER -->                
+                
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <!-- START SIMPLE DATATABLE -->
+                            <div class="panel panel-default">                                
+                                <div class="table-responsive" style="padding-bottom: 175px;">
+                                        <table class="table text-center" id="customers2">
+                                            <thead>
+                                                <tr>
+                                                    <th><%= __('title_id') %></th>
+                                                    <th><%= __('title_user_id') %></th>
+                                                    <th><%= __('title_user') %></th>
+                                                    <th><%= __('title_provider_id') %></th>
+                                                    <th><%= __('title_provider') %></th>
+                                                    <th><%= __('title_service_type') %></th>
+                                                    <th><%= __('title_created_date') %></th>
+                                                    <th><%= __('title_completed_date') %></th>
+                                                    <th><%= __('title_status') %></th>
+                                                    <th><%= __('title_amount') %></th>
+                                                    <th><%= __('title_payment') %></th>
+                                                    <th><%= __('title_payment_status') %></th>
+                                                    <th><%= __('button_action') %></th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                              <% detail.forEach(function(data){ %>
+                                                <tr>
+                                                <td><%= data.unique_id %></td>
+                                                <td><%= data.user_detail.unique_id %></td>
+                                                <td><%= data.user_detail.first_name %> <%= data.user_detail.last_name %></td>
+                                                <td><% if(data.provider_detail.length > 0){ %>
+                                                          <%= data.provider_detail[0].unique_id %> 
+                                                        <% } %></td>
+                                                    <td id="provider<%= data._id %>"><% if(data.provider_detail.length > 0){ %>
+                                                          <%= data.provider_detail[0].first_name %> <%= data.provider_detail[0].last_name %>
+                                                        <% } %>
+                                                    </td>
+                                                <td><%= data.type_detail.typename %></td>
+                                                    <td width=150 ><%= moment(data.created_at).tz(timezone_for_display_date).format("DD MMM 'YY") %></br><%= moment(data.created_at).tz(timezone_for_display_date).format("hh:mm a") %></td>
+                                                    <td width=150 >
+                                                      <% if(!(data.is_trip_cancelled == 0 && data.is_trip_completed == 0 && data.is_provider_status != 9)) { %>
+                                                        <% if(data.provider_trip_end_time !== null){ %> 
+                                                          <%= moment(data.provider_trip_end_time).tz(timezone_for_display_date).format("DD MMM 'YY") %></br><%= moment(data.provider_trip_end_time).tz(timezone_for_display_date).format("hh:mm a") %>
+                                                        <% } %> 
+                                                      <% } %> 
+                                                    </td>
+                                                    <td id="<%= data._id %>"><% if(data.is_trip_cancelled == 1) { %>
+                                                      <% if(data.is_trip_cancelled_by_provider == 1) { %>
+                                                          <span class="label label-danger"><%= __('title_total_cancelled_by_provider') %></span>
+                                                          <% } else if(data.is_trip_cancelled_by_user == 1) { %>
+                                                          <span class="label label-danger"><%= __('title_total_cancelled_by_user') %></span>
+                                                       <% } else { %>
+                                                          <span class="label label-danger"><%= __('title_total_cancelled') %></span>
+                                                       <% } %>
+                <% } else { if(data.is_provider_status == 2) { %>
+                <span class="label label-warning"><%= __('title_trip_status_coming') %></span>
+                <% } else if(data.is_provider_status == 4) { %>
+                <span class="label label-info"><%= __('title_trip_status_arrived') %></span>
+                <% } else if(data.is_provider_status == 6) { %>
+                <span class="label label-info"><%= __('title_trip_status_trip_started') %></span>
+                <% } else if(data.is_provider_status == 9) { %>
+                <span class="label label-success"><%= __('title_trip_status_completed') %></span>
+                <% } else if(data.is_provider_status == 1 || data.is_provider_status == 0) { %>
+                    <% if(data.is_provider_accepted == 1){ %>
+                      <span class="label label-info"><%= __('title_accepted_request') %></span>
+                    <% } else { %>
+                      <span class="label label-info"><%= __('title_trip_status_waiting') %></span>
+                    <% } %>
+                    
+                <% }} %></td>
+                                                    <td id="amount<%= data._id %>"><%= data.total.toFixed(2) %></td>
+                                                    <td><% if(data.payment_mode == 1) { %>
+                                                    <span class="label label-default"><%= __('title_pay_by_cash') %></span>
+                                                    <% } else { %>
+                                                    <span class="label label-primary"><%= __('title_pay_by_card') %></span>
+                                                    <% } %>
+                                                    </td>
+                                                    <td id="payment_status<%= data._id %>">
+                                                      <% if(data.payment_status==0 && data.is_trip_cancelled_by_provider !=1 && (data.total> 0 || data.is_trip_end == 0)) { %>
+                                                      <span class="label label-warning"><%= __('title_pending') %></span>
+                                                    <% } else { %>
+                                                      <% if(data.payment_status == 1 || data.total == 0) { %>
+                                                        <span class="label label-success"><%= __('title_paid') %></span>
+                                                      <% } else { %>
+                                                        <span class="label label-danger"><%= __('title_not_paid') %></span>
+                                                      <% } %>
+                                                    <% } %>
+                                                    </td>
+                                                    <td>
+                                                    <div class="btn-group" style="margin-right:15px;">
+                                                      <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= __('button_action') %> <span class="caret"></span></a>
+                                                      <ul class="dropdown-menu" role="menu">
+                                                         <li>
+                                                          <form method="post" action="/trip_map">
+                                                                <input type="hidden" name="id" value="<%= data._id %>" />
+                                                                <input type="hidden" name="u_name" value="<%= data.user_detail.first_name %> <%= data.user_detail.last_name %>" />
+                                                                <% if(data.provider_detail.length > 0){ %>
+                                                                <input type="hidden" id="pr_name<%= data._id %>" name="pr_name" value="<%= data.provider_detail[0].first_name %> <%= data.provider_detail[0].last_name %>" />
+                                                                <% } %>
+                                                                <button type="submit" class="btn btn-default" style="width:100%;" ><%= __('button_view_map') %> </button>
+                                                               </form>
+                                                               </li>
+                                                               <% if(data.is_provider_status == 9 || (data.is_trip_cancelled == 1 && data.is_cancellation_fee == 1)) { %>
+                                                               <li>
+                                                                <form method="post" action="/trip_invoice">
+                                                                <input type="hidden" name="id" value="<%= data._id %>" />
+                                                              
+                                                                <button type="submit" class="btn btn-default" style="width:100%;" ><%= __('button_view_invoice') %> </button>
+                                                               </form>
+                                                               </li>
+                                                               
+                                                               <% } %>
+                                                               
+                                                              <% if((data.is_trip_completed==1 || data.is_provider_status == 9) && data.is_amount_refund == false && request=='requests') { %>
+                                                                <li>
+                                                                  <button onclick="refund_payment_button_click('<%=data._id%>',<%=data.payment_mode%>)" type="button" id="refund_payment_button<%= data._id %>" class="btn btn-default" style="width:100%;">
+                                                                    <%= __('refund') %>
+                                                                  </button>
+                                                                </li>
+                                                               <% } %>
+
+                                                               <% if(data.is_provider_accepted == 1) { %>
+                                                                 <li>
+                                                                    <form method="post" action="/chat_history">
+                                                                      <input type="hidden" name="id" value="<%= data._id %>" />
+                                                                      <button type="submit" class="btn btn-default" style="width:100%;" ><%= __('button_chat_history') %> </button>
+                                                                    </form>
+                                                                 </li>
+                                                              <% } %>
+
+                                                              <% if(data.is_trip_cancelled == 0 && data.is_trip_completed == 0 && data.is_provider_status != 9) { %>
+                                                                <li>
+                                                                    
+                                                                      <button onclick="cancel_by_admin('<%=data._id%>')" type="button" class="btn btn-default" style="width:100%;" ><%= __('button_cancel') %> </button>
+                                                                 </li>
+                                                              <% } %>
+                                                              <% if(data.is_trip_cancelled == 0 && data.is_trip_completed == 0 && data.is_provider_status == 6) { %>
+                                                                <li>
+                                                                    <button onclick="completetrip('<%=data._id%>', '<%=data.confirmed_provider%>', '<%=data.is_tip%>')" type="submit" class="btn btn-default" style="width:100%;" ><%= __('button_complete') %> </button>
+                                                                </li>
+                                                              <% } %>
+                                                     </ul>
+                                                    </div>
+                                                  </td>
+                                                </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                            <!-- END SIMPLE DATATABLE -->
+
+                        </div>
+                    </div>                                
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+            </div>    
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->  
+
+        <div class="modal animated fadeIn" id="refund_payment" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+          <div class="modal-dialog" style="width: 500px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+                <h4 class="modal-title"><%= __('title_refund_trip') %></h4>
+              </div>
+              <form class="form-horizontal" id="refund_payment_form">
+                <div class="modal-body">
+                  <input type="hidden" id="trip_id">
+                  <div class="form-group">
+                    <label class="col-md-4 mt-2" style="text-align:left"><%= __('select_payment_type') %></label>
+                    <div class="col-md-8">
+                      <select class="form-control select" name="payment_type" id="payment_type">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer" style="text-align: center;">
+                  <input type="submit" class="btn btn-primary" name="button" value="<%= __('button_next') %>">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal animated fadeIn" id="add_wallet_modal" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+          <div class="modal-dialog" style="width: 300px;">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+                      <h4 class="modal-title"><%= __('title_wallet_amount') %></h4>
+                  </div>
+                  <form class="form-horizontal" id="add_wallet_form">
+                      <div class="modal-body">
+                          <div class="form-group">
+                              <div class="col-md-12">
+                                  <input type="text" onkeypress="return isNumberKeyDecimal(event,this.value);" name="wallet" id="wallet_amount" class="form-control" placeholder="<%= __('title_wallet_amount') %>">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <input type="submit" class="btn btn-primary" name="button" value="<%= __('refund') %>">
+                      </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+
+        <script src="socket.io/socket.io.js"></script>
+        <script>
+          
+
+        </script>
+
+        <script type="text/javascript">
+  $(document).ready(function() {
+    setTimeout(()=>{
+      var max_width = $("#search_option").width()
+      $("#search_option button").css("max-width",max_width-10)
+      $("#search_option button .filter-option").addClass("hide_long_text")
+      var max_width = $("#sort_option").width()
+      $("#sort_option button").css("max-width",max_width-10)
+      $("#sort_option button .filter-option").addClass("hide_long_text")
+    },100)
+      var trip_id_array = new Array();
+      var interval;
+      
+       $('#start_date').datepicker({
+         format: 'yyyy-mm-dd',
+        <% if(filter_end_date){ %>
+          endDate: new Date("<%= filter_end_date %>")
+        <% }else{ %>
+        endDate: new Date(Date.now())
+        <% } %>   
+
+       }).on("input change", function (e) { 
+        var end_date = $('#start_date').datepicker('getDate');
+        end_date.setDate(end_date.getDate() + 1);
+        $('#end_date').datepicker('setStartDate', end_date);
+        $('.datepicker-dropdown').hide()
+      });
+
+       $('#end_date').datepicker({
+         format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now()),
+     <% if(filter_start_date){ %>
+      startDate: new Date("<%= filter_start_date %>")
+     <% } %>
+
+       }).on("input change", function (e) { 
+        var start_date = $('#end_date').datepicker('getDate');
+        start_date.setDate(start_date.getDate() - 1);
+        $('#start_date').datepicker('setEndDate', start_date);
+
+        $('.datepicker-dropdown').hide()
+      });
+
+
+        <% detail.forEach(function(data){ %>
+            trip_id_array.push('<%= data._id %>')
+
+        <% }); %>
+
+        var $form = $('#refund_payment_form');
+        $form.submit(function(event) {
+          event.preventDefault();
+          var payment_type = $("#payment_type").val();
+          var trip_id = $("#trip_id").val();
+
+          if(payment_type == "wallet"){
+            $("#refund_payment").modal('hide');
+            $("#add_wallet_modal").modal('show');
+          }else{
+            var trip_id = $("#trip_id").val();
+            $.ajax({
+              url: 'refund_amount_in_card',
+              data: {
+                trip_id: trip_id
+              },
+              dataType: "json",
+              type: 'post',
+              success: function(res){
+                if(res.success){
+                  location.reload()
+                }
+              }
+            });
+          }          
+        })
+
+        var $form = $('#add_wallet_form');
+        $form.submit(function(event) {
+          event.preventDefault();
+          var trip_id = $("#trip_id").val();
+          var wallet_amount = $("#wallet_amount").val();
+          $.ajax({
+            url: 'refund_amount_in_wallet',
+            data: {
+              trip_id: trip_id,
+              amount: wallet_amount
+            },
+            dataType: "json",
+            type: 'post',
+            success: function(res){
+              if(res.success){
+                location.reload()
+              }
+            }
+          });
+        })       
+
+        if('<%=request%>' == 'today_requests')
+        {
+            
+        }
+
+       if(trip_id_array.length >0)
+       {
+          clearInterval(interval);
+          interval = setInterval(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/requsest_status_ajax',
+                data: {'trip_id_array':trip_id_array},
+                dataType: "json",
+                success: function (res) {
+                  res.forEach(function(trip_data){
+
+                    $('#provider'+trip_data.trip_detail._id).html(trip_data.provider);
+                    $('#pr_name'+trip_data.trip_detail._id).html(trip_data.provider);
+
+                    if(trip_data.trip_detail.is_trip_cancelled == 1)
+                    {
+                      if(trip_data.trip_detail.is_trip_cancelled_by_provider == 1)
+                      {
+                        $('#'+trip_data.trip_detail._id).html('<span class="label label-danger"><%= __('title_total_cancelled_by_provider') %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_trip_cancelled_by_user == 1)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-danger"><%= __('title_total_cancelled_by_user') %></span>');
+                      }
+                      else
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-danger"><%= __('title_total_cancelled') %></span>');
+                      }
+                    }
+                    else
+                    {
+                      if(trip_data.trip_detail.is_provider_status == 2)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-warning"><%= __('title_trip_status_coming') %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 4)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= __('title_trip_status_arrived') %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 6)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= __('title_trip_status_trip_started') %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 9)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-success"><%= __('title_trip_status_completed') %></span>');
+                          $('#amount'+trip_data.trip_detail._id).html(trip_data.trip_detail.total);
+                          if(trip_data.trip_detail.payment_status == 0)
+                          {
+                              $('#payment_status'+trip_data.trip_detail._id).html('<span class="label label-warning"><%= __('title_pending') %></span>');
+                          }
+                          else
+                          {
+                            if(trip_data.trip_detail.payment_status == 1)
+                            {
+                                $('#payment_status'+trip_data.trip_detail._id).html('<span class="label label-success"><%= __('title_paid') %></span>');
+                            }
+                            else
+                            {
+                                $('#payment_status'+trip_data.trip_detail._id).html('<span class="label label-danger"><%= __('title_not_paid') %></span>');
+                            }
+                          }
+                          
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 1 || trip_data.trip_detail.is_provider_status == 0)
+                      {
+                          if(trip_data.trip_detail.is_provider_accepted == 1)
+                          {
+                            $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= __('title_accepted_request') %></span>');
+                          } 
+                          else
+                          {
+                            $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= __('title_trip_status_waiting') %></span>');
+                          }
+                      }
+                    }
+                  })
+                }
+            });
+          },10000);
+       }
+   
+ });
+  function refund_payment_button_click(trip_id, payment_mode){
+    $("#trip_id").val(trip_id);
+    $('#payment_type').find('option').remove();
+    $('#payment_type').append('<option value="wallet"><%= __("title_wallet") %></option>');
+    if(payment_mode != 1){
+      $('#payment_type').append('<option value="card"><%= __("title_card") %></option>');
+    }
+    $('#payment_type').selectpicker('refresh');
+    $("#refund_payment").modal('show');
+  }
+  
+  function completetrip(tripid, provider_id, is_tip){
+    $.ajax({
+      type: 'POST',
+      url: '/completetrip',
+      data: {trip_id: tripid, provider_id: provider_id, toll_amount: 0, bearing: 0},
+      dataType: "json",
+      success: function (res) {
+        
+        emit_data(tripid)
+        if(res.success && is_tip == 'false'){
+          $.ajax({
+            type: 'POST',
+            url: '/pay_payment',
+            data: {trip_id: tripid, tip_amount: 0, payment_id: '', provider_id: provider_id},
+            dataType: "json",
+            success: function (res) {
+              emit_data(tripid)
+              location.reload()
+            }
+          });
+        } else {
+          location.reload()
+        }
+      }
+    });
+  }
+
+  function cancel_by_admin(tripid){
+    $.ajax({
+      type: 'POST',
+      url: '/tripcancelbyadmin',
+      data: {trip_id: tripid},
+      dataType: "json",
+      success: function (res) {
+        emit_data(tripid)
+        location.reload()
+      }
+    });
+  }
+
+  var URL = window.location.protocol + '//'+ window.location.hostname;
+  var socket = io.connect(URL);
+
+
+  socket.on('connect',function() {
+  });
+
+  function emit_data(tripid){
+    socket.emit('trip_detail_notify', {trip_id: tripid})
+  }
+
+  socket.on('disconnect',function() {
+  });
+
+  function export_excel(){
+    $.ajax({
+      type: 'POST',
+      url: '/genetare_request_excel',
+      data: $('.form-horizontal').serialize(),
+      dataType: "json",
+      success: function (res) {
+          window.open(res)
+      }
+    });
+  }
+
+</script>  
+<% include footer_list.html %>

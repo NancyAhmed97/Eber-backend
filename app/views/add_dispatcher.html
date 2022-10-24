@@ -1,0 +1,194 @@
+<% include header.html %>
+<!-- PAGE TITLE -->
+<div class="page-title">
+	<h2><span class="fa fa-cogs"></span> 
+		<% if(typeof data == 'undefined'){ %>
+		<%= __('title_add_dispatcher') %>
+		<% } else { %>
+		<%= __('title_edit_dispatcher') %>
+		<% } %>
+
+	</h2>
+</div>
+<!-- END PAGE TITLE -->
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+	<div class="col-md-6 col-xs-12">
+
+	<!-- for edit dispatcher form -->
+	<% if(typeof data != 'undefined'){ %>
+
+		<form class="form-horizontal" method="post" action="/update_dispatcher_detail">
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">
+						<div class="form-group">
+							<div class="form-group">
+							<input type="hidden"  class="form-control" name="id" value="<%= id %>" />
+							<label class="col-md-3 col-xs-5 control-label"><%= __('title_first_name') %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="first_name" value="<%= data.first_name %>"  name="first_name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= __('title_last_name') %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="last_name" value="<%= data.last_name %>" name="last_name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= __('title_email') %></label>
+							<div class="col-md-9 col-xs-7">
+								
+								<% if(is_public_demo == true) { %>
+                                 <input type="text" class="form-control" value="<%= __('PUBLIC_DEMO_EMAIL') %>" name="email" id='email' readonly />
+                                <% } else{ %>
+                                 <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" id="email" value="<%= data.email %>"  name="email" readonly />
+                                <% } %>
+								
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= __('button_password') %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="password"  class="form-control" id="password"  name="password" />
+							</div>
+						</div>
+
+						<div class="form-group">
+					       <label class="col-md-3 col-xs-5 control-label"><%= __('title_country') %></label>
+					       <div class="col-md-9 col-xs-7">
+					         <input type="text"   class="form-control" id="countryname" value="<%= data.country %>"  name="countryname" readonly/>
+					       </div>
+					    </div>
+
+						<div class="form-group">
+					       <label class="col-md-3 col-xs-5 control-label"><%= __('title_phone') %></label>
+					       <div class="col-md-9 col-xs-7">
+					         <input type="text" onkeypress="return isNumberKey(event);" id="phone"  class="form-control" value="<%= data.phone %>"  name="phone" minlength="<%= setting_detail.minimum_phone_number_length%>" maxlength="<%= setting_detail.maximum_phone_number_length%>" />
+					       </div>
+					    </div>
+
+					    <div class="form-group">
+							<div class="col-md-12 col-xs-12">
+								<button class="btn btn-primary btn-rounded pull-right" id="submit" type="submit" name="submit" value="submit"><%= __('button_submit') %></button>
+							</div>
+						</div>
+					</div>
+		</form>
+
+	<!-- for add dispatcher form -->
+	<% } else { %>
+		<form class="form-horizontal" method="post" action="/add_dispatcher_detail">
+			<form class="form-horizontal" >
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">
+						<div class="form-group">
+							<div class="form-group">
+							<input type="hidden"  class="form-control" name="id"/>
+							<label class="col-md-3 col-xs-5 control-label"><%= __('title_first_name') %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="first_name"  name="first_name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= __('title_last_name') %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="last_name"  name="last_name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= __('title_email') %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="email"  name="email" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= __('button_password') %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="password"  class="form-control" id="password" required  name="password" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= __('title_countyry_name') %></label>
+							<div class="col-md-9 col-xs-7">
+							<select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" name="countryname" id="countryname" data-live-search="true">
+								<option selected disabled hidden style='display: none'><%= __('title_select_country') %></option>
+								<% country.forEach(function(data) { %>
+	                            <option><%= data.countryphonecode %> <%= data.countryname %></option>
+	                            <% }); %>
+                  			</select>
+         					</div>
+         				</div>
+
+						<div class="form-group">
+					       <label class="col-md-3 col-xs-5 control-label"><%= __('title_phone') %></label>
+					       <div class="col-md-9 col-xs-7">
+					         <input type="text" onkeypress="return isNumberKey(event);" id="phone"  class="form-control"  name="phone" minlength="<%= setting_detail.minimum_phone_number_length%>" maxlength="<%= setting_detail.maximum_phone_number_length%>"/>
+					       </div>
+					    </div>
+
+					    <div class="form-group">
+							<div class="col-md-12 col-xs-12">
+								<button class="btn btn-primary btn-rounded pull-right" id="submit" type="submit" name="submit" value="submit"><%= __('button_submit') %></button>
+							</div>
+						</div>
+					</div>
+		</form>
+
+	<% } %>
+
+			</div>
+		</div>
+		<!-- END PAGE CONTENT WRAPPER -->
+	</div>
+	<!-- END PAGE CONTENT -->
+</div>
+
+<script type="text/javascript" >
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        	return false;
+    }
+    return true;
+}
+
+$(document).ready(function() {
+	$(".form-horizontal").validate({
+		ignore: [],
+		rules: {
+			first_name: "required",
+			last_name: "required",
+			email: {
+				required: true,
+				email_regex: /^(([^<>()[\]\\.,;:\s@"”]+(\.[^<>()[\]\\.,;:\s@"”]+)*)|(".+"))+([a-z0-9])@\w+(?:\.[a-zA-Z]{1,5})+$/,
+				minlength: 12,
+				maxlength: 64
+			},
+			password: {
+				minlength: 6,
+				maxlength: 50
+			},
+			countryname: "required",
+			phone:
+			{
+				required: true,
+				minlength : <%= setting_detail.minimum_phone_number_length %>,
+				maxlength : <%= setting_detail.maximum_phone_number_length %>
+			}
+		}, submitHandler: function () {
+			document.getElementById("cover-spin").style.display = "block";
+			$('.btn-primary').prop('disabled', true)
+			$(".form-horizontal").get(0).submit();
+		}
+	});
+});
+
+</script>
+<% include footer_form.html %>

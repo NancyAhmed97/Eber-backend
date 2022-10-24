@@ -1,0 +1,130 @@
+<% include header.html %>
+
+<div class="alert alert-success" role="alert" id="promo_error" style="display:none">
+  <button type="button" id="close" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+  <p align="center" id="message"> <strong></strong></p>
+</div>
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+  <div class="col-md-6 col-sm-8 col-xs-12">
+    <% if(typeof data != 'undefined'){ %>
+
+    <form class="form-horizontal" method="post" id="update_form" action="/guest_token_update">
+      <div class="panel panel-default">
+        <div class="panel-body form-group-separated">
+          <div class="form-group">
+            <input type="hidden" class="form-control" value="<%= data.id %>" name="id" />
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_token_name') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control" value="<%= data.token_name %>" name="token_name" disabled />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_start_date') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control datepicker" value="<%= moment(data.start_date).tz(timezone_for_display_date).format('YYYY-MM-DD') %>" id="start_date" name="start_date" readonly />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_expiry_date') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control datepicker" value="<%= moment(data.code_expiry).tz(timezone_for_display_date).format('YYYY-MM-DD') %>" id="code_expiry" name="code_expiry" readonly />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 col-xs-12">
+              <button class="btn btn-primary btn-rounded pull-right" type="submit" name="save" value="save">
+                <%= __('button_save') %>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <% }else{ %>
+    <form class="form-horizontal" method="post" id="add_form" action="/add_guest_token">
+      <div class="panel panel-default">
+        <div class="panel-body form-group-separated">
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_token_name') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control" id="token_name" name="token_name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_start_date') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control datepicker" id="start_date" name="start_date" readonly="true" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_expiry_date') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control datepicker" id="code_expiry" readonly="true" name="code_expiry" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 col-xs-12">
+              <button class="btn btn-primary btn-rounded pull-right" type="submit" id="save" name="save" value="save">
+                <%= __('button_save') %>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <% } %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#start_date').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: new Date(Date.now())
+
+    }).on("input change", function(e) {
+      var end_date = $('#start_date').datepicker('getDate');
+      end_date.setDate(end_date.getDate() + 1);
+      $('#code_expiry').datepicker('setStartDate', end_date);
+    });
+
+    $('#code_expiry').datepicker({
+      format: 'yyyy-mm-dd'
+
+    }).on("input change", function(e) {
+      var start_date = $('#code_expiry').datepicker('getDate');
+      start_date.setDate(start_date.getDate() - 1);
+      $('#start_date').datepicker('setEndDate', start_date);
+    });
+
+    $("#update_form").validate({
+      ignore: [],
+      rules: {
+        token_name: "required",
+        start_date: "required",
+        code_expiry: "required"
+      },
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+
+    $("#add_form").validate({
+      ignore: [],
+      rules: {
+        token_name: "required",
+        start_date: "required",
+        code_expiry: "required"
+      },
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+  });
+</script>
+<% include footer_form.html %>

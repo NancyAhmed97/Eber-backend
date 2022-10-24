@@ -1,0 +1,396 @@
+<% include header.html %> 
+<div class="page-content-wrap">
+<div class="row">
+<div class="col-md-12">
+    <!-- Map and Side Panel -->
+    <div class="panel panel-default" id="map_path">
+    <div class="panel-body panel-body-map" ng-app="meanMapApp">
+        <!-- Google Map -->
+       
+            <div id="map" style="width:100%; height:450px;"></div>
+            <div id="legend"></div>
+            
+       
+    </div>
+    </div>
+</div>
+<div class="col-md-12">
+            <div class="panel panel-default">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead>
+                 <tr>
+                  <th><%= __('title_trip_id') %></th>
+                  <th><%= __('title_user_name') %></th>
+                  <th><%= __('title_provider_name') %></th>
+                  <th width="120"><%= __('title_date_time') %></th>
+                  <th><%= __('title_pickup_address') %></th>
+                  <th><%= __('title_destination_address') %></th>
+                  
+                </tr>
+              </thead>
+
+              <tbody>
+               <tr>
+                <td><%= data.unique_id %></td>
+                <td><%= user_name %></td>
+                <td><%= provider_name %></td>
+                <td width="120"><%= moment(data.created_at).tz(timezone_for_display_date).format("DD MMM 'YY") %></br><%= moment(data.created_at).tz(timezone_for_display_date).format("hh:mm a") %></td>
+                
+                <td><%= data.source_address %></td>
+                <td><%= data.destination_address %></td>
+                
+            </tr>
+          </tbody>
+         
+              
+          </table>
+          </div>  
+          </div>
+          </div>
+          <div class="col-md-12">
+            <div class="panel panel-default">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                 <tr>
+                  <th><%= __('title_status') %></th>
+                  <th><%= __('title_amount') %></th>
+                  <th><%= __('title_payment_mode') %></th>
+                  <th><%= __('title_payment_status') %></th>
+                  <th><%= __('title_response') %></th>
+                  <% if(promocode){ %>
+                  <th><%= __('title_promo') %></th>
+                  <th><%= __('title_promo_type') %></th>
+                  <th><%= __('title_value') %></th>
+                  <% } %>
+                </tr>
+              </thead>
+
+              <tbody>
+               <tr>
+                <td><% if(data.is_trip_cancelled == 1) { %>
+                <% if(data.is_trip_cancelled_by_provider == 1) { %>
+                                                          <span class="label label-danger"><%= __('title_cancle_by_provider') %></span>
+                                                       <% } else { %>
+                                                          <span class="label label-danger"><%= __('title_cancle_by_user') %></span>
+                                                       <% } %>
+                <% } else { if(data.is_provider_status == 2) { %>
+                <span class="label label-warning"><%= __('title_trip_status_coming') %></span>
+                <% } else if(data.is_provider_status == 4) { %>
+                <span class="label label-info"><%= __('title_trip_status_arrived') %></span>
+                <% } else if(data.is_provider_status == 6) { %>
+                <span class="label label-info"><%= __('title_trip_status_in_trip') %></span>
+                <% } else if(data.is_provider_status == 9) { %>
+                <span class="label label-success"><%= __('title_trip_status_completed') %></span>
+                <% } else if(data.is_provider_status == 1) { %>
+                <span class="label label-success"><%= __('title_accepted_request') %></span>
+                <% } else if(data.is_provider_status == 0) { %>
+                <span class="label label-error"><%= __('title_trip_status_waiting') %></span>
+                <% }} %></td>
+                <td><%= data.total %></td>
+                <td><% if(data.payment_mode == 1) { %>
+                <span class="label label-default"><%= __('title_pay_by_cash') %></span>
+                <% } else { %>
+                <span class="label label-primary"><%= __('title_pay_by_card') %></span></td>
+                <% } %>
+                <td><% if(data.payment_status == 0 && data.is_trip_cancelled_by_provider != 1) { %>
+                                                    <span class="label label-warning"><%= __('title_pending') %></span>
+                                                    <% } else { %>
+                                                      <% if(data.payment_status == 1) { %>
+                                                      <span class="label label-success"><%= __('title_paid') %></span>
+                                                      <% } else { %>
+                                                      <span class="label label-danger"><%= __('title_not_paid') %></span>
+                                                      <% } %>
+                                                    <% } %>
+                                                    </td>
+                <td><% if(data.is_provider_accepted == 1) { %>
+                <span class="label label-success"><%= __('title_accepted_request') %></span>
+                <% } else if(data.is_provider_accepted == 0) { %>
+                <span class="label label-warning"><%= __('titel_trip_rejected') %></span>
+                 <% } else { %>
+                <span class="label label-warning"><%= __('title_trip_status_no_response') %></span>
+                <% } %>
+              </td>
+                
+              <% if(promocode){ %>
+              <td><%= promocode.promocode %></td>
+              <td>
+                  <% if(promocode.code_type == 1){ %>
+                    <%= __('title_absolute') %>
+                  <% } else if(promocode.code_type == 2){ %>
+                    <%= __('title_percentage') %>
+                  <% } %>
+              </td>
+              <td><%= promocode.code_value %></td>
+              <% } %>
+            </tr>
+          </tbody>
+         
+              
+          </table>
+          </div>  
+          </div>
+          </div>
+
+</div>
+</div>
+</body>
+        <!-- END PRELOADS -->
+
+    
+    <!-- Google Maps API -->
+   <script src="<%=url%>" async defer"></script>
+    <script>
+function initialize() {
+  var lat = "<%= data.destinationLocation[0] %>"
+  var lng = "<%= data.destinationLocation[1] %>"
+  var iconBase = '/map_pin/'
+  var map_view = {
+    center:new google.maps.LatLng(lat , lng),
+    zoom:15,
+     streetViewControl: false,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("map"),map_view);
+  <% if(data.is_trip_cancelled != 1 &&  data.is_provider_status >= 1 && data.is_provider_status < 6){ %>
+    var bounds = new google.maps.LatLngBounds();
+    <% if(data.providerLocation.length != 0){ %>
+    var providerStartLocation = {
+              lat: <%= data.providerLocation[0] %>,
+              lng: <%= data.providerLocation[1] %>
+    };
+    
+    var providerStartLocation_initialLocation = new google.maps.LatLng(providerStartLocation);
+
+    var marker = new google.maps.Marker({
+      position: providerStartLocation_initialLocation,
+      map: map,
+      icon: iconBase + 'driver.png'
+    });
+    bounds.extend(providerStartLocation_initialLocation);
+    <% } %>
+
+    <% if(data.sourceLocation.length != 0){ %>
+    var startTripLocation = {
+              lat: <%= data.sourceLocation[0] %>,
+              lng: <%= data.sourceLocation[1] %>
+    };
+ 
+    var startTripLocation_initialLocation = new google.maps.LatLng(startTripLocation);
+    var marker = new google.maps.Marker({
+      position: startTripLocation_initialLocation,
+      map: map,
+      icon: iconBase + 'pickup.png'
+    });
+    bounds.extend(startTripLocation_initialLocation);
+    <% } %>
+
+    <% if(data.destinationLocation.length != 0){ %>
+    var endTripLocation = {
+            lat: <%= data.destinationLocation[0] %>,
+            lng: <%= data.destinationLocation[1] %>
+    };
+    
+    var endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+
+    var marker = new google.maps.Marker({
+          position: endTripLocation_initialLocation,
+          map: map,
+          icon: iconBase + 'destination.png'
+    });
+    bounds.extend(endTripLocation_initialLocation);
+    <% } %>
+
+    // var trip_data = <%- JSON.stringify(data) %>;
+    // trip_data.destination_stops.forEach(stops => {
+    //   var marker = new google.maps.Marker({
+    //     position: new google.maps.LatLng(
+    //       new google.maps.LatLng({
+    //         lat: stops.location[0],
+    //         lng: stops.location[1]
+    //       })
+    //     ),
+    //     map: map,
+    //     icon: iconBase + 'destination.png'
+    //   });
+    //   bounds.extend(endTripLocation_initialLocation);
+    // });
+
+    map.fitBounds(bounds);
+
+    
+    // var trip_path_array = [];
+
+    // if (trip_data.sourceLocation.length != 0) {
+    //   trip_path_array.push({ 'lat': trip_data.sourceLocation[0], 'lng': trip_data.sourceLocation[1] });
+    // }
+
+    // if (trip_data.destination_stops) {
+    //   trip_data.destination_stops.forEach(stops => {
+    //     trip_path_array.push({ 'lat': stops.location[0], 'lng': stops.location[1] });
+    //   });
+    // }
+
+    // if (trip_data.destinationLocation.length != 0) {
+    //   trip_path_array.push({ 'lat': trip_data.destinationLocation[0], 'lng': trip_data.destinationLocation[1] });
+    // }
+
+    // var trippath = new google.maps.Polyline({
+    //   path: trip_path_array,
+    //   geodesic: true,
+    //   strokeColor: '#FF0000',
+    //   strokeOpacity: 1.0,
+    //   strokeWeight: 2
+    // });
+    
+    // trippath.setMap(map);
+
+  <% } %>
+
+  <% if(typeof trip_path_data != 'undefined'  && data.is_trip_cancelled != 1 &&  data.is_provider_status >= 6){ %>
+  
+
+    var bounds = new google.maps.LatLngBounds();
+    var providerStartLocation = {
+              lat: <%= trip_path_data.providerStartLocation[0] %>,
+              lng: <%= trip_path_data.providerStartLocation[1] %>
+    };
+    
+    var providerStartLocation_initialLocation = new google.maps.LatLng(providerStartLocation);
+
+    if(<%= trip_path_data.providerStartLocation[0] %> !== 0 && <%= trip_path_data.providerStartLocation[1] %> !== 0)
+    {
+        var marker = new google.maps.Marker({
+            position: providerStartLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'driver.png'
+        });
+        bounds.extend(providerStartLocation_initialLocation);
+    }
+    
+
+    var startTripLocation = {
+              lat: <%= trip_path_data.startTripLocation[0] %>,
+              lng: <%= trip_path_data.startTripLocation[1] %>
+    };
+ 
+    var startTripLocation_initialLocation = new google.maps.LatLng(startTripLocation);
+
+  if(<%= trip_path_data.startTripLocation[0] %> !== 0 && <%= trip_path_data.startTripLocation[1] %> !== 0)
+    {
+        var marker = new google.maps.Marker({
+            position: startTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'pickup.png'
+        });
+        bounds.extend(startTripLocation_initialLocation);
+    }
+
+    if(<%= data.is_trip_cancelled_by_provider %> == 1)
+    {
+      
+        map.fitBounds(bounds);
+    }
+    else
+    {
+      
+      var endTripLocation = {
+              lat: <%= trip_path_data.endTripLocation[0] %>,
+              lng: <%= trip_path_data.endTripLocation[1] %>
+      };
+      
+      var endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+
+    if(<%= trip_path_data.endTripLocation[0] %> !== 0 && <%= trip_path_data.endTripLocation[1] %> !== 0)
+    {
+        var marker = new google.maps.Marker({
+            position: endTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'destination.png'
+        });
+        bounds.extend(providerStartLocation_initialLocation);
+    }else{
+        var endTripLocation = {
+              lat: <%= trip_path_data.startTripToEndTripLocations[trip_path_data.startTripToEndTripLocations.length-1][0] %>,
+              lng: <%= trip_path_data.startTripToEndTripLocations[trip_path_data.startTripToEndTripLocations.length-1][1] %>
+        };
+      
+        var endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+        bounds.extend(endTripLocation_initialLocation);
+      }
+
+      map.fitBounds(bounds);
+        var trip_path_array = [];
+      <% trip_path_data.startTripToEndTripLocations.forEach(function(location){ %>
+        var lat = <%= location[0] %>;
+        var lng = <%= location[1] %>;
+        var trip_path = {'lat':lat,'lng':lng };
+        trip_path_array.push(trip_path);
+
+      <% }) %>
+
+      // <% trip_path_data.startTripToEndTripLocations.forEach(function(location){ %>
+      //   var lat = <%= location[0] %>;
+      //   var lng = <%= location[1] %>;
+
+      //   var origin = new google.maps.LatLng(<%= location[0] %>,<%= location[1] %>);
+      //   // alert(origin.lat())
+      //    var lat = origin.lat();
+      //   var lng = origin.lng();
+      // // var destination = new google.maps.LatLng(originals[i+1]);
+      //   var trip_path = {'lat':lat,'lng':lng };
+      //   trip_path_array.push(trip_path);
+
+      // <% }) %>
+      
+      
+      var trippath = new google.maps.Polyline({
+            path: trip_path_array,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+      });
+      trippath.setMap(map);
+    }
+
+  <% } else if(data.is_trip_cancelled_by_user == 1){%>   
+   
+    // $('#map_path').hide();
+
+  <% } %>   
+  <% if(data.is_trip_cancelled == 1){%>   
+    var startTripLocation = {
+              lat: <%= data.sourceLocation[0] %>,
+              lng: <%= data.sourceLocation[1] %>
+    };
+
+    var endTripLocation = {
+              lat: <%= data.destinationLocation[0] %>,
+              lng: <%= data.destinationLocation[1] %>
+    };
+   var marker = new google.maps.Marker({
+     position: startTripLocation,
+     map: map,
+      icon: iconBase + 'pickup.png'
+   });
+  
+    var marker = new google.maps.Marker({
+      position: endTripLocation,
+      map: map,
+      icon: iconBase + 'destination.png'
+    });
+ <% } %>   
+
+var legend = document.getElementById('legend');
+legend.innerHTML = '<img src="/map_pin/driver.png " style="height:25px; "/><%= __("provider_location")%><br />' +
+                   '<img src="/map_pin/pickup.png " style="height:25px; "/><%= __("pickup_location")%><br />' +
+                   '<img src="/map_pin/destination.png " style="height:25px; "/><%= __("destination_location")%><br />';
+
+map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+}
+
+</script>
+
+<% include footer_list.html %>

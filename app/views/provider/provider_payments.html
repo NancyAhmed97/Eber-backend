@@ -1,0 +1,879 @@
+<% include provider_header.html %>
+<script type="text/javascript">
+window.history.forward();
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    
+    $(document).ready(function() {
+
+        $('.close').click(function(event){
+            console.log('close')
+            $('#modal_add_new_card').modal('hide');
+        });
+
+        $('.close1').click(function(event){
+            console.log('close')
+            $('#modal_add_wallet').modal('hide');
+        });
+        $('#Card_number').keyup(function(event) {
+
+            var Card_number = $('#Card_number').val();
+      document.getElementById('Card_number').addEventListener('input', function (e) {
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+            });
+
+      if(Card_number.length == 2)
+            {
+
+                $.ajax({
+                    type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url         : '/card_type', // the url where we want to POST  
+                    data        :'Card_number='+Card_number, // our data object
+                   datatype    :"json",
+                   success:function(response){ 
+                        $('#cvv').val('');
+                        $('#cvv').attr("maxlength",response.code.size )  
+                        document.getElementById('card_type').value=response.type;
+                        $("#image").append("<img src='' style='position:absolute; margin-top:-20px;'/>");         
+                    }
+                })
+            }
+        });
+        $('#add_card_plus').click(function(event){
+
+            $('#Card_number').val('');
+            $('#Exp_month').val('');
+            $('#Exp_year').val('');
+            $('#cvv').val('');
+            $('.payment-errors').text('');
+        });
+        $('#add_wallet_plus').click(function(event){
+            $('#amount').val('');
+            $('#modal_add_wallet').modal('show');
+        });
+    });
+
+    
+
+    function movetoNext(current, nextFieldID) {
+        if (current.value.length >= current.maxLength) {
+        document.getElementById(nextFieldID).focus();
+        }
+    }
+</script>
+
+<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">
+    
+    // Stripe('<%= stripe_public_key %>');
+    var stripe = Stripe('<%= stripe_public_key %>');
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    
+
+    function open_add_card_modal(){
+        if(<%=payment_gateway_type%> == <%=PAYMENT_GATEWAY.stripe%>){
+            cardElement.mount('#card-element');
+            $('#modal_add_new_card').modal('show');
+        } else {
+            $("#add_card_plus").hide();
+
+            $.ajax({
+                type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : '/get_stripe_add_card_intent', // the url where we want to POST  
+                data        : {payment_gateway_type: <%=PAYMENT_GATEWAY.paystack%>, is_web: true, type: 11, user_id: '<%=provider_id%>'}, // our data object
+                datatype    :"json",
+                success:function(response){
+                    if(response.success){
+                        window.location.href = response.authorization_url;
+                    } else {
+                        $("#add_card_plus").show();
+                    }
+                }
+            })
+        }
+    }
+
+    $(function() {
+        var $form = $('#payment-form');
+        $form.submit(function(event) {
+            event.preventDefault();
+            $('#add_card_save').prop('disabled', true);
+            $.ajax({
+                type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : '/get_stripe_add_card_intent', // the url where we want to POST  
+                data        : {payment_gateway_type: <%=PAYMENT_GATEWAY.stripe%>}, // our data object
+                datatype    :"json",
+                success:function(response){
+                    console.log(response)
+                    stripe.handleCardSetup(
+                      response.client_secret, cardElement, {
+                        payment_method_data: {
+                          billing_details: {
+                            name: 'test'
+                          }
+                        }
+                      }
+                    ).then((result)=> {
+                        payment_gateway_type: <%=PAYMENT_GATEWAY.stripe%>
+                      if (result.error) {
+                        $form.find('.payment-errors').text(result.error.message);
+                      } else {
+                        $form.append($('<input type="hidden" name="payment_method">').val(result.setupIntent.payment_method));
+                        $form.get(0).submit();
+                        $('#modal_add_new_card').modal('hide');
+                      }
+                    });
+                }
+            });
+        });
+
+        $('#user_add_wallet_amount').submit(function(event){
+            event.preventDefault();
+            if(<%=payment_gateway_type%> == <%=PAYMENT_GATEWAY.stripe%>){
+                $('#add_wallet_save').prop("disabled", true);
+                $.ajax({
+                    type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url         : '/get_stripe_payment_intent', // the url where we want to POST  
+                    data        : {amount: $('#amount').val(), type: 11, payment_gateway_type: <%=PAYMENT_GATEWAY.stripe%>, user_id: '<%=provider_id%>'}, // our data object
+                    datatype    :"json",
+                    success:function(response_data){
+                        console.log("response_data1")
+                        console.log(response_data)
+                        if(response_data.success){
+                            stripe.confirmCardPayment(
+                                response_data.client_secret, {
+                                    payment_method: response_data.payment_method
+                                }
+                            ).then((result)=> {
+                                $('#add_wallet_save').prop("disabled", false);
+                                if(result.paymentIntent){
+                                    $('#user_add_wallet_amount').append($('<input type="hidden" name="payment_intent_id">').val(result.paymentIntent.id));
+                                    $('#user_add_wallet_amount').get(0).submit();
+                                } else {
+                                    $('#user_add_wallet_amount').find('.payment-errors').text(result.error.message);
+                                }
+                            });
+                        } else {
+                            $('#add_wallet_save').prop("disabled", false);
+                            $('#user_add_wallet_amount').find('.payment-errors').text('Add Card First');
+                            if(response_data.error){
+                                $('#user_add_wallet_amount').find('.payment-errors').text(response_data.error);
+                            }
+                        }
+                    }
+                });
+            } else if(<%=payment_gateway_type%> == <%=PAYMENT_GATEWAY.paystack%>) {
+                $('#add_wallet_save').prop("disabled", true);
+                $.ajax({
+                    type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url         : '/get_stripe_payment_intent', // the url where we want to POST  
+                    data        : {amount: $('#amount').val(), type: 11, payment_gateway_type: <%=PAYMENT_GATEWAY.paystack%>, token: '<%=token%>', user_id: '<%=provider_id%>'}, // our data object
+                    datatype    :"json",
+                    success:function(response_data){
+                        if(response_data.success){
+                            location.reload();
+                        } else {
+                            $('#modal_paystack_validation_form').find('.payment-errors').text('');
+                            $('#add_wallet_save').prop("disabled", false);
+                            if(response_data.error_message){
+                                $('#user_add_wallet_amount').find('.payment-errors').text(response_data.error_message);
+                                $('#add_wallet_error').css("display", "block");
+                                $('#add_wallet_error_message').text(response_data.error_message);
+                                setTimeout(()=>{
+                                    $('#add_wallet_error').css("display", "none");
+                                    $('#add_wallet_error_message').text('');
+                                }, 5000);
+                                $('#modal_add_wallet').modal('hide');
+                            // } else if(response_data.url) {
+                            //     window.location.href = response_data.url;
+                            } else if(response_data.required_param) {
+
+                                $('#modal_add_wallet').modal('hide');
+                                $('#modal_paystack_validation').modal('show');
+                                $('#send_pin').attr('required', false); 
+                                $('#send_phone').attr('required', false); 
+                                $('#send_otp').attr('required', false); 
+                                $('#send_address').attr('required', false); 
+                                $('#send_birthday').attr('required', false); 
+
+                                $('#send_pin').hide();
+                                $('#send_otp').hide();
+                                $('#send_phone').hide();
+                                $('#send_address').hide();
+                                $('#send_birthday').hide();
+
+                                $('#send_pin').val('');
+                                $('#send_otp').val('');
+                                $('#send_phone').val('');
+                                $('#send_address').val('');
+                                $('#send_birthday').val('');
+
+
+                                $('#send_pin_title').hide();
+                                $('#send_otp_title').hide();
+                                $('#send_phone_title').hide();
+                                $('#send_address_title').hide();
+                                $('#send_birthday_title').hide();
+                                $('#'+response_data.required_param).show();
+                                $('#'+response_data.required_param).attr('required', true); 
+                                $('#'+response_data.required_param+'_title').show();
+                                $('#required_param').val(response_data.required_param)
+                                $('#reference').val(response_data.reference)
+                            } else {
+                                $('#user_add_wallet_amount').find('.payment-errors').text('Add Card First');
+                            }
+                        }
+                    }
+                });
+            } else {
+                $('#add_wallet_save').prop("disabled", true);
+                $.ajax({
+                    type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url         : '/get_stripe_payment_intent', // the url where we want to POST  
+                    data        : {amount: $('#amount').val(), is_web: true, type: 11, payment_gateway_type: <%=PAYMENT_GATEWAY.payu%>, token: '<%=token%>', user_id: '<%=provider_id%>'}, // our data object
+                    datatype    :"json",
+                    success:function(response_data){
+                        if(response_data.success){
+                            $("body").append(response_data.html_form);
+                            $('#myForm').submit();
+
+
+                        } else {
+                            $('#add_wallet_save').prop("disabled", false);
+                            if(response_data.error){
+                                $('#user_add_wallet_amount').find('.payment-errors').text(response_data.error);
+                            } else {
+                                $('#user_add_wallet_amount').find('.payment-errors').text('Add Card First');
+                            }
+                        }
+                    }
+                });
+            }
+        })
+
+        $('#modal_paystack_validation_form').submit(function(event){
+            event.preventDefault();
+            $('#add_wallet_save_required_param').prop("disabled", true);
+            $.ajax({
+                type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : '/send_paystack_required_detail', // the url where we want to POST  
+                data        : {amount: $('#amount').val(), type: 11, payment_gateway_type: <%=PAYMENT_GATEWAY.paystack%>, token: '<%=token%>', pin: $('#send_pin').val(), otp: $('#send_otp').val(), phone: $('#send_phone').val(), address: $('#send_address').val(), birthday: $('#send_birthday').val(), reference: $('#reference').val(), required_param: $('#required_param').val(), user_id: '<%=provider_id%>'}, // our data object
+                datatype    :"json",
+                success:function(response_data){
+                    if(response_data.success){
+                        location.reload();
+                    } else {
+                        $('#add_wallet_save_required_param').prop("disabled", false);
+                        $('#modal_paystack_validation_form').find('.payment-errors').text('');
+                        if(response_data.error_message){
+                            $('#modal_paystack_validation_form').find('.payment-errors').text(response_data.error_message);
+                            $('#add_wallet_error').css("display", "block");
+                            $('#add_wallet_error_message').text(response_data.error_message);
+                            setTimeout(()=>{
+                                $('#add_wallet_error').css("display", "none");
+                                $('#add_wallet_error_message').text('');
+                            }, 5000);
+                            $('#modal_paystack_validation').modal('hide');
+                        // } else if(response_data.url) {
+                        //         window.location.href = response_data.url;
+                        } else if(response_data.required_param) {
+                            $('#send_pin').attr('required', false); 
+                            $('#send_phone').attr('required', false); 
+                            $('#send_otp').attr('required', false); 
+                            $('#send_address').attr('required', false); 
+                            $('#send_birthday').attr('required', false); 
+                            $('#send_pin').hide();
+                            $('#send_otp').hide();
+                            $('#send_phone').hide();
+                            $('#send_address').hide();
+                            $('#send_birthday').hide();
+
+                            $('#send_pin').val('');
+                                $('#send_otp').val('');
+                                $('#send_phone').val('');
+                                $('#send_address').val('');
+                                $('#send_birthday').val('');
+
+                            $('#send_pin_title').hide();
+                            $('#send_otp_title').hide();
+                            $('#send_phone_title').hide();
+                            $('#send_address_title').hide();
+                            $('#send_birthday_title').hide();
+
+
+                            $('#'+response_data.required_param).show();
+                            $('#'+response_data.required_param).attr('required', true); 
+                            $('#'+response_data.required_param+'_title').show();
+                            $('#required_param').val(response_data.required_param)
+                            $('#reference').val(response_data.reference)
+                        } else {
+                            $('#modal_paystack_validation_form').find('.payment-errors').text('Add Card First');
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+    function stripeResponseHandler(status, response) {
+         
+        var $form = $('#payment-form');
+        if (response.error) { 
+
+            $form.find('.payment-errors').text(response.error.message);
+            $form.find('.submit').prop('disabled', false); // Re-enable submission
+            $('#modal-dismiss').show();
+        } 
+        else { 
+            var token = response.id;
+            last_four = response.card.last4;
+            
+            $form.append($('<input type="hidden" name="payment_token">').val(token));
+            $form.append($('<input type="hidden" name="last_four">').val(last_four));
+            $form.get(0).submit();
+            $('#modal_change_password').modal('hide');
+        }
+    };
+    
+
+        
+</script>
+<style>
+    .btn-default {
+        width:100%; 
+        font-family: 'RobotoRegular';font-size: 15px;background-color: #047f8f;border-color: #047f8f;float: left;color:#fff;
+    }
+    .btn-default:hover{
+        background-color: #1a1d2e;
+        border-color: #1a1d2e;
+        color: #fff;
+        border-radius: 0;
+    }
+
+    a.file-input-wrapper {
+        height:unset !important;
+        line-height:unset !important;
+        border-radius: 25px;
+        background:#ffffff !important;
+    }
+    .file-input-wrapper input[type=file],
+    .file-input-wrapper input[type=file]:focus,
+    .file-input-wrapper input[type=file]:hover{position:absolute;top:0;left:0;cursor:pointer;filter:alpha(opacity=0);z-index:99;outline:0;height:30px !important;}
+
+    .file-input-wrapper.btn-default:hover{
+        background-color: unset !important;
+        border-color: unset !important;
+        color: unset !important;
+        border-radius: 25px;
+    }
+</style>
+<% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert" style="padding-top: 75px;margin-bottom: -135px;">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+          <p align="center"> <strong><%= __(message) %></strong></p>
+      </div>
+<% } %> 
+<div class="alert alert-success" id="add_wallet_error" role="alert" style="padding-top: 94px;margin-bottom: -135px;display: none">
+          <p align="center"> <strong id="add_wallet_error_message"></strong></p>
+    </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+        <div class="row">
+            <!--profile_user_section-->
+            <div class="des_hied">
+                <div class="pro_use_bg">
+                    <div class="pro_use">
+                        <img src="user_panel/images/profile_img.png">
+                    </div>
+
+                    <div class="pro_head"><h4>John Leo</h4></div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 pro_lft1">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box_selet_lft">
+                            <div class="box_sele_head">
+                                <h5><%= __('title_wallet') %></h5>
+                                <a href="" data-toggle="modal" type="button" id="add_wallet_plus"  class="fa fa-plus-circle pull-right" style="font-size: 30px;cursor: pointer;color: black;"></a>
+                            </div>        
+                            <div class="box_sele_top">
+                                <div class="box_label"><label><%= __('balance') %></label></div>
+                                <div class="box_label"><label><%= (provider_detail.wallet).toFixed(2) %>  <%= provider_detail.wallet_currency_code %></label></div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%if(PAYMENT_TYPES && PAYMENT_TYPES[0] && PAYMENT_TYPES[0].is_add_card){%>
+                    <div class="box_sele_head"></div>
+                    <div class="row">
+                         <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="box_selet_lft">
+                                <div class="box_sele_head">
+                                    <h5><%= __('title_selected_card') %></h5>
+                                     <a href="" data-toggle="modal" type="button" id="add_card_plus" onclick="open_add_card_modal()"  class="fa fa-plus-circle pull-right" style="font-size: 30px;cursor: pointer;color: black;"></a>
+                              
+
+                                </div>
+
+                                <div class="box_sele_cont">
+                                  <% if(Selected_card != "") { %>
+                                    <% Selected_card.forEach(function(data , index){ %>
+                                        <div class="box_sele_top">
+                                      
+                                          <div class="box_label"><label><%= __('title_card_number') %></label></div>
+                                          <div class="box_label"><label>* * * * * * * * <%= data.last_four %></label></div>
+                                            <div class="box_label">
+                                            <img src="user_panel/images/select_tru.png" style="height:25px;width:25px;margin-left:60px;">
+
+                                            <span class="fa fa-times-circle-o pull-right" onclick="remove_card('<%= data._id %>')" style="font-size: 30px;cursor: pointer;color: black;"></span>
+
+
+                                        </div>  
+                                         
+                                        </div>
+                                        <% }); %>
+                                      <% } %>
+                                      <% if(Selected_card != "") { %>
+                                        <% Other_card.forEach(function(data , index){ %>
+                                        <div class="box_sele_top" onclick="select_card('<%= data._id %>')">
+                                        <div class="box_label"><label><%= __('title_card_number') %></label></div>
+                                          <div class="box_label"><label>* * * * * * * * <%= data.last_four %></label></div>
+                                           <div class="box_label">
+                                            <span class="fa fa-times-circle-o pull-right" onclick="remove_card('<%= data._id %>')" style="font-size: 30px;cursor: pointer;color: black;"></span>
+
+                                        </div> 
+                                        </div>
+                                        <% }); %>
+                                      <% } %>
+                                    
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 pro_lft1">
+                <div class="row">
+                     <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box_selet_lft">
+                            <div class="box_sele_head">
+                                 <h5><%= __('menu_title_bank_detail') %></h5>
+                                 <span style="float: right;font-size: 30px; display: none" id="delete_button" class="fa fa-times-circle-o" onclick="remove_bank_detail()"></span>
+                            </div>
+                            <form class="form-horizontal" id="bank_detail_add_form" enctype="multipart/form-data" method="post" action="/add_bank_detail_web">
+                                <div class="edit_pro_cont_bg" id="add_form">
+                                   
+                                    <input type="hidden" name="provider_id" value="<%= provider_id %>">
+                                    <input type="hidden" name="payment_gateway_type" value="<%= payment_gateway_type %>">
+                                    <input type="hidden" name="account_holder_type" value="individual">
+                                    <input type="hidden" name="web" value="1">
+
+                                    <%if(payment_gateway_type == PAYMENT_GATEWAY.stripe){%>
+                                        <div class="cont_pro">                                            
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_file_1') %></label></div>
+                                                <div class="edit_input_rgt">
+                                                    <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" accept="image/*" id="document1" name="document" title="<%= __('change_id_proof') %>"/>
+                                                    <br>
+                                                    <div id="document1_image_dimention"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_file_2') %></label></div>
+                                                <div class="edit_input_rgt">
+                                                    <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" accept="image/*" id="document2" name="document" title="<%= __('change_id_proof') %>"/>
+                                                    <br>
+                                                    <div id="document2_image_dimention"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_file_3') %></label></div>
+                                                <div class="edit_input_rgt">
+                                                    <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" accept="image/*" id="document3" name="document" title="<%= __('change_id_proof') %>"/>
+                                                    <br>
+                                                    <div id="document3_image_dimention"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_bank_account_holder_name') %></label></div>
+                                                <div class="edit_input_rgt">  <input type="text" class="form-control" name="account_holder_name" id="account_holder_name" required />  </div>
+                                                <!-- <div class="edit_input_rgt">  <input type="text" class="form-control" name="account_holder_name" id="account_holder_name" value="Test Test" required />  </div> -->
+                                            </div>
+                                            
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_bank_account_number') %></label></div>
+                                                <div class="edit_input_rgt">  <input type="text" class="form-control" onkeypress="return isNumberKey(event)"  name="account_number" id="account_number" required />  </div>
+                                                <!-- <div class="edit_input_rgt">  <input type="text" class="form-control" onkeypress="return isNumberKey(event)"  name="account_number" id="account_number" value="000123456789" required />  </div> -->
+                                            </div>
+                                            
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_routing_number') %></label></div>
+                                                <div class="edit_input_rgt">   <input type="text" onkeypress="return isNumberKey(event)" class="form-control"  name="routing_number" id="routing_number" required />  </div>
+                                                <!-- <div class="edit_input_rgt">   <input type="text" onkeypress="return isNumberKey(event)" class="form-control"  name="routing_number" value="110000000" id="routing_number" required />  </div> -->
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_SSN') %></label></div>
+                                                <div class="edit_input_rgt"> <input type="text" class="form-control" onkeypress="return isNumberKey(event)" name="personal_id_number" id="personal_id_number" required />  </div>
+                                                <!-- <div class="edit_input_rgt"> <input type="text" class="form-control"  name="personal_id_number" id="personal_id_number" value="000000000" required />  </div> -->
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_birth_date') %></label></div>
+                                                <div class="edit_input_rgt"> <input type="text"  class="form-control" name="dob" id="dob" required />  </div>
+                                                <!-- <div class="edit_input_rgt"> <input type="text"  class="form-control" name="dob" id="dob" value="01-01-1990" required/>  </div> -->
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_gender') %></label></div>
+                                                <label class="radio-inline"><input type="radio" name="gender" value="male" checked><%= __('title_male') %></label>
+                                                <label class="radio-inline"><input type="radio" name="gender" value="female" ><%= __('title_female') %></label>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_address') %></label></div>
+                                                <div class="edit_input_rgt"> <input type="text" class="form-control"  name="address" id="address" required />  </div>
+                                                <!-- <div class="edit_input_rgt"> <input type="text" class="form-control"  name="address" id="address" value="123 State St" required />  </div> -->
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_state') %></label></div>
+                                                <div class="edit_input_rgt"> <input type="text" class="form-control"  name="state" id="state" required />  </div>
+                                                <!-- <div class="edit_input_rgt"> <input type="text" class="form-control"  name="state" id="state" value="NY" required />  </div> -->
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_postal_code') %></label></div>
+                                                <div class="edit_input_rgt"> <input type="text" class="form-control"  name="postal_code" id="postal_code" required />  </div>
+                                                <!-- <div class="edit_input_rgt"> <input type="text" class="form-control"  name="postal_code" id="postal_code" value="12345" required />  </div> -->
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_password') %></label></div>
+                                                <div class="edit_input_rgt"> <input type="password"  id="password" class="form-control" name="password" required/>  </div>
+                                            </div>
+
+
+
+
+                                            <div class="edit_input">
+                                                <div class="edit_label">&nbsp;</div>
+                                                <div class="edit_input_rgt">
+                                                    <input type="submit" name="" value="<%= __('button_add') %>" class="act">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="cont_pro">
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_bank_account_number') %></label></div>
+                                                <div class="edit_input_rgt">  <input type="text" class="form-control" onkeypress="return isNumberKey(event)"  name="account_number" id="account_number" required />  </div>
+                                                <!-- <div class="edit_input_rgt">  <input type="text" class="form-control" onkeypress="return isNumberKey(event)"  name="account_number" id="account_number" value="000123456789" required />  </div> -->
+                                            </div>
+                                            
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_bank_code') %></label></div>
+                                                <div class="edit_input_rgt">   <input type="text" onkeypress="return isNumberKey(event)" class="form-control"  name="bank_code" id="bank_code" required />  </div>
+                                                <!-- <div class="edit_input_rgt">   <input type="text" onkeypress="return isNumberKey(event)" class="form-control"  name="routing_number" value="110000000" id="routing_number" required />  </div> -->
+                                            </div>
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= __('title_password') %></label></div>
+                                                <div class="edit_input_rgt"> <input type="password"  id="password" class="form-control" name="password" required/>  </div>
+                                            </div>
+                                            <div class="edit_input">
+                                                <div class="edit_label">&nbsp;</div>
+                                                <div class="edit_input_rgt">
+                                                    <input type="submit" name="" value="<%= __('button_add') %>" class="act">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+
+                                </div>
+                                 <div class="panel-body form-group-separated" style="display: none;" id="view_form">  
+                                    <div class="form-group">
+                                         <label class="col-md-3 control-label"><%= __('title_bank_account_number') %></label>
+                                         <label class="col-md-6 control-label" id="account_number1"></label>
+                                         
+                                     </div>
+                                     <div class="form-group" id="bank_code_form">
+                                         <label class="col-md-3 control-label">Account Id</label>
+                                         <label class="col-md-6 control-label" id="account_id1"></label>
+                                         
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-md-3 control-label">Bank Code</label>
+                                         <label class="col-md-6 control-label" id="bank_code1"></label>
+                                         
+                                     </div>
+                                  </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>       
+
+    </div>
+   
+
+<div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="modal_add_wallet" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="z-index:9999;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id='modal-dismiss' class="close close1" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+                <h4 class="modal-title" id="smallModalHead"><%= __('title_add_wallet') %></h4>
+            </div>
+            <form action="/provider_add_wallet_amount" id="user_add_wallet_amount" method="post">
+                <% if(Selected_card != "") { %>
+                <% Selected_card.forEach(function(data_new){ %>
+                <input type="hidden" name="card_id" value="<%= data_new._id %>"/>
+                <% }); %>
+                <% } %>
+                <input type="hidden" name="type" value="11"/>
+               
+                <input type="hidden" name="provider_id" value="<%= provider_id %>">
+
+                <div class="modal-body form-horizontal">                        
+                    <div class="form-group">
+                        <div class="col-md-12" >
+                            <input type="text"  placeholder="<%= __('title_amount') %>" onkeypress="return isNumberKey(event)" maxlength="16" data-stripe="number"  class="form-control" id="amount" autocomplete="off" required name="wallet"/>
+                        </div>
+                    </div>
+
+                      
+                </div>
+                <span class="payment-errors" style="margin: 15px;"></span>
+                <div class="modal-footer">
+                    <input type="submit" id="add_wallet_save" class="submit btn btn-info" value="<%= __('button_submit') %>" />
+                    
+                </div>
+                 
+
+                
+            </form>
+        </div>
+    </div>
+</div> 
+
+<div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="modal_paystack_validation" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="z-index:9999;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id='modal-dismiss' class="close close1" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+
+                <h4 class="modal-title" id="send_pin_title"><%= __('title_pin_title') %></h4>
+                <h4 class="modal-title" id="send_otp_title"><%= __('title_otp_title') %></h4>
+                <h4 class="modal-title" id="send_phone_title"><%= __('title_phone_title') %></h4>
+                <h4 class="modal-title" id="send_address_title"><%= __('title_address_title') %></h4>
+            </div>
+            <form id="modal_paystack_validation_form">
+                <input type="hidden" name="reference" id="reference">
+                <input type="hidden" name="required_param" id="required_param">
+                <div class="modal-body form-horizontal">                        
+                    <div class="form-group">
+                        <div class="col-md-12" >
+                            <input type="text" minlength="4" maxlength="6" required placeholder="<%= __('title_pin') %>" onkeypress="return isNumberKey(event)" class="form-control" id="send_pin" autocomplete="off"  name="pin"/>
+                            <input type="text" minlength="4" maxlength="6" required placeholder="<%= __('title_otp') %>" onkeypress="return isNumberKey(event)"  class="form-control" id="send_otp" autocomplete="off"  name="otp"/>
+                            <input type="text" maxlength="12" required placeholder="<%= __('title_phone') %>" onkeypress="return isNumberKey(event)"  class="form-control" id="send_phone" autocomplete="off"  name="phone"/>
+                            <input type="text" required placeholder="<%= __('title_address') %>" class="form-control" id="send_address" autocomplete="off"  name="address"/>
+                        </div>
+                    </div>                
+                </div>
+                <span class="payment-errors" style="margin: 15px;"></span>
+                <div class="modal-footer">
+                    <input type="submit" id="add_wallet_save_required_param" class="submit btn btn-info" value="<%= __('button_submit') %>" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+   
+<div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="modal_add_new_card" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="z-index:9999;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id='modal-dismiss' class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+                <h4 class="modal-title" id="smallModalHead"><%= __('title_add_card') %></h4>
+            </div>
+            <form action="/provider_add_card" id="payment-form" method="post">
+                 <input type="hidden" name="type" value="11"/>
+
+                <div class="modal-body form-horizontal">   
+
+                    <div class="carddetail" id="carddetail" style="width: 100%;max-width: 1000px;">
+                        <div id="card-element"></div>
+                    </div>  
+                                         
+                    <!-- <div class="form-group">
+                        <div class="col-md-12" id="image">
+                            <input type="hidden" name="card_type" id="card_type"/>
+                            
+                            <input type="text" onkeyup="movetoNext(this, 'Exp_month')" placeholder="<%= __('title_card_number') %>" onkeypress="return isNumberKey(event)" maxlength="19" data-stripe="number"  class="form-control" autocomplete="off" id="Card_number" name="Card_number"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                       
+                        <div class="col-md-4">
+                            <input type="text" data-stripe="exp_month" onkeyup="movetoNext(this, 'Exp_year')" onkeypress="return isNumberKey(event)" placeholder="MM" maxlength="2" class="form-control" id="Exp_month" name="Exp_month"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" onkeyup="movetoNext(this, 'cvv')" onkeypress="return isNumberKey(event)" data-stripe="exp_year" class="form-control" maxlength="2" id="Exp_year" placeholder="YY" name="Exp_year"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" id="cvv" data-stripe="cvc" onkeypress="return isNumberKey(event)" class="form-control" maxlength="3" placeholder="CVV" name="cvv"/>
+                        </div>
+                    </div>     -->
+                </div>
+                <span class="payment-errors" style="margin: 15px;"></span>
+                <div class="modal-footer">
+                    <input type="submit" id="add_card_save" class="submit btn btn-info" value="<%= __('button_submit') %>" />
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 
+ <script type="text/javascript">
+function remove_card(card_id) {
+      $.ajax({
+          type: 'POST',
+          url: 'delete_provider_card',
+          data: {'card_id': card_id, 'is_default': 1, payment_gateway_type: '<%=payment_gateway_type%>'},
+          dataType: "json",
+          success: function (res) {
+              location.reload();
+          }
+      });
+  }
+  function select_card(card_id) {
+      $.ajax({
+          type: 'POST',
+          url: 'provider_card_selection',
+          data: {'card_id': card_id, payment_gateway_type: '<%=payment_gateway_type%>'},
+          dataType: "json",
+          success: function (res) {
+              location.reload();
+          }
+      });
+  }
+</script>    
+<script type="text/javascript">
+  $( function() {
+     $('#dob').datepicker({
+        format: 'dd-mm-yyyy'
+    });
+ });
+  function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+</script>       
+<script type="text/javascript">
+
+    function remove_bank_detail(){
+          $.ajax({
+            type: 'POST',
+            url: '/delete_bank_detail',
+            data: { 'provider_id': '<%=provider_detail._id%>', payment_gateway_type: '<%=payment_gateway_type%>', 'type': 11, 'token': '<%=provider_detail.token%>'},
+            dataType: "json",
+            success: function(response){
+              console.log(response)
+              $('#view_form').hide();
+              $('#delete_button').hide();
+              $('#add_form').show();
+            }
+          });
+        }
+   $(document).ready(function(){
+        $("#document1").change(function(e) {
+            validateImage($("#document1"),$("#document1_image_dimention"),this.files[0].type)
+        })
+        $("#document2").change(function(e) {
+            validateImage($("#document2"),$("#document2_image_dimention"),this.files[0].type)
+        })
+        $("#document3").change(function(e) {
+            validateImage($("#document3"),$("#document3_image_dimention"),this.files[0].type)
+        })
+
+        $( "#bank_detail_add_form" ).submit(function(event) {
+            event.preventDefault();
+
+            var form = $('#bank_detail_add_form')[0];
+            console.log(form)
+            var data = new FormData(form);
+            $.ajax({
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                url: '/add_bank_detail',
+                dataType: "json",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function(response){
+                    console.log(response)
+                    // alert(JSON.stringify(response));
+                    if (response.error_code == 447) {
+                        alert('Incorrect Password Try Again');
+                    }else if (response.error_code == 601){
+                        alert('Problem in Add bank detail Try Again');
+                    }else if (response.success == true) {
+                        location.reload();
+                        alert('Detail Added Successfully');
+                    }else{
+                        alert(JSON.stringify(response.stripe_error+' Try Again'));
+                    }
+                },
+                error: function() {
+                }
+            })
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/get_bank_detail',
+            data: { 'provider_id': '<%=provider_detail._id%>', payment_gateway_type: '<%=payment_gateway_type%>', 'type': 11, 'token': '<%=provider_detail.token%>'},
+            dataType: "json",
+            success: function(response){
+              if (response.success == false) {
+                
+              } else{
+                $('#view_form').show();
+                $('#delete_button').show();
+                $('#add_form').hide();
+                $('#account_number1').text(response.bankdetails.account_number);
+                $('#bank_code1').text(response.bankdetails.routing_number);
+                if(response.bankdetails.account_id){
+                    $('#account_id1').text(response.bankdetails.account_id);
+                } else {
+                    $('#bank_code_form').hide();
+                }
+              }
+            },
+            error: function() {
+                // alert('error');
+            }
+        })
+
+        
+    });
+</script> 
+<% include provider_footer.html %>

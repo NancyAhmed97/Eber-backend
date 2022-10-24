@@ -1,0 +1,233 @@
+<% include header.html %>
+<div class="page-content-wrap">
+  <% if(typeof message != 'undefined'){ %>
+  <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+    <p align="center"> <strong><%= __(message) %></strong></p>
+  </div>
+  <% } %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" method="post" action="/add_guest_token_form">
+            <div class="col-md-4" style="text-align: center;">
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+              <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus"></span><%= __('button_add_new_guest_token') %></button>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form" method="post" action="/guest_token">
+          <div class="form-group">
+            <input type="hidden" name="page" id="page" value="0" />
+
+            <div class="col-md-4">
+              <div style="text-align: center;">
+                <label><%= __('title_sort') %></label>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                  <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                    <option value='unique_id' <%= sort_field=='unique_id' ? 'selected' : '' %>><%= __('title_id') %></option>
+                    <option value='created_at' <%= sort_field=='created_at' ? 'selected' : '' %>><%= __('title_created_date') %></option>
+                    <option value='token_name' <%= sort_field=='token_name' ? 'selected' : '' %>><%= __('title_token_name') %></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                  <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                    <option value="1" <%= sort_order==1 ? 'selected' : '' %>><%= __('sort_asc') %></option>
+                    <option value="-1" <%= sort_order==-1 ? 'selected' : '' %>><%= __('sort_desc') %></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div style="text-align: center;">
+                <label><%= __('title_search') %></label>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                  <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="sel" placeholder="Select to Sort" name="search_item">
+                    <option value='unique_id' <%= search_item=='unique_id' ? 'selected' : '' %>><%= __('title_id') %></option>
+                    <option value='token_name' <%= search_item=='token_name' ? 'selected' : '' %>><%= __('title_token_name') %></option>
+                    <option value='token_value' <%= search_item=='token_value' ? 'selected' : '' %>><%= __('title_token_value') %></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-body panel-body-search">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                      <input type="text" class="form-control" value="<%= search_value %>" onkeypress="return alphaNumSpace(event);" name="search_value" placeholder="<%= __('title_search_text') %>" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div style="text-align: center;">
+                <label><%= __('title_date_filter') %></label>
+              </div>
+              <div class="col-md-12">
+                <div class="btn-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="<%= __('title_start_date') %>" name="start_date" id="start_date" readonly />
+                    <span class="input-group-addon add-on">-</span>
+                    <input type="text" class="form-control datepicker" value="<%= filter_end_date %>" placeholder="<%= __('title_end_date') %>" name="end_date" id="end_date" readonly />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="col-md-12">
+              <ul class="pagination">
+                <% include paginate_lookup.html %>
+              </ul>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <div class="col-md-6">
+              <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= __('button_apply') %></span></button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick="export_excel()"><i class="fa fa-download"></i><%= __('button_export_excel') %></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="table-responsive" style="padding-bottom: 175px;">
+        <table class="table text-center" id="customers2">
+          <thead>
+            <tr>
+              <th><%= __('title_id') %></th>
+              <th><%= __('title_token_name') %></th>
+              <th><%= __('title_token_value') %></th>
+              <th><%= __('title_state') %></th>
+              <th><%= __('title_is_expired') %></th>
+              <th><%= __('button_action') %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% detail.forEach(function(data){ %>
+            <tr>
+              <td><%= data.unique_id %></td>
+              <td><%= data.token_name %></td>
+              <td><%= data.token_value %></td>
+              <td>
+                <% if(data.state == true) { %>
+                <span class="badge badge-success"><%= __('title_active') %></span>
+                <% } else { %>
+                <span class="badge badge-danger"><%= __('title_inactive') %></span>
+                <% } %>
+              </td>
+              <td>
+                <script type="text/javascript">
+                  var date = new Date();
+                  var exp_date = new Date('<%= data.code_expiry %>');
+                  if (exp_date.getTime() < date.getTime()) {
+                    document.write('<span class="badge badge-danger">EXPIRED</span>');
+                  } else {
+                    document.write('<%= moment(data.code_expiry).tz(timezone_for_display_date).format("DD MMM YY") %>');
+                  }
+                </script>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= __('button_action') %> <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <form method="post" action="/guest_token_edit">
+                        <input type="hidden" name="id" value="<%= data._id %>" />
+                        <button type="submit" class="btn btn-default" style="width:100%;"><%= __('button_edit_guest_token') %> </button>
+                      </form>
+                    </li>
+                    <li>
+                      <form method="post" action="/guest_token_toggle_act">
+                        <input type="hidden" name="id" value="<%= data._id %>" /> <input type="hidden" name="state" value="<%= data.state %>" />
+                        <button type="submit" class="btn btn-default" style="width:100%;"><% if( data.state != true) { %><%= __('title_active') %><% } else { %><%= __('title_inactive') %><% } %> </button>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#start_date').datepicker({
+      format: 'yyyy-mm-dd',
+      <% if(filter_end_date){ %>
+      endDate: new Date("<%= filter_end_date %>")
+      <% }else{ %>
+      endDate: new Date(Date.now())
+      <% } %>
+
+    }).on("input change", function(e) {
+      var end_date = $('#start_date').datepicker('getDate');
+      end_date.setDate(end_date.getDate() + 1);
+      $('#end_date').datepicker('setStartDate', end_date);
+    });
+
+    $('#end_date').datepicker({
+      format: 'yyyy-mm-dd',
+      endDate: new Date(Date.now()),
+      <% if(filter_start_date){ %>
+      startDate: new Date("<%= filter_start_date %>")
+      <% } %>
+
+    }).on("input change", function(e) {
+      var start_date = $('#end_date').datepicker('getDate');
+      start_date.setDate(start_date.getDate() - 1);
+      $('#start_date').datepicker('setEndDate', start_date);
+    });
+
+  });
+
+  function export_excel() {
+    $.ajax({
+      type: 'POST',
+      url: '/generate_guest_token_excel',
+      data: $('.form-horizontal').serialize(),
+      dataType: "json",
+      success: function(res) {
+        window.open(res)
+      }
+    });
+  }
+</script>
+
+<% include footer_list.html %>

@@ -1,0 +1,272 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    var path = window.location.pathname;
+    var value = path.split('/');
+    var title = value[1].replace(/_/g, " ");
+
+    var page_title = $('#' + value[1]).text();
+    if (!page_title) {
+      switch (value[1]) {
+        case 'add_admin':
+          title = "<%= __('add_admin') %>";
+          break;
+
+        case 'add_city_form':
+          title = "<%= __('add_city_form') %>";
+          break;
+
+        case 'add_city_type_form':
+          title = "<%= __('add_city_type_form') %>";
+          break;
+
+        case 'add_country_form':
+          title = "<%= __('add_country_form') %>";
+          break;
+
+        case 'add_dispatcher':
+          title = "<%= __('add_dispatcher') %>";
+          break;
+
+        case 'add_document_form':
+          title = "<%= __('add_document_form') %>";
+          break;
+
+        case 'add_hotel':
+          title = "<%= __('add_hotel') %>";
+          break;
+
+        case 'add_promo_form':
+          title = "<%= __('add_promo_form') %>";
+          break;
+
+        case 'add_provider_vehicle':
+          title = "<%= __('add_provider_vehicle') %>";
+          break;
+
+        case 'add_service_form':
+          title = "<%= __('add_service_form') %>";
+          break;
+
+        case 'admin_dispatcher_bank_detail':
+          title = "<%= __('admin_dispatcher_bank_detail') %>";
+          break;
+
+        case 'admin_partner_bank_detail':
+          title = "<%= __('admin_partner_bank_detail') %>";
+          break;
+
+        case 'admin_partner_weekly_earning_statement':
+          title = "<%= __('admin_partner_weekly_earning_statement') %>";
+          break;
+
+        case 'chat_history':
+          title = "<%= __('chat_history') %>";
+          break;
+
+        case 'corporate_trip_map':
+          title = "<%= __('corporate_trip_map') %>";
+          break;
+
+        case 'customer_detail_edit':
+          title = "<%= __('customer_detail_edit') %>";
+          break;
+
+        case 'dispatcher_trip_map':
+          title = "<%= __('dispatcher_trip_map') %>";
+          break;
+
+        case 'edit_admin':
+          title = "<%= __('edit_admin') %>";
+          break;
+
+        case 'edit_city_form':
+          title = "<%= __('edit_city_form') %>";
+          break;
+
+        case 'edit_city_type_form':
+          title = "<%= __('edit_city_type_form') %>";
+          break;
+
+        case 'edit_corporate':
+          title = "<%= __('edit_corporate') %>";
+          break;
+
+        case 'edit_country_form':
+          title = "<%= __('edit_country_form') %>";
+          break;
+
+        case 'edit_dispatcher':
+          title = "<%= __('edit_dispatcher') %>";
+          break;
+
+        case 'edit_document_form':
+          title = "<%= __('edit_document_form') %>";
+          break;
+
+        case 'edit_hotel':
+          title = "<%= __('edit_hotel') %>";
+          break;
+
+        case 'edit_partner_vehicle_detail':
+          title = "<%= __('edit_partner_vehicle_detail') %>";
+          break;
+
+        case 'edit_service_form':
+          title = "<%= __('edit_service_form') %>";
+          break;
+
+        case 'edit_vehicle_detail':
+          title = "<%= __('edit_vehicle_detail') %>";
+          break;
+
+        case 'history_pr':
+          title = "<%= __('history_pr') %>";
+          break;
+
+        case 'history_u':
+          title = "<%= __('history_u') %>";
+          break;
+
+        case 'hotel_trip_map':
+          title = "<%= __('hotel_trip_map') %>";
+          break;
+
+        case 'partner_add_provider':
+          title = "<%= __('partner_add_provider') %>";
+          break;
+
+        case 'partner_add_vehicle':
+          title = "<%= __('partner_add_vehicle') %>";
+          break;
+
+        case 'partner_detail':
+          title = "<%= __('partner_detail') %>";
+          break;
+
+        case 'partner_edit_vehicle_detail':
+          title = "<%= __('partner_edit_vehicle_detail') %>";
+          break;
+
+        case 'partner_proivder_documents':
+          title = "<%= __('partner_proivder_documents') %>";
+          break;
+
+        case 'partner_provider_bank_detail':
+          title = "<%= __('partner_provider_bank_detail') %>";
+          break;
+
+        case 'partner_provider_documents_edit':
+          title = "<%= __('partner_provider_documents_edit') %>";
+          break;
+
+        case 'partner_provider_edit':
+          title = "<%= __('partner_provider_edit') %>";
+          break;
+
+        case 'partner_provider_history':
+          title = "<%= __('partner_provider_history') %>";
+          break;
+
+        case 'partner_provider_list':
+          title = "<%= __('partner_provider_list') %>";
+          break;
+
+        case 'partner_trip_map':
+          title = "<%= __('partner_trip_map') %>";
+          break;
+
+        case 'partner_vehicle_list':
+          title = "<%= __('partner_vehicle_list') %>";
+          break;
+
+        case 'profile_detail_edit':
+          title = "<%= __('profile_detail_edit') %>";
+          break;
+
+        case 'proivder_documents':
+          title = "<%= __('proivder_documents') %>";
+          break;
+
+        case 'promo_used_info':
+          title = "<%= __('promo_used_info') %>";
+          break;
+
+        case 'promocodeedit':
+          title = "<%= __('promocodeedit') %>";
+          break;
+
+        case 'provider_bank_detail':
+          title = "<%= __('provider_bank_detail') %>";
+          break;
+
+        case 'provider_documents_edit':
+          title = "<%= __('provider_documents_edit') %>";
+          break;
+
+        case 'provider_referral_history':
+          title = "<%= __('provider_referral_history') %>";
+          break;
+
+        case 'provider_vehicle_list':
+          title = "<%= __('provider_vehicle_list') %>";
+          break;
+
+        case 'referral_history':
+          title = "<%= __('referral_history') %>";
+          break;
+
+        case 'review_detail':
+          title = "<%= __('review_detail') %>";
+          break;
+
+        case 'statement_provider_daily_earning':
+          title = "<%= __('statement_provider_daily_earning') %>";
+          break;
+
+        case 'statement_provider_earning':
+          title = "<%= __('statement_provider_earning') %>";
+          break;
+
+        case 'statement_provider_weekly_earning':
+          title = "<%= __('statement_provider_weekly_earning') %>";
+          break;
+
+        case 'trip_invoice':
+          title = "<%= __('trip_invoice') %>";
+          break;
+
+        case 'trip_map':
+          title = "<%= __('trip_map') %>";
+          break;
+
+        case 'user_detail':
+          title = "<%= __('user_detail') %>";
+          break;
+
+        case 'user_documents':
+          title = "<%= __('user_documents') %>";
+          break;
+
+        case 'vehicle_document_list':
+          title = "<%= __('vehicle_document_list') %>";
+          break;
+
+        case 'vehicle_document_list_for_partner':
+          title = "<%= __('vehicle_document_list_for_partner') %>";
+          break;
+
+        case 'vehicle_document_list_partner':
+          title = "<%= __('vehicle_document_list_partner') %>";
+          break;
+
+        case 'vehicle_documents_edit_for_partner':
+          title = "<%= __('vehicle_documents_edit_for_partner') %>";
+          break;
+
+        default:
+          break;
+      }
+      $('#page_title').text(title);
+    }
+  });
+</script>

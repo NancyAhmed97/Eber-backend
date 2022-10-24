@@ -1,0 +1,64 @@
+exports = TOKEN_SECRET = 'lFaLHZQWM2SN5ZD8';
+exports = PAYMENT_GATEWAY = {
+    stripe: 10,
+    paystack: 11,
+    payu: 12
+};
+
+exports = IS_ADD_CARD = {
+    10: true,
+    11: true,
+    12: false
+}
+
+exports = LANGUAGES = {
+    english : 'en',
+    japanese : 'ja',
+    french: 'fr',
+    arabic: 'ar',
+    portuguese: 'pr',
+    spanish: 'es'
+};
+
+exports = PAYMENT_STATUS = {
+    WAITING: 0,
+    COMPLETED: 1,
+    FAILED: 2
+}
+
+exports = TRIP_STATUS = {
+    WAITING_FOR_PROVIDER: 9,
+    NO_PROVIDER_FOUND: 109,
+    NOT_ANSWERED: 110,
+    PROVIDER_ACCEPTED: 11,
+    PROVIDER_REJECTED: 111,
+    PROVIDER_CANCELLED: 112,
+    TRIP_COMPLETED: 25,
+    INITIATE_TRIP: 50
+};
+
+
+// ORDER_CANCELLATION_CHARGE CONSTANT
+exports = VEHICLE_ACCESIBILITY_TYPE = {
+    BABY_SEAT: "baby_seat",
+    HOTSPOTS: "hotspot",
+    HANDICAPE: "handicap"
+};
+exports = VEHICLE_ACCESIBILITY_TYPE_STRING = {
+    BABY_SEAT: "Baby Seat",
+    HOTSPOTS: "Hotspot",
+    HANDICAPE: "Handicap"
+};
+
+
+
+
+// VEHICLE_ACCESIBILITY CONSTANT ARRAY 
+exports = VEHICLE_ACCESIBILITY = [
+    {ID: VEHICLE_ACCESIBILITY_TYPE.BABY_SEAT, NAME: VEHICLE_ACCESIBILITY_TYPE_STRING.BABY_SEAT},
+    {ID: VEHICLE_ACCESIBILITY_TYPE.HOTSPOTS, NAME: VEHICLE_ACCESIBILITY_TYPE_STRING.HOTSPOTS},
+    {ID: VEHICLE_ACCESIBILITY_TYPE.HANDICAPE, NAME: VEHICLE_ACCESIBILITY_TYPE_STRING.HANDICAPE}
+
+
+];
+

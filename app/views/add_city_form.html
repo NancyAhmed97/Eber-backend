@@ -1,0 +1,2231 @@
+<% include header.html %>
+<!-- PAGE CONTENT WRAPPER -->
+
+<style type="text/css" media="screen">
+  .control-label {
+    text-align: left !important;
+  }
+
+  .main_heading {
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+  }
+</style>
+
+<div class="page-content-wrap" style="min-height: 94vh;">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- for edit city form -->
+      <% if(typeof detail != 'undefined'){ %>
+      <% detail.forEach(function(data){ %>
+      <form class="form-horizontal" method="post" action="/update_city_detail" enctype="multipart/form-data">
+        <input type="hidden" name="country_code" class="country_code">
+        <input type="hidden" name="zonecount" id="zonecount" value="0">
+        <input type="hidden" name="city_locations" value="" id="city_locations">
+
+        <div class="panel panel-default tabs">
+          <ul class="nav nav-tabs" role="tablist">
+            <li onclick="show_footer()" class="active"><a href="#tab-first" role="tab" data-toggle="tab"><%= __('button_add_city') %></a></li>
+            <!-- <li onclick="show_footer()"><a href="#tab-fifth" role="tab" data-toggle="tab"><%= __('button_city_map') %></a></li> -->
+            <li onclick="clickevents()"><a href="#tab-second" role="tab" data-toggle="tab"><%= __('button_add_airport') %></a></li>
+            <li onclick="show_footer()"><a href="#tab-fourth" role="tab" data-toggle="tab"><%= __('button_add_destination_city') %></a></li>
+            <li onclick="clickevent()"><a href="#tab-third" role="tab" data-toggle="tab"><%= __('button_add_zone') %></a></li>
+            <li onclick="clickeventredzone()"><a href="#tab-six" role="tab" data-toggle="tab"><%= __('button_red_zone_area') %></a></li>
+          </ul>
+          <div class="panel-body tab-content">
+            <div class="tab-pane" id="tab-second">
+
+              <div class="row">
+                <div class="col-md-9 form-group">
+                  <div id="airport_map" style="width: 100%; height: calc(100vh - 210px);"></div>
+                </div>
+                <div class="col-md-3 form-group" style="height: calc(100vh - 210px);overflow-y:auto">
+                  <div id="airport_list">
+                    <%    airport.forEach(function (city_zone_detail, index) { %>
+                    <div class="row">
+                      <div class="col-md-3 form-group">
+                        <div style="width:30px;height: 30px;background-color:<%= city_zone_detail.fill %>"></div>
+                      </div>
+                      <div class="col-md-9 form-group">
+                        <%= city_zone_detail.title %>
+                        <span style="font-size: 20px;" onclick="delete_airport(<%=index%>)" class="pull-right fa fa-times"></span>
+                      </div>
+                    </div>
+                    <%    }) %>
+                  </div>
+
+                  <div class="row" style="text-align: center;">
+                    <button type="button" class="btn btn-primary btn-block" onclick="updateairport_db()" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= __('button_update') %></button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="tab-fourth">
+
+
+              <% dest_city_list.forEach(function (city_detail){%>
+              <div class="col-md-3">
+                <label class="check">
+                  <input type="checkbox" id="<%=city_detail.id%>" value="<%=city_detail.id%>" name="destination_city[]" class="icheckbox" checked /> <%=city_detail.cityname%></label>
+              </div>
+              <% }) %>
+              <% city_list.forEach(function (city_detail){%>
+              <div class="col-md-3">
+                <label class="check">
+                  <input type="checkbox" id="<%=city_detail.id%>" value="<%=city_detail.id%>" name="destination_city[]" class="icheckbox" /> <%=city_detail.cityname%></label>
+              </div>
+              <% }) %>
+
+            </div>
+            <div class="tab-pane" id="tab-third">
+              <div class="row">
+                <div class="col-md-9 form-group">
+                  <div id="map" style="width: 100%; height: calc(100vh - 210px);"></div>
+                </div>
+                <div class="col-md-3 form-group" style="height: calc(100vh - 210px);overflow-y:auto">
+                  <div id="zone_list">
+                    <%    city_zone.forEach(function (city_zone_detail, index) { %>
+                    <div class="row">
+                      <div class="col-md-3 form-group">
+                        <div style="width:30px;height: 30px;background-color:<%= city_zone_detail.fill %>"></div>
+                      </div>
+                      <div class="col-md-9 form-group">
+                        <%= city_zone_detail.title %>
+                        <span style="font-size: 20px;" onclick="delete_zone(<%=index%>)" class="pull-right fa fa-times"></span>
+                      </div>
+                    </div>
+                    <%    }) %>
+                  </div>
+
+                  <div class="row" style="text-align: center;">
+                    <button type="button" class="btn btn-primary btn-block" onclick="updatezone_db()" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= __('button_update') %></button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="tab-six">
+              <div class="row">
+                <div class="col-md-9 form-group">
+                  <div id="map5" style="width: 100%; height: calc(100vh - 210px);"></div>
+                </div>
+                <div class="col-md-3 form-group" style="height: calc(100vh - 210px);overflow-y:auto">
+                  <div id="red_zone_list">
+                    <%    red_zone_area.forEach(function (red_zone_area_detail, index) { %>
+                    <div class="row">
+                      <div class="col-md-3 form-group">
+                        <div style="width:30px;height: 30px;background-color:<%= red_zone_area_detail.fill %>"></div>
+                      </div>
+                      <div class="col-md-9 form-group">
+                        <%= red_zone_area_detail.title %>
+                        <span style="font-size: 20px;" onclick="delete_red_zone(<%=index%>)" class="pull-right fa fa-times"></span>
+                      </div>
+                    </div>
+                    <%    }) %>
+                  </div>
+
+                  <div class="row" style="text-align: center;">
+                    <button type="button" class="btn btn-primary btn-block" onclick="updatered_zone_db()" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= __('button_update') %></button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="tab-pane active" id="tab-first">
+
+
+              <div class="col-md-6 form-group">
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_basic_settings') %></label>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_bussiness_in_city') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <label class="switch">
+                        <% if( data.isBusiness == 1 ) { %>
+                        <input type="checkbox" class="switch" value="1" name="isBusiness" checked />
+                        <% } else{ %>
+                        <input type="checkbox" class="switch" value="1" name="isBusiness" unchecked />
+                        <% } %>
+                        <span></span>
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_country') %></label>
+                  <input type="hidden" class="form-control" id="cityid" name="id" value="<%= data._id %>" />
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="countryid" disabled="true">
+                        <option value="<% data.countryid %>"><%= data.country_detail.countryname %></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_city') %></label>
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+
+                      <% if(data.full_cityname == '' || data.full_cityname == undefined){ %>
+                      <input type="text" class="form-control" name="cityname" value="<%= data.cityname %>" disabled="true" />
+                      <% } else { %>
+                      <input type="text" class="form-control" name="cityname" value="<%= data.full_cityname %>" disabled="true" />
+
+                      <% } %>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3  col-xs-5 control-label"><%= __('title_timezone') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <input type="text" class="form-control" name="timezone" value="<%= data.timezone %>" disabled="true" />
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_distance_unit') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" name="unit">
+                        <% if(data.unit == "1") { %>
+                        <option value="1" selected="selected"><%= __('unit_km') %></option>
+                        <option value="0"><%= __('unit_mile') %></option>
+                        <% } else{ %>
+                        <option value="1"><%= __('unit_km') %></option>
+                        <option value="0" selected="selected"><%= __('unit_mile') %></option>
+                        <% } %>
+                      </select>
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_is_use_city_boundary') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="is_use_city_boundary" name="is_use_city_boundary">
+                        <% if(data.is_use_city_boundary == true) { %>
+                        <option value="true" selected="selected"><%= __('title_on') %></option>
+                        <option value="false"><%= __('title_off') %></option>
+                        <% } else{ %>
+
+                        <option value="true"><%= __('title_on') %></option>
+                        <option value="false" selected="selected"><%= __('title_off') %></option>
+                        <% } %>
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group" id="title_city_radius">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_city_radius') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <input type="text" class="form-control" name="cityRadius" id="cityRadius" value="<%= data.cityRadius %>" onkeypress="return isNumberKey(event,false);" maxlength="3" />
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_define_city_area') %></label>
+                </div>
+
+                <div class="form-group">
+                  <div id="city_radius_map" style="width: 80%; height: calc(50vh);"></div>
+                </div>
+
+
+
+              </div>
+              <div class="col-md-6 form-group">
+
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_user_payment_setting') %></label>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-6 form-group p-0">
+                    <div class="form-group">
+                      <label class="col-md-6 col-xs-9 control-label"><%= __('title_cash') %></label>
+
+                      <div class="col-md-6 col-xs-3">
+                        <label class="switch">
+                          <% if( data.is_payment_mode_cash == 1 ) { %>
+                          <input type="checkbox" class="switch" value="1" id="is_payment_mode_cash" name="is_payment_mode_cash" checked />
+                          <% } else{ %>
+                          <input type="checkbox" class="switch" value="1" id="is_payment_mode_cash" name="is_payment_mode_cash" unchecked />
+                          <% } %>
+                          <span></span>
+                        </label>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 form-group p-0">
+                    <div class="form-group">
+                      <label class="col-md-6 col-xs-9 control-label"><%= __('title_card') %></label>
+
+                      <div class="col-md-6 col-xs-3">
+                        <label class="switch">
+                          <% if( data.is_payment_mode_card == 1 ) { %>
+                          <input type="checkbox" class="switch" value="1" id="is_payment_mode_card" name="is_payment_mode_card" checked />
+                          <% } else{ %>
+                          <input type="checkbox" class="switch" value="1" id="is_payment_mode_card" name="is_payment_mode_card" unchecked />
+                          <% } %>
+                          <span></span>
+                        </label>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_promo_apply_for_cash') %></label>
+
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.isPromoApplyForCash == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="isPromoApplyForCash" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="isPromoApplyForCash" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_promo_apply_for_card') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.isPromoApplyForCard == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="isPromoApplyForCard" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="isPromoApplyForCard" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_driver_wallet_setting') %></label>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_provider_earning_set_in_wallet_on_cash_payment') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.is_provider_earning_set_in_wallet_on_cash_payment == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="is_provider_earning_set_in_wallet_on_cash_payment" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="is_provider_earning_set_in_wallet_on_cash_payment" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_provider_earning_set_in_wallet_on_other_payment') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.is_provider_earning_set_in_wallet_on_other_payment == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="is_provider_earning_set_in_wallet_on_other_payment" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="is_provider_earning_set_in_wallet_on_other_payment" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_check_provider_wallet_amount_for_received_cash_request') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.is_check_provider_wallet_amount_for_received_cash_request == 1 ) { %>
+                      <input type="checkbox" id="is_check_provider_wallet_amount_for_received_cash_request" class="switch" value="1" name="is_check_provider_wallet_amount_for_received_cash_request" checked />
+                      <% } else{ %>
+                      <input type="checkbox" id="is_check_provider_wallet_amount_for_received_cash_request" class="switch" value="1" name="is_check_provider_wallet_amount_for_received_cash_request" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+
+                <div class="form-group" id="provider_min_wallet_amount_set_for_received_cash_request">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_provider_min_wallet_amount_set_for_received_cash_request') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <input type="text" class="form-control" name="provider_min_wallet_amount_set_for_received_cash_request" value="<%= data.provider_min_wallet_amount_set_for_received_cash_request %>" onkeypress="return isNumberKey(event,false);" maxlength="8" />
+
+                  </div>
+                </div>
+
+
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_other_pricing') %></label>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_ask_user_for_fixed_fare') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.is_ask_user_for_fixed_fare == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="is_ask_user_for_fixed_fare" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="is_ask_user_for_fixed_fare" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_bussiness_in_airport') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.airport_business == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="airport_business" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="airport_business" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_bussiness_in_destination_city') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.city_business == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="city_business" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="city_business" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_bussiness_in_zone') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <% if( data.zone_business == 1 ) { %>
+                      <input type="checkbox" class="switch" value="1" name="zone_business" checked />
+                      <% } else{ %>
+                      <input type="checkbox" class="switch" value="1" name="zone_business" unchecked />
+                      <% } %>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-footer" id="footer">
+            <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= __('button_update') %></button>
+          </div>
+        </div>
+      </form>
+
+      <% }); %>
+      <!-- ///////////////////////////// -->
+
+      <!-- for add city form -->
+      <% } else { %>
+
+      <form class="form-horizontal" method="post" action="/add_city_detail" enctype="multipart/form-data">
+        <input type="hidden" name="country_code" class="country_code" value="">
+        <input type="hidden" name="city_locations" id="city_locations">
+        <div class="panel panel-default tabs">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#tab-first" role="tab" data-toggle="tab"><%= __('button_add_city') %></a></li>
+            <li><a href="#tab-third" role="tab" data-toggle="tab"><%= __('button_add_destination_city') %></a></li>
+          </ul>
+          <div class="panel-body tab-content">
+
+            <div class="tab-pane" id="tab-third">
+              <div class="form-group">
+                <label class="col-md-3 col-xs-5 control-label"><%= __('title_destination_city') %></label>
+                <div class="col-md-9 col-xs-7">
+                  <div class="col-md-9">
+                    <select data-live-search="true" class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id='destination_city' multiple="multiple" name="destination_city[]">
+                      <option selected disabled hidden style='display: none'><%= __('title_select_destination_city') %></option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane active" id="tab-first">
+              <div class="col-md-6 form-group">
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_basic_settings') %></label>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_bussiness_in_city') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <label class="switch">
+                        <input type="checkbox" class="switch" value="1" name="isBusiness" checked />
+                        <span></span>
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_country') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="countryid" id="countryid">
+                        <option selected disabled hidden style='display: none'><%= __('title_select_country')%></option>
+                        <% country_data.forEach(function(data) { %>
+
+                        <option value="<%= data.id %>"><%= data.countryname %></option>
+                        <% }); %>
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+                <input type="hidden" class="form-control" name="full_cityname" id="full_cityname" />
+
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_city') %></label>
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+
+                      <input type="text" class="form-control" name="cityname" onkeyup="test()" id="cityname" />
+                      <div id="citycheck"></div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_timezone') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="timezone" id="timezone">
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_distance_unit') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" name="unit">
+                        <option value="1"><%= __('unit_km') %></option>
+                        <option value="0"><%= __('unit_mile') %></option>
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_is_use_city_boundary') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="is_use_city_boundary" name="is_use_city_boundary">
+                        <option value="true"><%= __('title_on') %></option>
+                        <option value="false" selected><%= __('title_off') %></option>
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group" id="title_city_radius">
+                  <label class="col-md-3 col-xs-5 control-label"><%= __('title_city_radius') %></label>
+
+                  <div class="col-md-9 col-xs-7">
+                    <div class="col-md-9">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="cityRadius" id="cityRadius" onkeypress="return isNumberKey(event,false);" maxlength="3" />
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_city_radius') %>">?</button>
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+                <div style="display: none;">
+                  <div class="form-group" id="title_city_latitude">
+                    <label class="col-md-3 col-xs-5 control-label"><%= __('title_city_latitude') %></label>
+
+                    <div class="col-md-9 col-xs-7">
+                      <div class="col-md-9">
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="latitude" name="latitude" onkeypress="return isNumberKey(event);" />
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_city_latitude') %>">?</button>
+                          </span>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group" id="title_city_longitude">
+                    <label class="col-md-3 col-xs-5 control-label"><%= __('title_city_longitude') %></label>
+
+                    <div class="col-md-9 col-xs-7">
+                      <div class="col-md-9">
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="longitude" name="longitude" onkeypress="return isNumberKey(event);" />
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_city_longitude') %>">?</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_define_city_area') %></label>
+                </div>
+
+                <div class="form-group">
+                  <div id="city_radius_map" style="width: 80%; height: calc(50vh);"></div>
+                </div>
+
+
+              </div>
+              <div class="col-md-6 form-group">
+
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_user_payment_setting') %></label>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-6 form-group p-0">
+                    <div class="form-group">
+                      <label class="col-md-6 col-xs-9 control-label"><%= __('title_cash') %></label>
+
+                      <div class="col-md-6 col-xs-3">
+                        <label class="switch">
+                          <input type="checkbox" class="switch" value="1" id="is_payment_mode_cash" name="is_payment_mode_cash" checked />
+                          <span></span>
+                        </label>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 form-group p-0">
+                    <div class="form-group">
+                      <label class="col-md-6 col-xs-9 control-label"><%= __('title_card') %></label>
+
+                      <div class="col-md-6 col-xs-3">
+                        <label class="switch">
+                          <input type="checkbox" class="switch" value="1" id="is_payment_mode_card" name="is_payment_mode_card" checked />
+                          <span></span>
+                        </label>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_promo_apply_for_cash') %></label>
+
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="isPromoApplyForCash" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_promo_apply_for_card') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="isPromoApplyForCard" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_driver_wallet_setting') %></label>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_provider_earning_set_in_wallet_on_cash_payment') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="is_provider_earning_set_in_wallet_on_cash_payment" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_provider_earning_set_in_wallet_on_other_payment') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="is_provider_earning_set_in_wallet_on_other_payment" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_check_provider_wallet_amount_for_received_cash_request') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" id="is_check_provider_wallet_amount_for_received_cash_request" class="switch" value="1" name="is_check_provider_wallet_amount_for_received_cash_request" unchecked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+
+                <div class="form-group" id="provider_min_wallet_amount_set_for_received_cash_request">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_provider_min_wallet_amount_set_for_received_cash_request') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <input type="text" class="form-control" name="provider_min_wallet_amount_set_for_received_cash_request" value="0" onkeypress="return isNumberKey(event,false);" maxlength="8" />
+
+                  </div>
+                </div>
+
+
+
+                <div class="form-group">
+                  <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_other_pricing') %></label>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_is_ask_user_for_fixed_fare') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="is_ask_user_for_fixed_fare" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_bussiness_in_airport') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="airport_business" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_bussiness_in_destination_city') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="city_business" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-9 col-xs-9 control-label"><%= __('title_bussiness_in_zone') %></label>
+                  <div class="col-md-3 col-xs-3">
+                    <label class="switch">
+                      <input type="checkbox" class="switch" value="1" name="zone_business" checked />
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= __('button_submit') %></button>
+          </div>
+        </div>
+      </form>
+      <% } %>
+
+    </div>
+  </div>
+
+</div>
+
+
+<!-- for remove google symbol and pin image on autocomplete textbox -->
+<style type="text/css">
+  .pac-container:after {
+    background-image: none !important;
+    height: 0px;
+  }
+
+  .pac-icon {
+    display: none !important;
+  }
+
+  /*.pac-item-query + span {
+        display: none
+    }*/
+</style>
+
+<!-- ////////////// -->
+
+<% if(typeof detail != 'undefined'){ %>
+
+<script>
+  var zone_array = [];
+  zone_array = <%-JSON.stringify(city_zone)%>;
+  var deleted_zone = [];
+
+  var airport_array = [];
+  airport_array = <%-JSON.stringify(airport)%>;
+  var deleted_airport = [];
+
+  red_zone_array = [];
+  red_zone_array = <%-JSON.stringify(red_zone_area)%>;
+  var deleted_red_zone = [];
+
+  function delete_red_zone(index) {
+
+    if (red_zone_array[index]._id) {
+      deleted_red_zone.push(red_zone_array[index]._id)
+    }
+    red_zone_array.splice(index, 1);
+    $('#red_zone_list').empty();
+    red_zone_array.forEach(function(red_zone_data, index) {
+      $('#red_zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + red_zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + red_zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_red_zone(' + index + ')"></span></div></div>')
+    })
+  }
+
+  function updatered_zone_db() {
+    $.ajax({
+      type: 'POST',
+      url: '/update_city_red_zone',
+      data: {
+        'city_id': '<%=detail[0]._id%>',
+        'deleted_red_zone': deleted_red_zone,
+        'red_zone_array': red_zone_array
+      },
+      dataType: "json",
+      success: function(response) {
+        deleted_red_zone = [];
+        location.reload();
+      }
+    });
+  }
+
+  function delete_zone(index) {
+
+    if (zone_array[index]._id) {
+      deleted_zone.push(zone_array[index]._id)
+    }
+    zone_array.splice(index, 1);
+    $('#zone_list').empty();
+    zone_array.forEach(function(zone_data, index) {
+      $('#zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_zone(' + index + ')"></span></div></div>')
+    })
+  }
+
+  function updatezone_db() {
+    $.ajax({
+      type: 'POST',
+      url: '/update_city_zone',
+      data: {
+        'city_id': '<%=detail[0]._id%>',
+        'deleted_zone': deleted_zone,
+        'zone_array': zone_array
+      },
+      dataType: "json",
+      success: function(response) {
+        deleted_zone = [];
+        location.reload();
+      }
+    });
+  }
+
+  function delete_airport(index) {
+
+    if (airport_array[index]._id) {
+      deleted_airport.push(airport_array[index]._id)
+    }
+    airport_array.splice(index, 1);
+    $('#airport_list').empty();
+    airport_array.forEach(function(airport_data, index) {
+      $('#airport_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + airport_data.fill + ';"></div></div><div class="col-md-9 form-group">' + airport_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_airport(' + index + ')"></span></div></div>')
+    })
+  }
+
+  function updateairport_db() {
+    $.ajax({
+      type: 'POST',
+      url: '/update_airport',
+      data: {
+        'city_id': '<%=detail[0]._id%>',
+        'deleted_airport': deleted_airport,
+        'airport_array': airport_array
+      },
+      dataType: "json",
+      success: function(response) {
+        deleted_airport = [];
+        location.reload();
+      }
+    });
+  }
+
+
+  function clickevent() {
+    $('#footer').hide()
+    setTimeout(function() {
+      initialize()
+    });
+  }
+
+  function clickeventredzone() {
+    $('#footer').hide()
+    setTimeout(function() {
+      initialized()
+    });
+  }
+
+  function clickevents() {
+    $('#footer').hide()
+    setTimeout(function() {
+      initializes()
+    });
+  }
+
+  function show_footer() {
+    $('#footer').show()
+  }
+
+  function initialize() {
+    var map_view = {
+      center: new google.maps.LatLng(<%= detail[0].cityLatLong[0] %>, <%= detail[0].cityLatLong[1] %>),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map"), map_view);
+    var infowindow = new google.maps.InfoWindow({
+      size: new google.maps.Size(150, 50)
+    });
+    var redCoords = [];
+    var splitvalue = [];
+    var polygon2, contentString;
+    var string;
+    zone_array.forEach(function(city_zone_detail, zone_index) {
+      var length1 = city_zone_detail.kmlzone.length;
+      redCoords = [];
+      for (var i = 0; i < length1; i++) {
+        string = city_zone_detail.kmlzone[i];
+
+        redCoords[i] = {
+          lat: Number(string[1]),
+          lng: Number(string[0])
+        };
+      };
+
+      polygon2 = new google.maps.Polygon({
+        map: map,
+        name: city_zone_detail.title,
+        paths: redCoords,
+        strokeColor: city_zone_detail.stroke,
+        strokeOpacity: city_zone_detail.stroke_opacity,
+        strokeWeight: city_zone_detail.stroke_width,
+        fillColor: city_zone_detail.fill,
+        fillOpacity: city_zone_detail.fill_opacity,
+        draggable: false,
+        editable: true,
+        geodesic: true
+      });
+      var draw_shape = polygon2;
+      draw_shape.index = zone_index
+      google.maps.event.addListener(draw_shape, 'click', function(event) {
+        contentString = this.name;
+        var html = '<div><input type="text" id="edit_title" value="' + draw_shape.name + '" name="title"/></div><br>' +
+          '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+          '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
+        setTimeout(function() {
+          jQuery('#update_title').on('click', (event, res_data) => {
+            zone_array[draw_shape.index].fill = jQuery('#edit_color').val();
+            zone_array[draw_shape.index].title = jQuery('#edit_title').val();
+            draw_shape.set('fillColor', jQuery('#edit_color').val());
+            draw_shape.set('strokeColor', jQuery('#edit_color').val());
+            draw_shape.set('name', jQuery('#edit_title').val());
+            $('#zone_list').empty();
+            zone_array.forEach(function(zone_data, index) {
+              $('#zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_zone(' + index + ')"></span></div></div>')
+            })
+            infowindow.close();
+          });
+        }, 1000)
+
+
+      });
+
+      google.maps.event.addListener(draw_shape.getPath(), 'set_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([Number(location.lng()), Number(location.lat())])
+        });
+        zone_array[draw_shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(draw_shape.getPath(), 'insert_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([Number(location.lng()), Number(location.lat())])
+        });
+        zone_array[draw_shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(draw_shape.getPath(), 'remove_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([Number(location.lng()), Number(location.lat())])
+        });
+        zone_array[draw_shape.index].kmlzone = location_array;
+
+      });
+
+
+    });
+
+    zone_drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+      },
+      polygonOptions: {
+        fillColor: 'black',
+        fillOpacity: 0.3,
+        strokeWeight: 2,
+        clickable: true,
+        editable: true,
+        zIndex: 1
+      }
+    });
+    zone_drawingManager.setMap(map);
+
+    google.maps.event.addListener(zone_drawingManager, 'overlaycomplete', (polygon) => {
+
+      var shape = polygon.overlay;
+
+      let location_array = []
+      shape.getPath().getArray().forEach((location) => {
+        location_array.push([location.lng(), location.lat()])
+      });
+
+      var json = {
+        kmlzone: location_array,
+        title: 'Polygon' + zone_array.length,
+        strokeColor: 'black',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        fill: 'black',
+        fillOpacity: 0.3
+      }
+      zone_array.push(json)
+
+      shape.index = zone_array.length - 1;
+
+      $('#zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:black;"></div></div><div class="col-md-9 form-group">' + 'Polygon' + zone_array.length + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_zone(' + (zone_array.length - 1) + ')"></span></div></div>')
+
+
+      var html = '<div><input type="text" id="edit_title" value="' + 'Polygon' + zone_array.length + '" name="title"/></div><br>' +
+        '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+        '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+      infowindow.setContent(html);
+      infowindow.setPosition(shape.getPath().getArray()[0]);
+      infowindow.open(map);
+      setTimeout(function() {
+        jQuery('#update_title').on('click', (event, res_data) => {
+          zone_array[shape.index].fill = jQuery('#edit_color').val();
+          zone_array[shape.index].title = jQuery('#edit_title').val();
+          $('#zone_list').empty();
+          shape.set('fillColor', jQuery('#edit_color').val());
+          shape.set('strokeColor', jQuery('#edit_color').val());
+          shape.set('name', jQuery('#edit_title').val());
+          zone_array.forEach(function(zone_data, index) {
+            $('#zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_zone(' + index + ')"></span></div></div>')
+          })
+          infowindow.close();
+        });
+      }, 1000)
+
+
+      google.maps.event.addListener(shape, 'click', function(event) {
+        contentString = this.name;
+        var html = '<div><input type="text" id="edit_title" value="' + shape.name + '" name="title"/></div><br>' +
+          '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+          '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
+        setTimeout(function() {
+          jQuery('#update_title').on('click', (event, res_data) => {
+            zone_array[shape.index].fill = jQuery('#edit_color').val();
+            zone_array[shape.index].title = jQuery('#edit_title').val();
+            shape.set('fillColor', jQuery('#edit_color').val());
+            shape.set('strokeColor', jQuery('#edit_color').val());
+            shape.set('name', jQuery('#edit_title').val());
+            $('#zone_list').empty();
+            zone_array.forEach(function(zone_data, index) {
+              $('#zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_zone(' + index + ')"></span></div></div>')
+            })
+            infowindow.close();
+          });
+        }, 1000)
+
+
+      });
+
+      google.maps.event.addListener(shape.getPath(), 'set_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        zone_array[shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(shape.getPath(), 'insert_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        zone_array[shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(shape.getPath(), 'remove_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        zone_array[shape.index].kmlzone = location_array;
+
+      });
+
+    });
+  }
+
+  function initialized() {
+    var map_view = {
+      center: new google.maps.LatLng(<%= detail[0].cityLatLong[0] %>, <%= detail[0].cityLatLong[1] %>),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map5"), map_view);
+    var infowindow = new google.maps.InfoWindow({
+      size: new google.maps.Size(150, 50)
+    });
+    var redCoords = [];
+    var splitvalue = [];
+    var polygon2, contentString;
+    var string;
+    red_zone_array.forEach(function(city_red_zone_detail, red_zone_index) {
+      var length1 = city_red_zone_detail.kmlzone.length;
+      redCoords = [];
+      for (var i = 0; i < length1; i++) {
+        string = city_red_zone_detail.kmlzone[i];
+
+        redCoords[i] = {
+          lat: Number(string[1]),
+          lng: Number(string[0])
+        };
+      };
+
+
+      polygon2 = new google.maps.Polygon({
+        map: map,
+        name: city_red_zone_detail.title,
+        paths: redCoords,
+        strokeColor: city_red_zone_detail.stroke,
+        strokeOpacity: city_red_zone_detail.stroke_opacity,
+        strokeWeight: city_red_zone_detail.stroke_width,
+        fillColor: city_red_zone_detail.fill,
+        fillOpacity: city_red_zone_detail.fill_opacity,
+        draggable: false,
+        editable: true,
+        geodesic: true
+      });
+      var draw_shape = polygon2;
+      draw_shape.index = red_zone_index
+      google.maps.event.addListener(draw_shape, 'click', function(event) {
+        contentString = this.name;
+        var html = '<div><input type="text" id="edit_title" value="' + draw_shape.name + '" name="title"/></div><br>' +
+          '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+          '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
+        setTimeout(function() {
+          jQuery('#update_title').on('click', (event, res_data) => {
+            red_zone_array[draw_shape.index].fill = jQuery('#edit_color').val();
+            red_zone_array[draw_shape.index].title = jQuery('#edit_title').val();
+            draw_shape.set('fillColor', jQuery('#edit_color').val());
+            draw_shape.set('strokeColor', jQuery('#edit_color').val());
+            draw_shape.set('name', jQuery('#edit_title').val());
+            $('#red_zone_list').empty();
+            red_zone_array.forEach(function(red_zone_data, index) {
+              $('#red_zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + red_zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + red_zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_red_zone(' + index + ')"></span></div></div>')
+            })
+            infowindow.close();
+          });
+        }, 1000)
+
+
+      });
+
+      google.maps.event.addListener(draw_shape.getPath(), 'set_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        red_zone_array[draw_shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(draw_shape.getPath(), 'insert_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        red_zone_array[draw_shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(draw_shape.getPath(), 'remove_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        red_zone_array[draw_shape.index].kmlzone = location_array;
+
+      });
+
+
+    });
+
+    red_zone_drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+      },
+      polygonOptions: {
+        fillColor: 'black',
+        fillOpacity: 0.3,
+        strokeWeight: 2,
+        clickable: true,
+        editable: true,
+        zIndex: 1
+      }
+    });
+    red_zone_drawingManager.setMap(map);
+
+    google.maps.event.addListener(red_zone_drawingManager, 'overlaycomplete', (polygon) => {
+
+      var shape = polygon.overlay;
+
+      let location_array = []
+      shape.getPath().getArray().forEach((location) => {
+        location_array.push([location.lng(), location.lat()])
+      });
+
+      var json = {
+        kmlzone: location_array,
+        title: 'Polygon' + red_zone_array.length,
+        strokeColor: 'black',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        fill: 'black',
+        fillOpacity: 0.3
+      }
+      red_zone_array.push(json)
+
+      shape.index = red_zone_array.length - 1;
+
+      $('#red_zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:black;"></div></div><div class="col-md-9 form-group">' + 'Polygon' + red_zone_array.length + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_red_zone(' + (red_zone_array.length - 1) + ')"></span></div></div>')
+
+
+      var html = '<div><input type="text" id="edit_title" value="' + 'Polygon' + red_zone_array.length + '" name="title"/></div><br>' +
+        '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+        '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+      infowindow.setContent(html);
+      infowindow.setPosition(shape.getPath().getArray()[0]);
+      infowindow.open(map);
+      setTimeout(function() {
+        jQuery('#update_title').on('click', (event, res_data) => {
+          red_zone_array[shape.index].fill = jQuery('#edit_color').val();
+          red_zone_array[shape.index].title = jQuery('#edit_title').val();
+          $('#red_zone_list').empty();
+          shape.set('fillColor', jQuery('#edit_color').val());
+          shape.set('strokeColor', jQuery('#edit_color').val());
+          shape.set('name', jQuery('#edit_title').val());
+          red_zone_array.forEach(function(red_zone_data, index) {
+            $('#red_zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + red_zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + red_zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_red_zone(' + index + ')"></span></div></div>')
+          })
+          infowindow.close();
+        });
+      }, 1000)
+
+
+      google.maps.event.addListener(shape, 'click', function(event) {
+        contentString = this.name;
+        var html = '<div><input type="text" id="edit_title" value="' + shape.name + '" name="title"/></div><br>' +
+          '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+          '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
+        setTimeout(function() {
+          jQuery('#update_title').on('click', (event, res_data) => {
+            red_zone_array[shape.index].fill = jQuery('#edit_color').val();
+            red_zone_array[shape.index].title = jQuery('#edit_title').val();
+            shape.set('fillColor', jQuery('#edit_color').val());
+            shape.set('strokeColor', jQuery('#edit_color').val());
+            shape.set('name', jQuery('#edit_title').val());
+            $('#red_zone_list').empty();
+            red_zone_array.forEach(function(red_zone_data, index) {
+              $('#red_zone_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + red_zone_data.fill + ';"></div></div><div class="col-md-9 form-group">' + red_zone_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_red_zone(' + index + ')"></span></div></div>')
+            })
+            infowindow.close();
+          });
+        }, 1000)
+
+
+      });
+
+      google.maps.event.addListener(shape.getPath(), 'set_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        red_zone_array[shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(shape.getPath(), 'insert_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        red_zone_array[shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(shape.getPath(), 'remove_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        red_zone_array[shape.index].kmlzone = location_array;
+
+      });
+
+    });
+  }
+
+  function initializes() {
+    var map_view = {
+      center: new google.maps.LatLng(<%= detail[0].cityLatLong[0] %>, <%= detail[0].cityLatLong[1] %>),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("airport_map"), map_view);
+    var infowindow = new google.maps.InfoWindow({
+      size: new google.maps.Size(150, 50)
+    });
+    var redCoords = [];
+    var splitvalue = [];
+    var polygon2, contentString;
+    var string;
+    airport_array.forEach(function(city_airport_detail, airport_index) {
+      var length1 = city_airport_detail.kmlzone.length;
+      redCoords = [];
+      for (var i = 0; i < length1; i++) {
+        string = city_airport_detail.kmlzone[i];
+
+        redCoords[i] = {
+          lat: Number(string[1]),
+          lng: Number(string[0])
+        };
+      };
+
+      polygon2 = new google.maps.Polygon({
+        map: map,
+        name: city_airport_detail.title,
+        paths: redCoords,
+        strokeColor: city_airport_detail.stroke,
+        strokeOpacity: city_airport_detail.stroke_opacity,
+        strokeWeight: city_airport_detail.stroke_width,
+        fillColor: city_airport_detail.fill,
+        fillOpacity: city_airport_detail.fill_opacity,
+        draggable: false,
+        editable: true,
+        geodesic: true
+      });
+      var draw_shape = polygon2;
+      draw_shape.index = airport_index
+      google.maps.event.addListener(draw_shape, 'click', function(event) {
+        contentString = this.name;
+        var html = '<div><input type="text" id="edit_title" value="' + draw_shape.name + '" name="title"/></div><br>' +
+          '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+          '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
+        setTimeout(function() {
+          jQuery('#update_title').on('click', (event, res_data) => {
+            airport_array[draw_shape.index].fill = jQuery('#edit_color').val();
+            airport_array[draw_shape.index].title = jQuery('#edit_title').val();
+            draw_shape.set('fillColor', jQuery('#edit_color').val());
+            draw_shape.set('strokeColor', jQuery('#edit_color').val());
+            draw_shape.set('name', jQuery('#edit_title').val());
+            $('#airport_list').empty();
+            airport_array.forEach(function(airport_data, index) {
+              $('#airport_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + airport_data.fill + ';"></div></div><div class="col-md-9 form-group">' + airport_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_airport(' + index + ')"></span></div></div>')
+            })
+            infowindow.close();
+          });
+        }, 1000)
+
+
+      });
+
+      google.maps.event.addListener(draw_shape.getPath(), 'set_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        airport_array[draw_shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(draw_shape.getPath(), 'insert_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        airport_array[draw_shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(draw_shape.getPath(), 'remove_at', (event) => {
+        let location_array = []
+        draw_shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        airport_array[draw_shape.index].kmlzone = location_array;
+
+      });
+
+
+    });
+
+    airport_drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+      },
+      polygonOptions: {
+        fillColor: 'black',
+        fillOpacity: 0.3,
+        strokeWeight: 2,
+        clickable: true,
+        editable: true,
+        zIndex: 1
+      }
+    });
+    airport_drawingManager.setMap(map);
+
+    google.maps.event.addListener(airport_drawingManager, 'overlaycomplete', (polygon) => {
+
+      var shape = polygon.overlay;
+
+      let location_array = []
+      shape.getPath().getArray().forEach((location) => {
+        location_array.push([location.lng(), location.lat()])
+      });
+
+      var json = {
+        kmlzone: location_array,
+        title: 'Polygon' + airport_array.length,
+        strokeColor: 'black',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        fill: 'black',
+        fillOpacity: 0.3
+      }
+      airport_array.push(json)
+
+      shape.index = airport_array.length - 1;
+
+      $('#airport_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:black;"></div></div><div class="col-md-9 form-group">' + 'Polygon' + airport_array.length + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_airport(' + (airport_array.length - 1) + ')"></span></div></div>')
+
+
+      var html = '<div><input type="text" id="edit_title" value="' + 'Polygon' + airport_array.length + '" name="title"/></div><br>' +
+        '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+        '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+      infowindow.setContent(html);
+      infowindow.setPosition(shape.getPath().getArray()[0]);
+      infowindow.open(map);
+      setTimeout(function() {
+        jQuery('#update_title').on('click', (event, res_data) => {
+          airport_array[shape.index].fill = jQuery('#edit_color').val();
+          airport_array[shape.index].title = jQuery('#edit_title').val();
+          $('#airport_list').empty();
+          shape.set('fillColor', jQuery('#edit_color').val());
+          shape.set('strokeColor', jQuery('#edit_color').val());
+          shape.set('name', jQuery('#edit_title').val());
+          airport_array.forEach(function(airport_data, index) {
+            $('#airport_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + airport_data.fill + ';"></div></div><div class="col-md-9 form-group">' + airport_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_airport(' + index + ')"></span></div></div>')
+          })
+          infowindow.close();
+        });
+      }, 1000)
+
+
+      google.maps.event.addListener(shape, 'click', function(event) {
+        contentString = this.name;
+        var html = '<div><input type="text" id="edit_title" value="' + shape.name + '" name="title"/></div><br>' +
+          '<div><input type="color" id="edit_color" name="color"/></div><br>' +
+          '<div><button id="update_title" type="button" style="text-align: center;"><%= __('button_update') %></button></div>'
+
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
+        setTimeout(function() {
+          jQuery('#update_title').on('click', (event, res_data) => {
+            airport_array[shape.index].fill = jQuery('#edit_color').val();
+            airport_array[shape.index].title = jQuery('#edit_title').val();
+            shape.set('fillColor', jQuery('#edit_color').val());
+            shape.set('strokeColor', jQuery('#edit_color').val());
+            shape.set('name', jQuery('#edit_title').val());
+            $('#airport_list').empty();
+            airport_array.forEach(function(airport_data, index) {
+              $('#airport_list').append('<div class="row"><div class="col-md-3 form-group"><div style="width:30px;height: 30px;background-color:' + airport_data.fill + ';"></div></div><div class="col-md-9 form-group">' + airport_data.title + '<span class="pull-right fa fa-times" style="font-size: 20px;" onclick="delete_airport(' + index + ')"></span></div></div>')
+            })
+            infowindow.close();
+          });
+        }, 1000)
+
+
+      });
+
+      google.maps.event.addListener(shape.getPath(), 'set_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        airport_array[shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(shape.getPath(), 'insert_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        airport_array[shape.index].kmlzone = location_array;
+
+      });
+      google.maps.event.addListener(shape.getPath(), 'remove_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        airport_array[shape.index].kmlzone = location_array;
+
+      });
+
+    });
+  }
+</script>
+<% } %>
+
+
+<script type="text/javascript">
+  var city_radius_drawingManager;
+  var city_radius_map;
+  var city_boundary_polygon;
+
+  function isNumberKey(evt, isdotallowed = true) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      if (charCode == 46 && isdotallowed) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isNumberKeyOnly(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
+      return false;
+    }
+    return true;
+  }
+
+  function updateentry(id) {
+    var amount = $('#amount' + id).val();
+    if (amount == "") {
+      alert('Please give amount');
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: '/updatezonevalueajax',
+        data: {
+          'id': id,
+          'amount': amount
+        },
+        dataType: "json",
+        success: function(response) {
+          if (response.success) {
+            alert('Successfully updated');
+          } else {
+            alert('Something is wrong');
+          }
+        }
+      });
+    }
+  }
+
+  function deleteentry(id) {
+    $.ajax({
+      type: 'POST',
+      url: '/deletezonevalueajax',
+      data: {
+        'id': id
+      },
+      dataType: "json",
+      success: function(response) {
+        if (response.success) {
+          $('#remove' + id).remove();
+        } else {
+          alert('Something is wrong');
+        }
+      }
+    });
+  }
+  $('#plush_button').click(function(e) {
+    $('#zone_error').text('');
+    var zone1 = $('#zone1').val();
+    var zone2 = $('#zone2').val();
+    var amount = $('#amount').val();
+    var cityid = $('#cityid').val();
+    if (amount != "") {
+
+      if (zone1 == zone2) {
+        $('#zone_error').text('Both are not same')
+      } else {
+        $.ajax({
+          type: 'POST',
+          url: '/zonevalueajax',
+          data: {
+            'zone1': zone1,
+            'zone2': zone2,
+            'amount': amount,
+            'id': cityid
+          },
+          dataType: "json",
+          success: function(response) {
+
+            if (response.success) {
+              $('#append').append('<tr class="demo" id="remove' + response.zone_value._id + '" > <td>' + $('#' + zone1).html() + '</td><td>' + $('#' + zone2).html() + '</td><td><input type="text" id="amount' + response.zone_value._id + '" value="' + amount + '"></td><td> <button type="button" class="btn btn-primary btn-block" onclick="updateentry(' + "'" + response.zone_value._id + "'" + ')" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= process.env.button_update %></button><button type="button" class="btn btn-danger btn-block" onclick="deleteentry(' + "'" + response.zone_value._id + "'" + ')" style = "text-align:center; width:80px; margin: 0 auto;"> Delete </button></td> </tr>');
+
+
+            } else {
+              $('#zone_error').text(response.message)
+            }
+          }
+        });
+      }
+    } else {
+      $('#zone_error').text('Please give amount');
+    }
+  });
+
+  var cityCircle;
+  var city_boundary_polygon;
+
+  function draw_circle() {
+    var latlng = {
+      lat: 22,
+      lng: 70
+    }
+    <% if(typeof detail != 'undefined'){ %>
+    latlng = {
+      lat: <%=detail[0].cityLatLong[0]%>,
+      lng: <%=detail[0].cityLatLong[1]%>
+    };
+    <% } else { %>
+    if ($('#latitude').val().trim().length > 0) {
+      latlng = {
+        lat: Number($('#latitude').val().trim()),
+        lng: Number($('#longitude').val().trim())
+      };
+    }
+    <% } %>
+    var radius = $('#cityRadius').val()
+    if (cityCircle) {
+      cityCircle.setMap(null);
+    }
+    cityCircle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: city_radius_map,
+      center: latlng,
+      radius: radius * 1000
+    });
+  }
+
+  function clear_circle() {
+    if (cityCircle) {
+      cityCircle.setMap(null);
+    }
+  }
+
+  function initialize1() {
+    var latlng = {
+      lat: 22,
+      lng: 70
+    }
+    <% if(typeof detail != 'undefined'){ %>
+    latlng = {
+      lat: <%=detail[0].cityLatLong[0]%>,
+      lng: <%=detail[0].cityLatLong[1]%>
+    };
+    <% } else { %>
+    if ($('#latitude').val().trim().length > 0) {
+      latlng = {
+        lat: Number($('#latitude').val().trim()),
+        lng: Number($('#longitude').val().trim())
+      };
+    }
+    <% } %>
+
+    city_radius_map = new google.maps.Map(document.getElementById('city_radius_map'), {
+      zoom: 10,
+      streetViewControl: false,
+      center: latlng
+    });
+    city_radius_drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+      },
+      polygonOptions: {
+        fillColor: 'black',
+        fillOpacity: 0.3,
+        strokeWeight: 2,
+        clickable: true,
+        editable: true,
+        zIndex: 1
+      }
+    });
+    city_radius_drawingManager.setMap(city_radius_map);
+
+    google.maps.event.addListener(city_radius_drawingManager, 'overlaycomplete', (polygon) => {
+
+      var shape = polygon.overlay;
+      city_radius_drawingManager.setDrawingMode(null);
+      city_radius_drawingManager.setOptions({
+        drawingControl: false,
+      });
+      let location_array = []
+      shape.getPath().getArray().forEach((location) => {
+        location_array.push([location.lng(), location.lat()])
+      });
+
+      $('#city_locations').val(location_array);
+      google.maps.event.addListener(shape.getPath(), 'set_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        $('#city_locations').val(location_array);
+      });
+      google.maps.event.addListener(shape.getPath(), 'insert_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        $('#city_locations').val(location_array);
+      });
+      google.maps.event.addListener(shape.getPath(), 'remove_at', (event) => {
+        let location_array = []
+        shape.getPath().getArray().forEach((location) => {
+          location_array.push([location.lng(), location.lat()])
+        });
+        $('#city_locations').val(location_array);
+      });
+    });
+
+
+    $('#cityRadius').on('input', function() {
+      draw_circle()
+    });
+
+
+    <% if(typeof detail != 'undefined'){ %>
+    var initialLocation = new google.maps.LatLng('<%=detail[0].cityLatLong[0]%>', '<%=detail[0].cityLatLong[1]%>');
+    city_radius_map.setCenter(initialLocation);
+    <% if(detail[0].is_use_city_boundary == false){ %>
+    draw_circle()
+    <% } %>
+    <% if(detail[0].city_locations && detail[0].city_locations.length>0) { %>
+    city_radius_drawingManager.setDrawingMode(null);
+    city_radius_drawingManager.setOptions({
+      drawingControl: false,
+    });
+    let array = [];
+    let string = '';
+    $('#remove_boundary_button').show();
+    <% detail[0].city_locations.forEach(function (location) { %>
+    array.push({
+      lat: Number('<%=location[1]%>'),
+      lng: Number('<%=location[0]%>')
+    })
+    string = string + '<%=location[0]%>,' + '<%=location[1]%>,'
+    <% }) %>
+    string = string.substring(0, string.length - 1);
+    $('#city_locations').val(string);
+    city_boundary_polygon = new google.maps.Polygon({
+      map: city_radius_map,
+      paths: array,
+      strokeColor: 'black',
+      strokeOpacity: 1,
+      strokeWeight: 1.2,
+      fillColor: 'black',
+      fillOpacity: 0.3,
+      draggable: false,
+      geodesic: true,
+      editable: true
+    });
+    google.maps.event.addListener(city_boundary_polygon.getPath(), 'set_at', (event) => {
+      let location_array = []
+      city_boundary_polygon.getPath().getArray().forEach((location) => {
+        location_array.push([location.lng(), location.lat()])
+      });
+      $('#city_locations').val(location_array);
+    });
+    google.maps.event.addListener(city_boundary_polygon.getPath(), 'insert_at', (event) => {
+      let location_array = []
+      city_boundary_polygon.getPath().getArray().forEach((location) => {
+        location_array.push([location.lng(), location.lat()])
+      });
+      $('#city_locations').val(location_array);
+    });
+    google.maps.event.addListener(city_boundary_polygon.getPath(), 'remove_at', (event) => {
+      let location_array = []
+      city_boundary_polygon.getPath().getArray().forEach((location) => {
+        location_array.push([location.lng(), location.lat()])
+      });
+      $('#city_locations').val(location_array);
+    });
+    <% } %>
+
+    <% } %>
+
+  }
+  $(document).ready(function() {
+
+    $('#provider_min_wallet_amount_set_for_received_cash_request').hide();
+
+    <% if(typeof detail != 'undefined'){ %>
+    <% if(detail[0].is_check_provider_wallet_amount_for_received_cash_request == true) { %>
+    $('#provider_min_wallet_amount_set_for_received_cash_request').show();
+    <% } else { %>
+    $('#provider_min_wallet_amount_set_for_received_cash_request').hide();
+    <% } %>
+
+    <% if(detail[0].is_use_city_boundary == true) { %>
+    $('#title_city_radius').hide();
+    $('#title_city_latitude').hide();
+    $('#title_city_longitude').hide();
+    <% } else { %>
+    $('#title_city_radius').show();
+    $('#title_city_latitude').show();
+    $('#title_city_longitude').show();
+    <% } %>
+    <% } %>
+
+    $('#is_use_city_boundary').change(function() {
+      if ($('#is_use_city_boundary').val() == 'true') {
+        $('#title_city_radius').hide();
+        $('#title_city_latitude').hide();
+        $('#title_city_longitude').hide();
+        clear_circle()
+      } else {
+        $('#title_city_radius').show();
+        $('#title_city_latitude').show();
+        $('#title_city_longitude').show();
+        draw_circle()
+      }
+    })
+
+    $('#is_check_provider_wallet_amount_for_received_cash_request').change(function() {
+      console.log($(this).prop("checked"))
+      if ($(this).prop("checked") == true) {
+        $('#provider_min_wallet_amount_set_for_received_cash_request').show();
+      } else {
+        $('#provider_min_wallet_amount_set_for_received_cash_request').hide();
+      }
+    })
+
+    google.maps.event.addDomListener(window, 'load', initialize1);
+
+
+
+    // FOR edit page checkbox autocheck /////
+    <% if(typeof detail != 'undefined'){ %>
+    <% detail.forEach(function(data){ %>
+    <% payment_gateway.forEach(function(payment_gateway_data) { %>
+
+    <% for(var index in data.payment_gateway) { 
+
+                        if(payment_gateway_data.id == data.payment_gateway[index]) { %>
+
+    $('#<%=payment_gateway_data.id%>').prop('checked', true);
+
+    <% }
+                        } %>
+
+    <% }); %>
+
+    <% }); %>
+    <% } %>
+    /////////////////////////////
+
+
+
+
+    //////////////// for on change card payment hide and show payment gateway ////////////
+    var is_payment_mode_card = $('#is_payment_mode_card :selected').text();
+
+    if (is_payment_mode_card == "ON") {
+      $("#payment").css("display", "block");
+    } else {
+      $("#payment").css("display", "none");
+    }
+
+    $('#is_payment_mode_card').change(function(e) {
+
+      if (this.value == 1) {
+        $("#payment").css("display", "block");
+      } else {
+        $("#payment").css("display", "none");
+      }
+
+    });
+    ///////////////////////////////////
+
+    ///////////// change country auto fill timezone dropdown /////////////////
+    $('#countryid').change(function(e) {
+      $('#timezone').empty();
+      var countryname = $("#countryid option:selected").html();
+
+      $.ajax({
+        type: 'POST',
+        url: '/fetch_added_country_detail',
+        data: 'countryname=' + countryname,
+        dataType: "json",
+        success: function(res) {
+          var country_timezone = res.country_timezone;
+
+          for (index in country_timezone) {
+            var countrytimezone_list = country_timezone[index];
+            $('#timezone').append('<option>' + countrytimezone_list + '</option>');
+            $('#timezone').selectpicker('refresh');
+          }
+        }
+      });
+    });
+    ////////////////
+
+
+    $(".form-horizontal").validate({
+      rules: {
+        countryid: "required",
+        cityname: "required",
+        cityRadius: "required",
+        latitude: "required",
+        longitude: "required",
+        provider_min_wallet_amount_set_for_received_cash_request: "required"
+
+      },
+      errorPlacement: function(error, element) {
+        if (element.parent('.input-group').length) {
+          error.insertAfter(element.parent());
+        } else {
+          error.insertAfter(element);
+        }
+      }
+    });
+
+    ///////////// for autocomplete city name //////////////
+
+    $("#countryid").change(function() {
+
+      test();
+      var country = document.getElementById('countryid').value;
+      document.getElementById('cityname').autocomplete = "off";
+      $.ajax({
+        type: 'POST',
+        url: '/autocomplete_cityname',
+
+        data: 'country=' + country,
+        dataType: "json",
+        success: function(res) {
+
+          $('#destination_city').empty()
+          res.city_data.forEach(function(city_detail) {
+            $('#destination_city').append('<option value=' + city_detail._id + '>' + city_detail.cityname + '</option>');
+          });
+          $('#destination_city').selectpicker('refresh');
+
+          var options = {
+            types: ['(cities)'],
+            componentRestrictions: {
+              country: res.country_code
+            }
+          };
+          var input = document.getElementById('cityname');
+          var autocomplete = new google.maps.places.Autocomplete(input, options);
+          //autocomplete.setComponentRestrictions([]);
+
+          var airport_options = {
+            componentRestrictions: {
+              country: res.country_code
+            }
+          };
+          $('.country_code').val(res.country_code);
+
+          /////////////// autocomplete city list select ///////////
+          autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+
+            var location = place.geometry.location;
+            console.log(location[0])
+            location = String(location);
+            location = location.slice(1, -1);
+            location = location.split(',');
+            console.log(location[0])
+
+            for (var i = 0; i < place.address_components.length; i++) {
+
+              if (place.address_components[i].types[0] == "administrative_area_level_1") {
+                //this is the object you are looking for
+                subAdminCity = place.address_components[i];
+                subAdminCity = subAdminCity.long_name;
+                document.getElementById('cityname').value = place.name + ', ' + subAdminCity;
+
+              }
+            }
+            console.log(location[0])
+
+            document.getElementById('full_cityname').value = place.name;
+            document.getElementById('latitude').value = location[0];
+            document.getElementById('longitude').value = location[1];
+            var initialLocation = new google.maps.LatLng(location[0], location[1]);
+            city_radius_map.setCenter(initialLocation);
+            test();
+          });
+        }
+      });
+    });
+
+    $('#add_another_airport').click(function() {
+      var a = $('#count').val();
+      $('#add_airport').append('<div class="col-md-12" id="remove' + a + '"><input type="hidden" class="form-control" id="airport[' + a + '][latitude]" name="airport[' + a + '][latitude]"/><input type="hidden" class="form-control" id="airport[' + a + '][longitude]" name="airport[' + a + '][longitude]"/><div class="col-md-5 form-group"><label class="col-md-3 col-xs-5 control-label">Airport Name</label><div class="col-md-9 col-xs-7"><div class="col-md-9"><input type="text" class="form-control" id="airport[' + a + '][name]" name="airport[' + a + '][name]" required/></div></div></div><div class="col-md-5  form-group"><label class="col-md-3 col-xs-5 control-label">Airport Radius</label><div class="col-md-9 col-xs-7"><div class="col-md-9"><input type="text" class="form-control" name="airport[' + a + '][radius]" required/></div></div></div><div class="col-md-2"><i class="fa fa-minus-circle" onclick="remove_airport(' + a + ')" style="font-size: 30px;cursor: pointer" aria-hidden="true"></i></div></div>');
+      var country_code = $('.country_code').val();
+
+      if (country_code != '') {
+        var airport_options = {
+          componentRestrictions: {
+            country: country_code
+          }
+        };
+      } else {
+        var airport_options = {};
+      }
+
+      var airport_name = document.getElementById('airport[' + a + '][name]');
+      var airport_autocomplete = new google.maps.places.Autocomplete(airport_name, airport_options);
+
+
+      airport_autocomplete.addListener('place_changed', function() {
+        var place = airport_autocomplete.getPlace();
+        var b = +a - 1;
+        var location = place.geometry.location;
+        location = String(location);
+        location = location.slice(1, -1);
+        location = location.split(',');
+
+        document.getElementById('airport[' + b + '][latitude]').value = location[0];
+        document.getElementById('airport[' + b + '][longitude]').value = location[1];
+      });
+
+      a = +a + 1;
+      $('#count').val(a);
+    })
+
+    $(document).on('change', '#is_payment_mode_cash', function() {
+      var is_payment_mode_card = document.getElementById('is_payment_mode_card');
+      var is_payment_mode_cash_value = document.getElementById('is_payment_mode_cash').checked;
+      var is_payment_mode_card_value = document.getElementById('is_payment_mode_card').checked;
+      if (!is_payment_mode_cash_value && !is_payment_mode_card_value) {
+        is_payment_mode_card.checked = true;
+      }
+    });
+    $(document).on('change', '#is_payment_mode_card', function() {
+      var is_payment_mode_cash = document.getElementById('is_payment_mode_cash');
+      var is_payment_mode_cash_value = document.getElementById('is_payment_mode_cash').checked;
+      var is_payment_mode_card_value = document.getElementById('is_payment_mode_card').checked;
+      if (!is_payment_mode_cash_value && !is_payment_mode_card_value) {
+        is_payment_mode_cash.checked = true;
+      }
+    });
+  });
+
+  function remove_airport(i) {
+    $('#remove' + i).remove();
+  }
+
+  function remove_boundary() {
+    city_radius_drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+    city_radius_drawingManager.setOptions({
+      drawingControl: true,
+    });
+    $('#city_locations').val('');
+    city_boundary_polygon.setMap(null);
+    $('#remove_boundary_button').hide();
+  }
+
+  ///////////// for check selected country city already exist or not /////////////
+  function test() {
+    var city = document.getElementById('cityname').value;
+
+    var country = document.getElementById('countryid').value;
+
+    $("#submit").attr("disabled", true);
+    $.ajax({
+      type: 'POST',
+      url: '/check_city_available',
+      data: {
+        'cityname': city,
+        'countryid': country
+      },
+      dataType: "json",
+      success: function(res) {
+
+        if (res == 1) {
+          $("#submit").attr("disabled", true);
+
+          $("#citycheck").html('<font color="red">City Name Already Used</font>');
+        } else {
+          $("#citycheck").html('');
+
+          $("#submit").attr("disabled", false);
+        }
+      }
+    });
+  }
+  ///////////////////////////
+</script>
+
+<script src="<%=map_url%>"></script>
+<% include footer_form.html %>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="body-full-height">
+    <head>        
+        <!-- META SECTION -->
+        <title><%= setting_detail.corporate_panel_name %></title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->     
+        <link rel="stylesheet" type="text/css" href="css/theme-default.css"/>   
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        
+    </head>
+    <body>
+     
+        
+        <div class="login-container">
+        <% if(typeof message != 'undefined'){ %>
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+                    <p align="center"> <strong><%= __(message) %></strong></p>
+                </div>
+            <% } %> 
+            <div class="login-box animated ">
+                <div class="login-body">
+                    <div class="login-title"><%= __('message_welcome') %></div>
+                    <form action="/corporate_register" class="form-horizontal" method="post" 
+                    id="signupForm" enctype="multipart/form-data">
+
+                    <input type="hidden" name="login_by" value="manual" />
+                    <input type="hidden" name="device_type" value="web" />
+                    <input type="hidden" name="country_id" value="" />
+                    <input type="hidden" name="city_id" value="" />
+                    <input type="hidden" name="wallet_currency_code" value="" />
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="<%= __('title_name') %>" name="name" id="name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="<%= __('title_email') %>"  name="email" id="email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" placeholder="<%= __('title_password') %>" name="password" id="Password" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <select name="country_phone_code" id="country" class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" style="  position:absolute;    " required>
+                                <option selected disabled hidden style='display: none'><%= __('title_select_country') %></option>
+                                <% country.forEach(function(data) 
+                                    {
+                                %>
+                                <option><%= data.countryphonecode %> <%= data.countryname %></option>
+                                <%
+                                    });
+                                %>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <input name="phone" id="phone" onkeypress="return isNumberKey(event)"  type="text" class="form-control" minlength="<%= setting_detail.minimum_phone_number_length%>" maxlength="<%= setting_detail.maximum_phone_number_length%>" placeholder="<%= __('title_phone') %>" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">    
+                        <div class="col-md-12">
+                            <button class="btn btn-info btn-block" id="reg_button" type="submit"><%= __('button_register') %></button>
+                        </div>
+                        <div class="col-md-12">
+                            <a href="corporate_login" class="btn btn-link btn-block"><%= __('question_already_register') %></a>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+                
+            </div>
+        </div>
+    </body>
+</html>
+
+     
+        
+<script type="text/javascript">
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+</script>   
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="js/actions.js"></script>
+<script>
+$(function() {
+    $( "#signupForm" ).validate({
+        rules: {
+            name: "required",
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 50
+            },
+            email: {
+                required: true,
+                email_regex: /^(([^<>()[\]\\.,;:\s@"”]+(\.[^<>()[\]\\.,;:\s@"”]+)*)|(".+"))+([a-z0-9])@\w+(?:\.[a-zA-Z]{1,5})+$/,
+				minlength: 12,
+				maxlength: 64
+            },
+            phone: {
+                required: true,
+                phone_regex: /^\(?([1-9]{1})\)?([0-9]*)$/
+            },
+            country_phone_code : "required",
+            idproof : {
+                required: true,
+                accept: "image/jpeg, image/pjpeg"
+            }
+        },
+        messages: {
+            idproof: { required: "Required" }
+        }
+    });
+});
+
+$(document).ready(function() {
+
+    var _URL = window.URL || window.webkitURL;
+    $("#profile_image").change(function(e) {
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+
+            img.onload = function(e) {
+                
+                if(this.width == this.height)
+                {
+                    $("#profile_image_dimention").html('<font color="red"></font>');
+                    $('#update').prop('disabled', false);
+                }
+                else
+                {
+                    $("#profile_image_dimention").html('<font color="red"><%= __("error_message_for_profile_image_aspect_ratio") %> <b><%= __("profile_image_aspect_ratio") %></b></font>');
+                    $('#update').prop('disabled', true);
+                }
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+
+
+    $('#country').change(function(e){
+        var countryname= $("#country option:selected").text();
+        countryname = countryname.split(' ');
+		var countryphonecode = countryname[0]
+        countryname = countryname.slice(1);
+
+        countryname = countryname.toString();
+
+        countryname = countryname.replace(/,/g, ' ');
+
+        $.ajax({
+                type: 'POST',
+                url: '/getcountryphonelength',
+                data: { 'countryname':countryname,countryphonecode: countryphonecode},
+                dataType: "json",
+                success:function(res){
+                    console.log(res)
+                    var wallet_currency_code = res.currencycode;
+                    $('input[name=wallet_currency_code]').val(wallet_currency_code);
+                    $('input[name=country_id]').val(res.country_id);
+                }
+        });
+    });
+});
+
+</script>   
+
+<link href="css/image-cropper/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/image-cropper/jquery.awesome-cropper.css">
+<script src="js/image-cropper/jquery.imgareaselect.js"></script> 
+<script src="js/image-cropper/jquery.awesome-cropper.js"></script> 
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
+        
+<script>
+    $(document).ready(function () {
+        $('#sample_input').awesomeCropper(
+            { width: 150, height: 150, debug: false }
+        );
+    });
+</script>
+        
+<% include footer_form.html %>    
+
+
+
+

@@ -1,0 +1,90 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css";
+
+.float-iframe-btn {
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:50px;
+	background-color:#216C55;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 0px 0px 10px 0px #999;
+	-webkit-box-shadow: 0px 0px 10px 0px #999;
+	-moz-box-shadow: 0px 0px 10px 0px #999;
+    z-index: 9999;
+}
+
+.my-float-iframe-btn {
+	margin-top:22px;
+}
+
+.float-iframe-btn .fa {
+    margin-left: 0 !important;
+}
+
+#iframe-container {
+    width : 400px;
+    height : 60%;
+    position: fixed;
+	bottom: 110px;
+	right: 50px;
+	color:#FFF;
+	border-radius: 50px;
+    z-index: 9999;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s linear 0s, opacity 0.25s linear;
+}
+
+#iframe-container.show{
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0s;
+}
+
+#guest-token-iframe {
+	border-radius: 8px;
+	border-color: transparent;
+	box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+	background: white;	
+}
+
+.float-iframe-btn .fa-times{
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+.float-iframe-btn:hover{
+	box-shadow: 0px 0px 50px 0px rgba(153,153,153,1);
+	-webkit-box-shadow: 0px 0px 50px 0px rgba(153,153,153,1);
+	-moz-box-shadow: 0px 0px 50px 0px rgba(153,153,153,1);
+}
+
+.float-iframe-btn.btn-active{
+	box-shadow: 0px 0px 25px 0px rgba(153,153,153,1);
+	-webkit-box-shadow: 0px 0px 25px 0px rgba(153,153,153,1);
+	-moz-box-shadow: 0px 0px 25px 0px rgba(153,153,153,1);
+}
+
+@media only screen and (max-width: 500px) {
+	#iframe-container {
+		width: 90%;
+		height: 60%;
+		position: fixed;
+		bottom: 110px;
+		right: 20px;
+		color: #FFF;
+		border-radius: 50px;
+		z-index: 9999;
+		visibility: hidden;
+		opacity: 0;
+		transition: visibility 0s linear 0s, opacity 0.25s linear;
+	}
+
+	.float-iframe-btn {
+		bottom: 30px;
+	   	right: 30px;
+	}
+}

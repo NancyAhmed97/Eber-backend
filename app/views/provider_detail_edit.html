@@ -1,0 +1,327 @@
+<% include header.html %>
+<!-- PAGE TITLE -->
+<div class="page-title">
+  <h2><span class="fa fa-cogs"></span> <%= __('title_edit_profile') %></h2>
+</div>
+<!-- END PAGE TITLE -->
+
+<!-- PAGE CONTENT WRAPPER -->
+
+<% if(typeof message != 'undefined'){ %>
+<div class="alert alert-success" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('title_close') %></span></button>
+  <p align="center"> <strong><%= __(message) %></strong></p>
+</div>
+<% } %>
+<div class="alert alert-success text-center" role="alert" id="promo_error" style="display:none">
+  <button type="button" id="close" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+  <p align="center"> <strong  id="message"></strong></p>
+</div>
+
+<div class="page-content-wrap">
+  <div class="col-md-6 col-sm-8 col-xs-12">
+
+    <form class="form-horizontal" id="provider_update" method="post" action="/providerupdate" enctype="multipart/form-data">
+      <div class="panel panel-default">
+        <div class="panel-body form-group-separated">
+          <div class="panel-body">
+            <input type="hidden" class="form-control" value="<%= data.picture %>" name="old_img_path" />
+            <div class="col-md-9 col-xs-6" id="user_image">
+              <img src="<%= data.picture != '' ? setting_detail.image_base_url + data.picture : 'default.png' %>" class="img-thumbnail" id="profile_sel_img" />
+              <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" name="file" title="<%= __('title_change_photo')%>" id="profile_image" />
+              <div id="profile_image_dimention"></div>
+            </div>
+          </div>
+          <input type="hidden" name="provider_page_type" value="<%= provider_page_type %>">
+          <div class="form-group">
+            <input type="hidden" class="form-control" value="<%= data.id %>" name="id" />
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_first_name') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control" value="<%= data.first_name %>" name="first_name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_last_name') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control" value="<%= data.last_name %>" name="last_name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_email') %></label>
+            <div class="col-md-9 col-xs-7">
+              <% if(is_public_demo == true) { %>
+              <input type="text" class="form-control" value="<%= __('PUBLIC_DEMO_EMAIL') %>" name="email" id='email' />
+              <% } else{ %>
+              <input type="text" class="form-control" value="<%= data.email %>" name="email" />
+              <% } %>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_phone') %></label>
+            <div class="col-md-9 col-xs-7">
+              <div class="col-md-3">
+                <input type="text" class="form-control" name="country_phone_code" value="<%= data.country_phone_code  %>" readonly />
+              </div>
+              <div class="col-md-9">
+                <input type="text" onkeypress="return isNumberKey(event);" class="form-control" value="<%= data.phone  %>" name="phone" minlength="<%= setting_detail.minimum_phone_number_length%>" maxlength="<%= setting_detail.maximum_phone_number_length%>" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_address') %></label>
+            <div class="col-md-9 col-xs-7">
+              <textarea class="form-control" rows="5" name="address"><%= data.address %></textarea>
+              <div class="col-md-6 col-xs-6" id="">
+                <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="city" id="city_name">
+
+                  <% city_list.forEach(function(city){ %>
+                  <% if(data.city != null){ if(data.city == city.cityname){ %>
+                  <option selected><%= city.cityname %></option>
+                  <% } else { %>
+                  <option><%= city.cityname %></option>
+                  <% } } else { %>
+                  <option><%= city.cityname %></option>
+                  <% } %>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="col-md-6 col-xs-6">
+                <input type="text" class="form-control" value="<%= data.country %>" name="country" readonly />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_password') %></label>
+            <div class="col-md-9 col-xs-7">
+              <input type="text" class="form-control" value="" name="password" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 col-xs-5 control-label"><%= __('title_created_at') %></label>
+            <div class="col-md-9 col-xs-7">
+              <div class="col-md-6 col-xs-6">
+                <input type="text" class="form-control" value='<%= moment(data.created).tz(timezone_for_display_date).format("DD MMM YYYY") %>' readonly />
+              </div>
+              <div class="col-md-6 col-xs-6">
+                <input type="text" class="form-control" value='<%= moment(data.created).tz(timezone_for_display_date).format("hh:mm a") %>' readonly />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 col-xs-12">
+              <button class="btn btn-primary btn-rounded pull-right" type="submit" name="update" value="submit" id="update"><%= __('button_save') %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal animated fadeIn" id="vehicle_modal" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+        <h4 class="modal-title"><%= __('title_select_service_type') %></h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="vehicle_form" id="vehicle_form" method="post">
+          <input type="hidden" name="is_vehicle_saved" id="is_vehicle_saved" value="0">
+          <input type="hidden" name="provider_id" value="<%= data._id %>">
+          <% data.vehicle_detail.forEach( (vehicle,index) => { %>
+          <div class="row my-3">
+            <div class="form-group">
+              <div class="col-md-3 mt-2 text-center">
+                <label for="vehicle<%= index %>"><%= vehicle.name %></label>
+              </div>
+              <div class="col-md-9">
+                <select class="form-control select" id="vehicle<%= index %>" name="vehicle<%= index %>" required>
+                </select>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </form>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="submit" form="vehicle_form" class="btn btn-primary">
+          <%= config_json.button_save %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
+  function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i) {
+      indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+  }
+  $(document).ready(function() {
+    $("#provider_update").validate({
+      rules: {
+        first_name: "required",
+        last_name: "required",
+      password: {
+        minlength: 6,
+        maxlength: 50
+      },
+        email: {
+          required: true,
+          email_regex: /^(([^<>()[\]\\.,;:\s@"”]+(\.[^<>()[\]\\.,;:\s@"”]+)*)|(".+"))+([a-z0-9])@\w+(?:\.[a-zA-Z]{1,5})+$/,
+				  minlength: 12,
+				  maxlength: 64
+        },
+        phone: {
+          required: true,
+          minlength : <%= setting_detail.minimum_phone_number_length %>,
+          maxlength : <%= setting_detail.maximum_phone_number_length %>,
+          phone_regex: /^\(?([1-9]{1})\)?([0-9]*)$/
+        },
+        title: {
+          required: true
+        },
+        typename: {
+          required: true
+        },
+        car_number: "required",
+        car_model: "required"
+      },
+      submitHandler: function(updateform) {
+        var old_city = "<%= data.city %>"
+        var new_city = $("#city_name").val()
+        var is_vehicle_saved = $("#is_vehicle_saved").val()
+        var vehicles = "<%= data.vehicle_detail %>"
+        if (old_city != new_city && vehicles.length > 0 && is_vehicle_saved != 1) {
+          $.ajax({
+            type: 'POST',
+            url: '/getcitytype',
+            data: {
+              'city': new_city
+            },
+            dataType: "json",
+            success: (res) => {
+                <% data.vehicle_detail.forEach((vehicle,index) => { %>
+                $("#vehicle<%= index %>").find('option').remove();
+                <% }); %>
+                for (var index in res.service_type) {
+                  <% data.vehicle_detail.forEach((vehicle,vehicle_index) => { %>
+                  $("#vehicle<%= vehicle_index %>").append("<option value=" + JSON.stringify({
+                    vehicle_id: "<%= vehicle._id %>",
+                    service_type: res.service_type[index]._id,
+                    admin_type_id: res.service_type[index].typeid
+                  }) + " selected>" + res.service_type[index].type_detail.typename + "</option>");
+                  <% }); %>
+                }
+                <% data.vehicle_detail.forEach((vehicle,index) => { %>
+                $("#vehicle<%= index %>").selectpicker('refresh');
+                <% }); %>
+                $('#vehicle_modal').modal('show');
+            }
+          });
+        } else {
+          updateform.submit();
+          // var $form = $("#provider_update");
+          // var data = getFormData($form);
+          // var form = new FormData($form);
+          // var file = document.getElementById('profile_image').files[0];
+          // if (file) {
+          //   form.append('profile_image', file);
+          // }
+          // form.append("old_img_path", data.old_img_path)
+          // form.append("provider_page_type", data.provider_page_type)
+          // form.append("id", data.id)
+          // form.append("first_name", data.first_name)
+          // form.append("last_name", data.last_name)
+          // form.append("email", data.email)
+          // form.append("phone", data.phone)
+          // form.append("address", data.address)
+          // form.append("city", data.city)
+          // form.append("country", data.country)
+          // form.append("password", data.password)
+          // form.append("country_phone_code", data.country_phone_code)
+
+          // $.ajax({
+          //   type: 'POST',
+          //   enctype: 'multipart/form-data',
+          //   url: '/providerupdate',
+          //   dataType: "json",
+          //   processData: false,
+          //   data: form,
+          //   success: function(response) {
+          //     if (response.success) {
+          //       window.location.href = data.provider_page_type;
+          //     } else {
+          //       $('#vehicle_modal').modal('hide');
+          //       $("#is_vehicle_saved").val(0);
+          //       $('#promo_error').show();
+          //       setTimeout(function() {
+          //         $('#promo_error').hide();
+          //       }, 3000);
+          //       document.getElementById('promo_error').innerHTML = response.message;
+          //     }
+          //   }
+          // });
+
+        }
+      }
+    });
+
+    var $form = $('#vehicle_form');
+    $form.submit(function(event) {
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '/update_provider_vehicle_type',
+        data: $form.serialize(),
+        dataType: "json",
+        success: function(res) {
+          if (res.success) {
+            $("#is_vehicle_saved").val(1)
+            $("#provider_update").submit()
+          }
+        }
+      });
+    });
+
+    var _URL = window.URL || window.webkitURL;
+    $("#profile_image").change(function(e) {
+      validateImage($("#profile_image"),$("#profile_image_dimention"),this.files[0].type)
+      var file, img;
+      if ((file = this.files[0])) {
+        img = new Image();
+
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $('#profile_sel_img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(profile_image.files[0]);
+
+        img.onload = function(e) {};
+        img.src = _URL.createObjectURL(file);
+      }
+    });
+  });
+</script>
+<% include footer_form.html %>

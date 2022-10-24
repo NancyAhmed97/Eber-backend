@@ -1,0 +1,218 @@
+<% include header.html %>
+
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div id="content">
+  <div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+      <p align="center"> <strong><%= __(message) %></strong></p>
+    </div>
+    <% } %>
+
+    <div class="alert alert-success" role="alert" id="promo_error" style="display:none">
+      <button type="button" id="close" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+      <p align="center" id="message"> <strong></strong></p>
+    </div>
+    <!-- START TIMELINE FILTER -->
+
+    <div class="page-content-wrap">
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form class="form-horizontal" id="lang-form" role="form" method="post" action="/languages">
+                <input type="hidden" name="lang_type" id="lang_type" value="1" />
+                <input type="hidden" name="id" id="id" />
+
+                <div class="tab-pane" id="tab-second">
+                  <input type="hidden" id="count" value="1">
+                  <div id="add_airport">
+                    <div class="col-md-12" id="remove0">
+                      <div class="col-md-5 form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= __('title_lang_name') %></label>
+
+                        <div class="col-md-9 col-xs-7">
+                          <div class="col-md-9">
+                            <input pattern="^[A-Za-z0-9 _]+[A-Za-z0-9][A-Za-z0-9 _]*$" type="text" class="form-control" id="name" name="name" required />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5 form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= __('title_code') %></label>
+
+                        <div class="col-md-9 col-xs-7">
+                          <div class="col-md-9">
+                            <input pattern="^[A-Za-z0-9 _]+[A-Za-z0-9][A-Za-z0-9 _]*$" type="text" class="form-control" id="code" name="code" required />
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="col-md-4" style="text-align: center;">
+                  </div>
+                  <div class="col-md-4" style="text-align: center;width:150px;">
+                    <button type="submit" id="btn_txt" class="btn btn-success btn-block"><%= __('title_add_language') %></button>
+                  </div>
+                  <div class="col-md-4" style="text-align: center;">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="table-responsive" style="padding-bottom: 175px;">
+          <table class="table" id="customre2">
+            <thead>
+              <tr>
+                <th><%= __('title_lang_name') %></th>
+                <th><%= __('title_code') %></th>
+                <th><%= __('button_action') %></th>
+              </tr>
+            </thead>
+
+            <tbody id="language-list">
+              <% detail.forEach(function(data){ %>
+              <tr id="<%= data._id %>">
+                <td>
+                  <%= data.name %>
+                </td>
+                <td>
+                  <%= data.code %>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                      <%= __('button_action') %> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <button type="button" id="lang_id" onclick="updatelanguages('<%= data._id %>','<%= data.name %>','<%= data.code %>','2')" class="btn btn-default" style="width:100%;">
+                          <%= __('title_edit_detail') %>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<script type="text/javascript" src="js/dist/pdfmake.min.js"></script>
+<script type="text/javascript" src="js/dist/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var $form = $('#lang-form');
+    $form.submit(function(event) {
+      event.preventDefault();
+      document.getElementById("cover-spin").style.display = "block";
+      var code = $('#code').val();
+      var name = $('#name').val();
+      var id = $('#id').val();
+      var lang_type = $('#lang_type').val();
+
+
+      if (lang_type == 2) {
+        $.ajax({
+          type: 'POST',
+          url: '/update_languages_detail',
+          data: {
+            'id': id,
+            'name': (name).trim(),
+            'code': (code).trim()
+          },
+          dataType: "json",
+          success: function(response) { //
+            document.getElementById("cover-spin").style.display = "none";
+            if (response.success) {
+              $('#promo_error').show();
+              setTimeout(function() {
+                $('#promo_error').hide();
+              }, 5000);
+              document.getElementById('message').innerHTML = response.message;
+              var data = response.data;
+              var ctx = '<td>' + data.name + '</td><td>' + data.code + '</td><td ><div class="btn-group">' +
+                '<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">' +
+                '<%= __("button_action") %> <span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li>' +
+                '<button type="button" id="lang_id" onclick="updatelanguages(\'' + data.id + '\',\'' + data.name + '\',\'' + data.code + '\',\'' + 2 + '\')"' +
+                'class="btn btn-default" style="width:100%;"><%= __("title_edit_detail") %></button></li></ul></div></td>'
+              $("#" + data.id).html(ctx)
+              $('#lang-form').trigger("reset");
+              $('#lang_type').val(1)
+              $('#btn_txt').text('<%= __('title_add_language') %>')
+            }
+          }
+        });
+
+      } else {
+        if (code != "" && name != "") {
+          $.ajax({
+            type: 'POST',
+            url: '/add_languages_detail',
+            data: {
+              'name': (name).trim(),
+              'code': (code).trim()
+            },
+            dataType: "json",
+            success: function(response) {
+              document.getElementById("cover-spin").style.display = "none";
+              if (response.success) {
+                $('#promo_error').show();
+                setTimeout(function() {
+                  $('#promo_error').hide();
+                }, 5000);
+                document.getElementById('message').innerHTML = response.message;
+                var data = response.data;
+                var ctx = '<tr><td>' + data.name + '</td><td>' + data.code + '</td><td ><div class="btn-group">' +
+                  '<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">' +
+                  '<%= __("button_action") %> <span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li>' +
+                  '<button type="button" id="lang_id" onclick="updatelanguages(\'' + data._id + '\',\'' + data.name + '\',\'' + data.code + '\',\'' + 2 + '\')"' +
+                  'class="btn btn-default" style="width:100%;"><%= __("title_edit_detail") %></button></li></ul></div></td></tr>'
+                $("#language-list").append(ctx)
+                $('#lang_type').val(1)
+                $('#lang-form').trigger("reset");
+              }
+            }
+          });
+        }
+      }
+    })
+  });
+
+  function updatelanguages(id, name, code, lang_type) {
+
+    $('#name').val(name);
+    $('#code').val(code);
+    $('#lang_type').val(lang_type);
+    $('#id').val(id);
+    $('#btn_txt').text('<%= __('button_update') %>')
+
+  }
+</script>
+
+</div>
+
+<% include footer_list.html %>

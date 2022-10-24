@@ -1,0 +1,193 @@
+<% include partner_header.html %>
+<div id="content">
+  <div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+      <p align="center"> <strong><%= __(message) %></strong></p>
+    </div>
+    <% } %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form class="form-horizontal" role="form" method="post" action="/partner_add_vehicle">
+              <div class="col-md-4" style="text-align: center;">
+              </div>
+              <div class="col-md-4" style="text-align: center;">
+                <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus"></span><%= __('button_add_vehicle') %></button>
+              </div>
+              <div class="col-md-4" style="text-align: center;">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form class="form-horizontal" role="form" method="post" action="/partner_vehicle">
+              <div class="form-group">
+                <input type="hidden" name="page" id="page" value="0" />
+                <div class="col-md-6">
+                  <div style="text-align: center;">
+                    <label><%= __('title_sort') %></label>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                      <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                        <option value='vehicle_detail.name' <%= sort_field=='vehicle_detail.name' ? 'selected' : '' %>><%= __('title_name') %></option>
+                        <option value='vehicle_detail.plate_no' <%= sort_field=='vehicle_detail.plate_no' ? 'selected' : '' %>><%= __('title_plate_no') %></option>
+                        <option value='vehicle_detail.model' <%= sort_field=='vehicle_detail.model' ? 'selected' : '' %>><%= __('title_model') %></option>
+                        <option value='vehicle_detail.color' <%= sort_field=='vehicle_detail.color' ? 'selected' : '' %>><%= __('title_color') %></option>
+                        <option value='vehicle_detail.passing_year' <%= sort_field=='vehicle_detail.passing_year' ? 'selected' : '' %>><%= __('title_passing_year') %></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                      <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                        <option value="1" <%= sort_order==1 ? 'selected' : '' %>><%= config_json.sort_asc %></option>
+                        <option value="-1" <%= sort_order==-1 ? 'selected' : '' %>><%= config_json.sort_desc %></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div style="text-align: center;">
+                    <label><%= __('title_search') %></label>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                      <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                        <option value='vehicle_detail.name' <%= search_item=='vehicle_detail.name' ? 'selected' : '' %>><%= __('title_name') %></option>
+                        <option value='vehicle_detail.plate_no' <%= search_item=='vehicle_detail.plate_no' ? 'selected' : '' %>><%= __('title_plate_no') %></option>
+                        <option value='vehicle_detail.model' <%= search_item=='vehicle_detail.model' ? 'selected' : '' %>><%= __('title_model') %></option>
+                        <option value='vehicle_detail.color' <%= search_item=='vehicle_detail.color' ? 'selected' : '' %>><%= __('title_color') %></option>
+                        <option value='vehicle_detail.passing_year' <%= search_item=='vehicle_detail.passing_year' ? 'selected' : '' %>><%= __('title_passing_year') %></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="panel panel-default">
+                      <div class="panel-body panel-body-search">
+                        <div class="input-group">
+                          <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                          <input type="text" class="form-control" value="<%= search_value %>" onkeypress="return alphaNumSpace(event);" name="search_value" placeholder="<%= __('title_search') %>" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="col-md-12">
+                    <ul class="pagination">
+                      <% include paginate_lookup.html %>
+                    </ul>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <div class="col-md-6">
+                    <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= __('button_apply') %></span></button>
+                  </div>
+                  <div class="col-md-6">
+                    <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick="export_excel()"><i class="fa fa-download"></i><%= __('button_export_excel') %></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="table-responsive" style="padding-bottom: 175px;">
+          <table class="table" id="customers2">
+            <thead>
+              <tr>
+                <th><%= __('title_name') %></th>
+                <th><%= __('title_plate_no') %></th>
+                <th><%= __('title_model') %></th>
+                <th><%= __('title_color') %></th>
+                <th><%= __('title_passing_year') %></th>
+                <th><%= __('title_service_type') %></th>
+                <th><%= __('title_accessibility') %></th>
+                <th><%= __('button_action') %></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% vehicle_list.forEach(function(data){ %>
+
+              <tr class="demo">
+                <td><%= data.vehicle_detail.name %></td>
+                <td id="a"><%= data.vehicle_detail.plate_no %></td>
+                <td><%= data.vehicle_detail.model %></td>
+                <td><%= data.vehicle_detail.color %></td>
+                <td><%= data.vehicle_detail.passing_year %></td>
+                <td>
+                  <% if(data.vehicle_detail.typename == undefined){ %>
+                  <%= __('title_not_approved') %>
+                  <% } else { %>
+                  <%= data.vehicle_detail.typename %>
+                  <% } %>
+                </td>
+                <td>
+                  <% if(data.vehicle_detail.accessibility != undefined){ %>
+                  <% if(data.vehicle_detail.accessibility.length > 0 ){ %>
+                  <%= data.vehicle_detail.accessibility %>
+                  <% } %>
+                  <% } %>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                      <%= __('button_action') %> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <form method="post" action="/partner_edit_vehicle_detail">
+                          <input type="hidden" name="partner_id" value="<%= data.vehicle_detail.partner_id %>" />
+                          <input type="hidden" name="vehicle_id" value="<%= data.vehicle_detail._id %>" />
+                          <button type="submit" class="btn btn-default" style="width:100%;"><%= __('title_edit_detail') %></button>
+                        </form>
+                      </li>
+                      <li>
+                        <form method="post" action="/vehicle_document_list_for_partner">
+                          <input type="hidden" name="partner_id" value="<%= data.vehicle_detail.partner_id %>" />
+                          <input type="hidden" name="vehicle_id" value="<%= data.vehicle_detail._id %>" />
+                          <button type="submit" class="btn btn-default" style="width:100%;"><%= __('title_document') %></button>
+                        </form>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function export_excel() {
+    $.ajax({
+      type: 'POST',
+      url: '/generate_partner_vehicle_excel',
+      data: $('.form-horizontal').serialize(),
+      dataType: "json",
+      success: function(res) {
+        window.open(res)
+      }
+    });
+  }
+</script>
+<% include footer_list.html %>

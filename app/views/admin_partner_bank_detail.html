@@ -1,0 +1,59 @@
+<% include header.html %>
+<!-- PAGE TITLE -->
+<div class="page-title">
+	<h2><span class="fa fa-cogs"></span> 
+		<%= __('title_banking_detail') %>
+	</h2>
+</div>
+<!-- END PAGE TITLE -->
+
+<% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+      <p align="center"> <strong><%= __(message) %></strong></p>
+    </div>
+    <% } %> 
+
+    <div class="page-content-wrap">
+        <form class="form-horizontal" >
+            <div class="panel panel-default">
+                <div class="panel-body form-group-separated">  
+                   <div class="form-group">
+                        <label class="col-md-3 col-xs-6 control-label">Account ID</label>
+                        <div class="col-md-6 col-xs-6">
+                            <label class="control-label"><%= detail.account_id %></label>  
+                        </div>
+                    </div>
+
+                    <% if(detail.bank_id !== detail.account_id){%>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-6 control-label">Bank ID</label>
+                            <div class="col-md-6 col-xs-6">
+                                 <label class="control-label"><%= detail.bank_id %></label>
+                            </div>
+                        </div>
+                    <%}%>
+
+                    <% if(detail.account_number){%>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-6 control-label">Account Number</label>
+                            <div class="col-md-6 col-xs-6">
+                                 <label class="control-label"><%= detail.account_number %></label>
+                            </div>
+                        </div>
+                    <%}%>
+
+                    <% if(detail.bank_code){%>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-6 control-label">Bank Code</label>
+                            <div class="col-md-6 col-xs-6">
+                                 <label class="control-label"><%= detail.bank_code %></label>
+                            </div>
+                        </div> 
+                    <%}%>                   
+                </div>
+            </div>
+        </form>
+    </div>
+
+<% include footer_form.html %>

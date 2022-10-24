@@ -1,0 +1,70 @@
+<script>
+  // added regex listner
+  ["email_regex", "phone_regex"].forEach(regex_name => {
+    $.validator.addMethod(
+      regex_name,
+      function(value, element, regexp) {
+        if (regexp.constructor != RegExp)
+          regexp = new RegExp(regexp);
+        else if (regexp.global)
+          regexp.lastIndex = 0;
+        return this.optional(element) || regexp.test(value);
+      }, ""
+    );
+  });
+
+  // added lang wise error message
+  $.extend($.validator.messages, {
+    required: "<%= __('validation_field_required') %>",
+    minlength: "<%= __('validation_min_length') %>",
+    maxlength: "<%= __('validation_max_length') %>",
+    max: "<%= __('validation_range_min_length') %>",
+    min: "<%= __('validation_range_max_length') %>",
+    equalTo: "<%= __('validation_reenter_password') %>",
+    email_regex: "<%= __('validation_enter_valid_email') %>",
+    phone_regex: "<%= __('validation_enter_valid_phone') %>"
+  });
+
+  // prevent for autofill credentials
+  $("input[name=email]").attr("autocomplete", "new-password");
+  $("input[name=password]").attr("autocomplete", "new-password");
+
+  // added for phone validation
+  $("input[name=phone]").attr("autocomplete", "off");
+  $("input[name=phone]").attr("oncut", "return false;");
+  $("input[name=phone]").attr("oncopy", "return false;");
+  $("input[name=phone]").attr("onpaste", "return false;");
+  $("input[name=phone]").attr("ondrop", "return false;");
+  $("input[name=phone]").attr("onkeypress", "return isNumberKey(event,false);");
+  
+  // added for zip code validation
+  $("input[name=zipcode]").attr("onkeypress", "return isNumberKey(event,false);");
+
+  // added for text and avoid spaces
+  $("input[type=text]").attr("onfocusout", "trimSpace(event);");
+
+  // added for text only validation
+  $("input[name=first_name]").attr("onkeypress", "return alphaSpace(event);");
+  $("input[name=last_name]").attr("onkeypress", "return alphaSpace(event);");
+
+  // added for passing year validation
+  $("input[name=passing_year]").attr("minlength", 4);
+  $("input[name=passing_year]").attr("maxlength", 4);
+  $("input[name=passing_year]").attr("min", 1990);
+  $("input[name=passing_year]").attr("max", (new Date()).getFullYear());
+  $("input[name=passing_year]").attr("onkeypress", "return isNumberKey(event,false);");
+
+  // added for validate images
+  $("#profile_image").attr("accept", "image/*");
+  function validateImage(profile_image, profile_image_dimention, type) {
+    profile_image_dimention.html("");
+    var supported_files = ['image/png', 'image/gif', 'image/jpeg'];
+    var i = supported_files.findIndex(i => i == type);
+    if (i == -1) {
+      profile_image_dimention.html("<font color='red'><%= __('validation_file_select') %></font>")
+      profile_image.val('');
+      return false;
+    }
+  }
+</script>
+<script type="text/javascript" src="js/validation.js"></script>

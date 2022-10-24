@@ -1,0 +1,257 @@
+<% include user_header.html %>
+               
+
+
+<style>
+  
+  .btn-default {
+    width:100%; 
+    font-family: 'RobotoRegular';font-size: 15px;background-color: #047f8f;border-color: #047f8f;float: left;color:#fff;
+  }
+  .btn-default:hover{
+    background-color: #1a1d2e;
+    border-color: #1a1d2e;
+    color: #fff;
+    border-radius: 0;
+
+  }
+  .table_id {
+    padding-right: 10px;
+  }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+  <div class="alert alert-success" role="alert" id="request_error" style="display:none;margin-bottom: 2rem;">
+    <p align="center" id="request_message"> <strong></strong><button type="button" id="close" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button></p>
+</div>
+      <div class="row">
+          <form class="form-horizontal" role="form" method="post" action="/user_future_request">
+                  <div class="table_head">
+                    <div class="hist_head box_selet_lft">
+                     
+
+                      <div class="hist_lft hist_lft2">
+                          <div class="filter_text"><%= __('title_sort') %></div>  
+                          <div class="filter_select">
+                              <select class="selectpicker" name="sort_item">
+                                  <option value='unique_id'><%= __('title_id') %>
+<!--                                   <% if(sort_field == "user_detail.first_name") { %> 
+                                    <option value='unique_id'><%= __('title_id') %>
+                                  
+                                   <% } else { %>
+                                    <option value='unique_id' selected="selected"><%= __('title_id') %>
+                                  <% } %> -->
+                              </select>
+                          </div>
+                         <div class="filter_select filter_select2 ">
+                              <select class="selectpicker" name="sort_item">
+                                    <% if(sort_order == "1") { %>
+                                      <option value="1" selected><%= __('sort_asc') %></option>
+                                      <option value="-1"><%= __('sort_desc') %></option>
+                                      <% } else{ %>
+                                      <option value="1" ><%= __('sort_asc') %></option>
+                                      <option value="-1" selected><%= __('sort_desc') %></option>
+                                      <% } %>
+                              </select>
+                          </div>
+                      </div>
+
+                       <div class="hist_lft">  
+                          <div class="filter_text"><%= __('title_search') %></div>
+                          <div class="filter_select  " >
+                              <select class="selectpicker" name="search_item">
+                                  <!-- <% if(search_item == "unique_id") { %> -->
+                                    <option value='unique_id' selected="selected"><%= __('title_id') %></option>
+                                    <!-- <option value='provider_detail.first_name'><%= __('title_provider_name') %></option>
+                                  <% } else { %>
+                                    <option value='unique_id'><%= __('title_id') %></option>
+                                    <option value='provider_detail.first_name' selected><%= __('title_provider_name') %></option>
+                                  <% } %> -->
+                              </select>
+                          </div>
+                          <div class="filetr_sea">
+                              <input type="text" value="<%= search_value %>" onkeypress="return alphaNumSpace(event);"name="search_value"/>
+                              <input type="submit" name="" value="submit">
+                          </div>
+                      </div>
+
+
+                      <div class="hist_lft hist_lft2">
+                          
+                          <div class="filter_text"><%= __('title_date_filter') %></div>
+                          <div class="date_start" style="width:35%">
+                           
+                              <input type="text" class="datepicker" value="<%= filter_start_date %>" placeholder="<%= __('title_start_date') %>" name="start_date" id="start_date" readonly/>
+
+                            </div>
+                          <div class="date_to"><%= __('title_to') %></div>
+                          <div class="date_start" style="width:35%">
+                              <input type="text" class="datepicker"  value="<%= filter_end_date %>" placeholder="<%= __('title_end_date') %>" name="end_date" id="end_date" readonly/>
+                          </div>
+                      </div>
+
+
+                      <div class="app_rgt_bg" style="margin-top: 21px;">
+<!--                          <li><a onClick ="$('#customers').tableExport({type:'excel',escape:'false'});"><img src="user_panel/images/book_img.png"></a></li>-->
+                         <li><a onClick ="export_excel()"><img src="user_panel/images/book_img.png"></a></li>
+                          <input type="submit" id="apply_filter" name="" value="<%= __('button_apply') %>" class="act">
+                         
+                      </div>
+                  </div>
+          </form> 
+      </div>
+               
+
+               <div class="row">
+                   <div class="table_bg" >
+                       <div class="table" id="customers">
+                           <div class="table_top">
+                               <div class="table_id" style="width: 8%;"><%= __('title_id') %></div>
+                             
+                               <div class="table_id Pickup" style="width: 20%;"><%= __('title_date_time') %></div>
+                               <div class="table_id Pickup" style="width: 20%;"><%= __('title_pickup_address') %></div>
+                               <div class="table_id Pickup" style="width: 20%;"><%= __('title_destination_address') %></div>
+                               <div class="table_id Pickup" style="width: 14%;"><%= __('title_payment_mode') %></div>
+                               <div class="table_id Pickup" style="width: 12%;"><%= __('button_action') %></div>
+
+                           </div>
+                           <% detail.forEach(function(data , index){ %>
+
+                           <div class="table_top table_cont" id="r<%= data._id %>">
+                               <div class="table_id"  style="width: 8%;"><%= data.unique_id %></div>
+                                
+                               <div class="table_id Pickup" style="width: 20%;"><%= moment(data.server_start_time).tz(data.timezone).format("DD MMM 'YY") %>  <%= moment(data.server_start_time).tz(data.timezone).format("hh:mm a") %></div>
+                               
+                               <div class="table_id Pickup" style="width: 20%;"><%= data.source_address %>
+                               
+
+                               </div>
+                               <% if(data.destination_address == ''){ %>
+                                    <div class="table_id Pickup" style="width: 20%;">.</div>
+                                      
+                               <% } else { %>
+                                    <div class="table_id Pickup" style="width: 20%;"><%= data.destination_address %></div>
+                               <% } %>
+                               <div class="table_id Pickup" style="width: 14%;"><% if(data.payment_mode == 1) { %>
+                                  <span class="label label-default"><%= __('title_pay_by_cash') %></span>
+                                  <% } else { %>
+                                  <span class="label label-primary"><%= __('title_pay_by_card') %></span>
+                                  <% } %>
+                                </div>
+                               
+                               
+                                
+                               <div class="table_id Pickup" style="width: 12%;">
+                               <div class="">
+                                   <div class="select_btn_bg">
+                                       <div class="action_btn_bg">
+                                           <div class="act_btn_top" onclick="act_btn_top1(<%=index%>)"><%= __('button_action') %></div>
+                                            <ul style="display: none;" class="act_btn_dit<%=index%>">
+                                          
+                                                  
+                                                 <li id="cancel_request<%= data._id %>">
+                                                 
+                                                 
+                                                  <button type="button" class="btn btn-default" style="width:100%;" onclick="cancel('<%= data.user_detail._id %>', '<%= data.user_detail.token %>', '<%= data._id %>')" ><%= __('button_cancel') %> </button>
+                                                 
+                                                 </li> 
+                                                               
+                                            </ul>
+                                       </div>
+                                     </div>
+                               </div>
+                               </div>
+                           </div>
+                           <% }); %>
+
+
+                       </div>
+                   </div>
+               </div>
+      
+  </div> 
+        
+      <!-- END TIMELINE FILTER -->                
+                
+                                       
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+            </div>    
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->  
+
+        <script type="text/javascript">
+
+        function cancel(userid,token,id){
+
+    $.ajax({
+          type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : '/canceltrip', /// the url where we want to POST
+          data        : {user_id:userid, token:token, trip_id:id}, // our data object
+          datatype    :"json",
+          success:function(response){ 
+            if(response.success){
+                $('#r'+id).hide();
+                $('#request_message').text("Request Cancelled Successfully");
+            } else {
+              $('#r'+id).hide();
+                $('#request_message').text("Request Already Created");
+            }
+            
+            $('#request_error').show();
+            
+            setTimeout(function () {
+              $('#request_error').hide();
+            }, 3000);
+          }
+        });
+  }
+  $(document).ready(function() {
+
+    var trip_id_array = new Array();
+      var interval;
+      $('#start_date').datepicker({
+         format: 'yyyy-mm-dd',
+        <% if(filter_end_date){ %>
+          endDate: new Date("<%= filter_end_date %>")
+        <% }else{ %>
+        endDate: new Date(Date.now())
+        <% } %>   
+
+       }).on("input change", function (e) { 
+        var end_date = $('#start_date').datepicker('getDate');
+        end_date.setDate(end_date.getDate() + 1);
+        $('#end_date').datepicker('setStartDate', end_date);
+      });
+
+       $('#end_date').datepicker({
+         format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now()),
+     <% if(filter_start_date){ %>
+      startDate: new Date("<%= filter_start_date %>")
+     <% } %>
+
+       }).on("input change", function (e) { 
+        var start_date = $('#end_date').datepicker('getDate');
+        start_date.setDate(start_date.getDate() - 1);
+        $('#start_date').datepicker('setEndDate', start_date);
+      });
+
+        
+
+   
+ });
+  function export_excel(){
+            $.ajax({
+                      type: 'POST',
+                      url: '/generate_user_future_trip_export_excel',
+                      data: $('.form-horizontal').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+</script>  
+<% include user_footer.html %>

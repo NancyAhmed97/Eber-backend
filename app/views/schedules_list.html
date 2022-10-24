@@ -1,0 +1,231 @@
+<% include header.html %>
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+  <% if(typeof message != 'undefined'){ %>
+  <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+    <p align="center"> <strong><%= __(message) %></strong></p>
+  </div>
+  <% } %>
+  <!-- START TIMELINE FILTER -->
+
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form" method="post" action="/schedules">
+          <div class="form-group">
+            <input type="hidden" name="page" id="page" value="0" />
+            <div class="col-md-4">
+              <div style="text-align: center;">
+                <label><%= __('title_sort') %></label>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                  <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                    <option value='unique_id' <%= sort_field=='unique_id' ? 'selected' : '' %>><%= __('title_id') %></option>
+                    <option value='user_detail.first_name' <%= sort_field=='user_detail.first_name' ? 'selected' : '' %>><%= __('title_user_name') %></option>
+                    <option value='server_start_time' <%= sort_field=='server_start_time' ? 'selected' : '' %>><%= __('title_creation_time') %></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                  <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" placeholder="Select to Sort" name="sort_item">
+                    <option value="1" <%= sort_order==1 ? 'selected' : '' %>><%= __('sort_asc') %></option>
+                    <option value="-1" <%= sort_order==-1 ? 'selected' : '' %>><%= __('sort_desc') %></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div style="text-align: center;">
+                <label><%= __('title_search') %></label>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                  <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="sel" placeholder="Select to Sort" name="search_item">
+                    <option value='user_detail.first_name' <%= search_item=='user_detail.first_name' ? 'selected' : '' %>><%= __('title_user_name') %></option>
+                    <option value='provider_detail.first_name' <%= search_item=='provider_detail.first_name' ? 'selected' : '' %>><%= __('title_provider_name') %></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-body panel-body-search">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                      <input type="text" class="form-control" value="<%= search_value %>" onkeypress="return alphaNumSpace(event);" name="search_value" placeholder="<%= __('title_search') %>" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div style="text-align: center;">
+                <label><%= __('title_date_filter') %></label>
+              </div>
+              <div class="col-md-12">
+                <div class="btn-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="<%= __('title_start_date') %>" name="start_date" id="start_date" readonly />
+                    <span class="input-group-addon add-on">-</span>
+                    <input type="text" class="form-control datepicker" value="<%= filter_end_date %>" placeholder="<%= __('title_end_date') %>" name="end_date" id="end_date" readonly />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-12">
+              <ul class="pagination">
+                <% include paginate_lookup.html %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="col-md-6">
+              <div class="col-md-12" style="padding: 0px;">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="col-md-12" style="padding: 0px;">
+                <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" id="payment" placeholder="Select Payment Mode" name="payment">
+                  <option value='2' <%= payment== 2? 'selected' : '' %>><%= __('title_both') %></option>
+                  <option value='1' <%= payment== 1? 'selected' : '' %>><%= __('title_cash') %></option>
+                  <option value='0' <%= payment== 0? 'selected' : '' %>><%= __('title_card') %></option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <div class="col-md-6">
+              <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= __('button_apply') %></span></button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick="export_excel()"><i class="fa fa-download"></i><%= __('button_export_excel') %></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="table-responsive" style="padding-bottom: 175px;">
+        <table class="table text-center" id="customers2">
+          <thead>
+            <tr>
+              <th><%= __('title_id') %></th>
+              <th><%= __('title_creation_time') %></th>
+              <th><%= __('title_timezone') %></th>
+              <th><%= __('title_city_time') %></th>
+              <th><%= __('title_user') %></th>
+              <th><%= __('title_status') %></th>
+              <th><%= __('title_pickup_address') %></th>
+              <th><%= __('title_destination_address') %></th>
+              <th><%= __('title_payment') %></th>
+              <th><%= __('button_action') %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% detail.forEach(function(data){ %>
+            <tr>
+              <td><%= data.unique_id %></td>
+              <td><%= moment(data.created_at).tz(data.timezone).format("DD MMM 'YY hh:mm a") %></td>
+              <td> <%= data.timezone %></td>
+              <td><%= moment(data.server_start_time_for_schedule).tz(data.timezone).format("DD MMM 'YY hh:mm a") %></td>
+              <td><%= data.user_detail.first_name %> <%= data.user_detail.last_name %></td>
+              <td>
+                <% if(data.is_trip_cancelled == 1){ %>
+                <%=__('title_cancelled_request') %>
+                <% } else if(data.is_trip_cancelled == 0){ %>
+                <%=__('title_trip_status_pending') %>
+                <% } %>
+              </td>
+
+              <td><%= data.source_address %></td>
+              <td><%= data.destination_address %></td>
+              <td><% if(data.payment_mode == 1) { %>
+                <span class="label label-default"><%= __('title_pay_by_cash') %></span>
+                <% } else { %>
+                <span class="label label-primary"><%= __('title_pay_by_card') %></span>
+                <% } %>
+              </td>
+              <td>
+                <div class="btn-group" style="margin-right:15px;">
+                  <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= config_json.button_action %> <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <button onclick="cancel_by_admin('<%=data._id%>')" type="button" class="btn btn-default" style="width:100%;"><%= config_json.button_cancel %> </button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#start_date').datepicker({
+      format: 'yyyy-mm-dd',
+      <% if(filter_end_date){ %>
+      endDate: new Date("<%= filter_end_date %>")
+      <% }else{ %>
+      endDate: new Date(Date.now())
+      <% } %>
+    }).on("input change", function(e) {
+      $('.datepicker-dropdown').hide()
+    });
+
+    $('#end_date').datepicker({
+      format: 'yyyy-mm-dd',
+      endDate: new Date(Date.now()),
+      <% if(filter_start_date){ %>
+      startDate: new Date("<%= filter_start_date %>")
+      <% } %>
+    }).on("input change", function(e) {
+      $('.datepicker-dropdown').hide()
+    });
+  });
+
+  function cancel_by_admin(tripid) {
+    $.ajax({
+      type: 'POST',
+      url: '/scheduledtripcancelbyadmin',
+      data: {
+        trip_id: tripid
+      },
+      dataType: "json",
+      success: function(res) {
+        location.reload()
+      }
+    });
+  }
+
+  function export_excel() {
+    $.ajax({
+      type: 'POST',
+      url: '/genetare_schedules_request_excel',
+      data: $('.form-horizontal').serialize(),
+      dataType: "json",
+      success: function(res) {
+        window.open(res)
+      }
+    });
+  }
+</script>
+<% include footer_list.html %>

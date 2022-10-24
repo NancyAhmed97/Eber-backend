@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- META SECTION -->
+	<title>
+		<%= setting_detail.dispatcher_panel_name %>
+	</title>
+
+
+	<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+	<script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+	<script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+	<script type="text/javascript" src="js/actions.js"></script>
+	<script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>
+	<script type="text/javascript" src="js/validation.js"></script>
+
+	<style type="text/css" media="screen">
+		@media screen and (max-width: 500px)  {
+            .page-container .page-content .page-content-wrap{
+                padding-top: 65px !important;
+            }   
+        }
+		@media screen and (max-width: 991px)  {
+            .new_req_btn{
+                top:200px !important;
+                right: 50px !important;
+            }
+        }
+
+		.x-navigation button,a{
+            word-break: break-all;
+            overflow: hidden !important;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .x-navigation a{
+            padding-right: 1rem!important;
+        }
+
+        .x-navigation button:hover,.x-navigation a:hover{
+            overflow: visible; 
+            white-space: normal;
+            height:auto;  /* just added this line */
+            padding-right: 1rem!important;
+        }
+
+        .x-navigation-minimized a{
+            overflow: unset !important;
+        }
+		.page_title_li{
+			width: 65% !important;
+		}
+		.page-container-wide .page_title_li{
+			width: 75% !important;
+		}
+
+		#languageId{
+			width: unset !important;
+			height: unset !important;
+			border: unset !important;
+			padding: unset !important;
+			outline: unset !important;
+			background: #e1e1e1;
+			font-size: unset !important;
+			font-weight: unset !important;
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+			border-radius: unset !important;
+			margin-bottom: unset !important;
+			color: #656d78 !important;
+		}
+	</style>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#languageId").val('en')
+                var path = window.location.pathname;
+                var value = path.split('/');
+                $('#'+value[1]).addClass('active');
+				var page_title = $('#' + value[1]).text();
+
+				$('#page_title').text(page_title);
+
+				if(path == "/dispatcher_create_trip"){
+	                $('#page-container').addClass("page-navigation-toggled")
+    	            $('#page-container').addClass("page-container-wide")
+        	        $('#x-navigation').addClass("x-navigation-minimized")
+            	}
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/session_data',
+                    data: {'type': 'dispatcher'},
+                    dataType: "json",
+                  	success:function(response){
+						$('option[value=' + response.cookies + ']').attr('selected',true);
+                  		$('.profile-data-name').html(response.session_data.first_name + ' ' + response.session_data.last_name);
+                  	}
+                });
+                
+				$("#languageId").change(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/change_language',
+                        data: { 'language': this.value },
+                        dataType: "json",
+                        success: function (response) {
+                            window.location.reload();
+                        }
+                    })
+                });
+            });
+	</script>
+	
+	<% include header_title.html %>
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" href="css/theme-default.css" />
+	<link rel="stylesheet" type="text/css" href="css/map.css" />
+	<!-- EOF CSS INCLUDE --->
+
+</head>
+
+<!--
+<script>
+
+$(document).ready(function(){
+
+document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
+
+});
+
+$(document).keydown(function(event){
+    if(event.keyCode==123){
+    return false;
+   }
+else if(event.ctrlKey && event.shiftKey && event.keyCode==73){        
+      return false;  //Prevent from ctrl+shift+i
+   }
+});
+</script>
+-->
+
+<body>
+	<!-- START PAGE CONTAINER -->
+	<div class="page-container" id="page-container">
+		<!-- START PAGE SIDEBAR -->
+		<div class="page-sidebar">
+			<!-- START X-NAVIGATION -->
+			<ul class="x-navigation" id="x-navigation">
+
+				<li>
+					<a style="text-align: center;height: 50px;">
+                        
+                    </a>
+					<a href="#" class="x-navigation-control"></a>
+				</li>
+
+				<li class="xn-profile">
+
+					<div class="profile">
+
+						<div class="profile-image">
+                            <img src="web_images/logo.png" style="border:none" alt="Eber" >
+                        </div>
+
+						<div class="profile-data">
+							<div class="profile-data-name">
+							</div>
+						</div>
+					</div>
+				</li>
+
+
+				<ul id="menu-item">
+					<!--<li class="xn-title">Navigation</li>-->
+
+
+
+
+					<li id="dispatcher_create_trip">
+						<a href="/dispatcher_create_trip"><span class="fa fa-calendar-plus-o"></span> <span class="xn-text"><%= __('menu_title_create_requests') %></span></a>
+					</li>
+
+
+
+					<li id="dispatcher_request">
+						<a href="/dispatcher_request"><span class="fa fa-paper-plane"></span> <span class="xn-text"><%= __('sub_menu_title_running_requests') %></span></a>
+					</li>
+
+					<li id="dispatcher_history">
+						<a href="/dispatcher_history"><span class="fa fa-calendar"></span> <span class="xn-text"><%= __('sub_menu_title_completed_requests') %></span></a>
+					</li>
+
+					<li id="dispatcher_future_request">
+						<a href="/dispatcher_future_request"><span class="fa fa-calendar-o"></span> <span class="xn-text"><%= __('menu_title_future_requests') %></span></a>
+					</li>
+
+					<li id="dispatcher_bank_detail">
+						<a href="/dispatcher_bank_detail"><span class="fa fa-university"></span> <span class="xn-text"><%= __('menu_title_bank_detail') %></span></a>
+					</li>
+
+				</ul>
+			</ul>
+			<!-- END X-NAVIGATION -->
+		</div>
+		<!-- END PAGE SIDEBAR -->
+		<div class="page-content">
+			<ul class="x-navigation x-navigation-horizontal x-navigation-panel ">
+				<li class="xn-icon-button menu_icon_button">
+					<a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+				</li>
+				<li class="page_title_li" style="text-align: center;">
+					<a href="# " class="mb-control pagination-centered "> <span id="page_title" class="mb-control pagination-centered "></span></a>
+				</li>
+                <li>
+                        <select id="languageId">
+                            <option selected disabled hidden style='display: none' >Select Language..</option>
+							<option value="<%= LANGUAGES.english %>">English</option>
+							<option value="<%= LANGUAGES.japanese %>">Japanese</option>
+							<option value="<%= LANGUAGES.french %>">French</option>
+							<option value="<%= LANGUAGES.arabic %>">Arabic</option>
+							<option value="<%= LANGUAGES.portuguese %>">Portuguese</option>
+							<option value="<%= LANGUAGES.spanish %>">Spanish</option>
+						</select>
+                </li>
+				<li class="xn-icon-button pull-right last">
+
+					<a href="dispatcher_sign_out "  class="logout-button"><span class="fa fa-power-off "></span></a>
+				</li>
+			</ul>
+
+
+		<!--&lt;!&ndash; PAGE CONTENT &ndash;&gt;-->
+		<!--<div class="page-content">-->
+
+			<!--&lt;!&ndash; START X-NAVIGATION VERTICAL &ndash;&gt;-->
+			<!--<ul class="x-navigation x-navigation-horizontal x-navigation-panel" >-->
+
+				<!--<li style="text-align: center;width: 75%;">-->
+					<!--<a href="#" class="mb-control pagination-centered"> <span id="page_title" class="mb-control pagination-centered"></span></a>-->
+				<!--</li>-->
+				<!--<li class="xn-icon-button pull-right last">-->
+
+					<!--<a href="dispatcher_sign_out"><span class="fa fa-power-off"></span></a>-->
+				<!--</li>-->
+
+
+			<!--</ul>-->

@@ -1,0 +1,141 @@
+<% include user_header.html %>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js"></script>
+<link rel="stylesheet" type="text/css" href="user_panel/css/chat.css">
+
+<style>
+  .chat_box_selet_bg {
+    padding: 0;
+  }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chat_box_selet_bg">
+  <section class="msger">
+    <main class="msger-chat" id="chat">
+    </main>
+
+    <form class="msger-inputarea" id="msger-inputarea">
+      <input type="text" class="msger-input" id="message" placeholder="<%= __("label_enter_your_message") %>">
+      <button type="submit" class="msger-send-btn">
+        <%= __("button_send") %>
+      </button>
+    </form>
+  </section>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var database;
+    document.getElementById("cover-spin").style.display = "block";
+    var body = {
+      "user_id": "<%=trip_data.user_detail._id%>",
+      "token": "<%=trip_data.user_detail.token%>",
+      "type": 10
+    }
+    $.ajax({
+      type: 'POST',
+      url: "generate_firebase_access_token",
+      data: body,
+      dataType: "json",
+      success: function(resultData) {
+        var config = {
+          apiKey: "<%=setting_detail.firebase_apiKey%>",
+          authDomain: "<%=setting_detail.firebase_authDomain%>",
+          databaseURL: "<%=setting_detail.firebase_databaseURL%>",
+          projectId: "<%=setting_detail.firebase_projectId%>",
+          storageBucket: "<%=setting_detail.firebase_storageBucket%>",
+          messagingSenderId: "<%=setting_detail.firebase_messagingSenderId%>"
+        };
+        firebase.initializeApp(config);
+        firebase.auth().signInWithCustomToken(resultData.firebase_token).then((userCredential) => {
+          var user = userCredential.user;
+          database = firebase.database();
+          var date_array = [];
+          var trip_id = '<%=trip_data._id%>';
+          var getvalue = firebase.database().ref(trip_id);
+          getvalue.on('value', (data) => {
+            document.getElementById("cover-spin").style.display = "none";
+            if (data.val() == null) {
+              date_array = [];
+            } else {
+              date_array = [];
+              var keys = Object.keys(data.val());
+              keys.forEach((k) => {
+                var date = new Date(data.child(k).val().message_time);
+                var date1 = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+                var date2 = new Date(date1);
+                date2 = date2.setHours(0, 0, 0, 0);
+                date2 = new Date(date2);
+                let index = date_array.findIndex((date) => date.date == date1);
+                if (index == -1) {
+                  date_array.push({
+                    date: date1,
+                    message_date: date2,
+                    messages: [data.child(k).val()]
+                  });
+                } else {
+                  date_array[index].messages.push(data.child(k).val())
+                }
+              });
+              $('#chat').empty();
+              date_array.forEach(function(data) {
+                data.messages.forEach(function(messages) {
+                  if (messages.type == 10) {
+                    var html = '<div class="msg right-msg">' +
+                      '<div class="msg-img" style="background-image: url(<%= trip_data.user_detail.picture ? setting_detail.image_base_url + trip_data.user_detail.picture : "default.png" %>)"></div>' +
+                      '<div class="msg-bubble">' +
+                      '<div class="msg-info">' +
+                      '<div class="msg-info-name"><%= trip_data.user_detail.first_name %> <%= trip_data.user_detail.last_name %></div>' +
+                      '<div class="msg-info-time">' + moment(messages.time).format("DD-MM-YYYY hh:mm a") + '</div>' +
+                      '</div>' +
+                      '<div class="msg-text">' +
+                      messages.message +
+                      '</div>' +
+                      '</div>' +
+                      '</div>';
+
+                    $('#chat').append(html);
+                  } else {
+                    var html = '<div class="msg left-msg">' +
+                      '<div class="msg-img" style="background-image: url(<%= trip_data.provider_detail.picture ? setting_detail.image_base_url + trip_data.provider_detail.picture : "default.png" %>)"></div>' +
+                      '<div class="msg-bubble">' +
+                      '<div class="msg-info">' +
+                      '<div class="msg-info-name"><%= trip_data.provider_detail.first_name %> <%= trip_data.provider_detail.last_name %></div>' +
+                      '<div class="msg-info-time">' + moment(messages.time).format("DD-MM-YYYY hh:mm a") + '</div>' +
+                      '</div>' +
+                      '<div class="msg-text">' +
+                      messages.message +
+                      '</div>' +
+                      '</div>' +
+                      '</div>';
+                    $('#chat').append(html);
+                  }
+                })
+              })
+            }
+          });
+        }).catch((error) => {
+          console.log(error)
+        });
+      }
+    });
+    $("#msger-inputarea").validate({
+      ignore: [],
+      rules: {},
+      submitHandler: function(form) {
+        if($("#message").val().trim().length != 0){
+          var ref = database.ref("<%= trip_data._id %>")
+          var key = ref.push().getKey()
+          ref.child(key).set({
+            id: key,
+            is_read: false,
+            message: $("#message").val(),
+            time: new Date().toISOString(),
+            type: 10,
+            sender_type: 10
+          })
+          $("#message").val("");
+        }
+      }
+    })
+  })
+</script>
+<% include user_footer.html %>

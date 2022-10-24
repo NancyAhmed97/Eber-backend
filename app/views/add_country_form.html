@@ -1,0 +1,677 @@
+<% include header.html %>
+<!-- PAGE TITLE -->
+
+<!-- END PAGE TITLE -->
+
+<style type="text/css" media="screen">
+    .control-label{
+        text-align: left !important;
+    }    
+
+    .main_heading{
+        font-weight: bold;
+        font-size: 20px;
+        color: black;
+    }
+    .radio_label{
+        font-size: 15px;
+        margin-left: 15px;
+    }
+</style>
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- for edit country form -->
+            <% if(typeof country_data != 'undefined'){ %>
+            <% country_data.forEach(function(data){ %>
+            <form class="form-horizontal" method="post" action="/update_country_detail">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_basic_settings') %></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= __('title_country_business') %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <label class="switch">
+                                                <% if( data.isBusiness == 1 ) { %>
+                                                <input type="checkbox" class="switch" value="1" name="isBusiness" checked />
+                                                <% } else{ %>
+                                                <input type="checkbox" class="switch" value="1" name="isBusiness" unchecked />
+                                                <% } %>
+                                                <span></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <input type="hidden" class="form-control" name="id" value="<%= data.id %>" />
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= __('title_countyry_name') %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countryname" value="<%= data.countryname %>" disabled="true" />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= __('title_currency_code') %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="row">
+                                                <div class="col-md-6" style="padding-left: 0;">
+                                                    <input type="text" class="form-control" name="currencycode" value="<%= data.currencycode %>" readonly/>
+                                                </div>
+                                                <div class="col-md-6" style="padding-right: 0;">
+                                                    <input type="text" class="form-control" name="currencysign" value="<%= data.currencysign %>" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <input type="hidden" class="form-control" name="alpha2" value="<%= data.alpha2 %>"/>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= __('title_country_phone_code') %></label>
+
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countryphonecode" value="<%= data.countryphonecode %>" readonly/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_payment_to_driver') %></label>
+                                </div> 
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <% if(data.is_auto_transfer == true) { %>
+                                                <label><input class="icheckbox" type="radio" name="is_auto_transfer" value="true" checked /> <span class="radio_label"><%= __('bank')%></span></label>
+                                            <% } else { %>
+                                                <label><input class="icheckbox" type="radio" name="is_auto_transfer" value="true" /> <span class="radio_label"><%= __('bank')%></span></label>
+                                            <% } %>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <% if(data.is_auto_transfer !== true) { %>
+                                                <label><input class="icheckbox" type="radio" name="is_auto_transfer" value="false" checked /> <span class="radio_label"><%= __('manual_cash')%></span></label>
+                                            <% } else { %>
+                                                <label><input class="icheckbox" type="radio" name="is_auto_transfer" value="false" /> <span class="radio_label"><%= __('manual_cash')%></span></label>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="is_auto_transfer">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><%= __('title_auto_transfer_day') %></label>
+
+                                        <div class="col-md-9">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="auto_transfer_day" value="<%= data.auto_transfer_day %>" onkeypress="return isNumberKey(event,false);"
+                                                />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><%= __('title_auto_transfer_time_zone') %></label>
+
+                                        <div class="col-md-9">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="countrytimezone" value="<%= data.countrytimezone %>" readonly/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <!-- <div class="form-group">
+                                    <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_basic_settings') %></label>
+                                </div>  -->
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label main_heading"><%= __('title_referral_in_country') %></label>
+
+                                    <div class="col-md-3 col-xs-3">
+                                        <div class="col-md-9">
+                                            <label class="switch">
+                                                <% if( data.is_referral == 1 ) { %>
+                                                <input type="checkbox" class="switch" value="1" name="is_referral" checked />
+                                                <% } else{ %>
+                                                <input type="checkbox" class="switch" value="1" name="is_referral" unchecked />
+                                                <% } %>
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_referral_bonus_to_user') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="referral_bonus_to_user" id="referral_bonus_to_user" value="<%= data.referral_bonus_to_user %>"
+                                                   onkeypress="return isNumberKey(event,false);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_bonus_to_referral_user') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="bonus_to_userreferral" value="<%= data.bonus_to_userreferral %>" onkeypress="return isNumberKey(event,false);"
+                                                   />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_user_referral_max_use') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="userreferral" value="<%= data.userreferral %>" onkeypress="return isNumberKey(event,false);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label main_heading"><%= __('title_provider_referral_in_country') %></label>
+
+                                    <div class="col-md-3 col-xs-3">
+                                        <div class="col-md-9">
+                                            <label class="switch">
+                                                <% if( data.is_provider_referral == 1 ) { %>
+                                                <input type="checkbox" class="switch" value="1" name="is_provider_referral" checked />
+                                                <% } else{ %>
+                                                <input type="checkbox" class="switch" value="1" name="is_provider_referral" unchecked />
+                                                <% } %>
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_referral_bonus_to_provider') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="referral_bonus_to_provider" id="referral_bonus_to_provider" value="<%= data.referral_bonus_to_provider %>"
+                                                   onkeypress="return isNumberKey(event,false);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_bonus_to_referral_provider') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="bonus_to_providerreferral" value="<%= data.bonus_to_providerreferral %>" onkeypress="return isNumberKey(event,false);"
+                                                   />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_provider_referral_max_use') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="providerreferral" value="<%= data.providerreferral %>" onkeypress="return isNumberKey(event,false);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label main_heading"><%= __('title_select_payment_gateway') %></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-6"> 
+                                        <label class="check text-capitalize">
+                                        <% if(data.payment_gateways.indexOf(PAYMENT_GATEWAY.stripe) !== -1){ %>
+                                            <input type="radio" id="<%=PAYMENT_GATEWAY.stripe%>" value="<%=PAYMENT_GATEWAY.stripe%>" name="payment_gateways[]" class="icheckbox" checked/> <%=__('stripe')%></label>
+                                        <% } else { %>
+                                            <input type="radio" id="<%=PAYMENT_GATEWAY.stripe%>" value="<%=PAYMENT_GATEWAY.stripe%>" name="payment_gateways[]" class="icheckbox"/> <%=__('stripe')%></label>
+                                        <% } %>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label class="check text-capitalize">
+                                        <% if(data.payment_gateways.indexOf(PAYMENT_GATEWAY.paystack) !== -1){ %>
+                                            <input type="radio" id="<%=PAYMENT_GATEWAY.paystack%>" value="<%=PAYMENT_GATEWAY.paystack%>" name="payment_gateways[]" class="icheckbox" checked/> <%=__('paystack')%></label>
+                                        <% } else { %>
+                                            <input type="radio" id="<%=PAYMENT_GATEWAY.paystack%>" value="<%=PAYMENT_GATEWAY.paystack%>" name="payment_gateways[]" class="icheckbox"/> <%=__('paystack')%></label>
+                                        <% } %>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label class="check text-capitalize">
+                                        <% if(data.payment_gateways.indexOf(PAYMENT_GATEWAY.payu) !== -1){ %>
+                                            <input type="radio" id="<%=PAYMENT_GATEWAY.payu%>" value="<%=PAYMENT_GATEWAY.payu%>" name="payment_gateways[]" class="icheckbox" checked/> <%=__('payu')%></label>
+                                        <% } else { %>
+                                            <input type="radio" id="<%=PAYMENT_GATEWAY.payu%>" value="<%=PAYMENT_GATEWAY.payu%>" name="payment_gateways[]" class="icheckbox"/> <%=__('payu')%></label>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" name="update" value="update" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= __('button_submit') %></button>
+                    </div>
+                </div>
+            </form>
+
+            <% }); %>
+
+            <!-- for edit country form -->
+            <% }else{ %>
+            <form class="form-horizontal" method="post" action="/add_country_detail">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_basic_settings') %></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= __('title_bussiness_in_country') %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <label class="switch">
+                                                <input type="checkbox" class="switch" value="1" name="isBusiness" checked />
+                                                <span></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= __('title_countyry_name') %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="countryname" id="countryname">
+                                                <option selected disabled hidden style='display: none'><%= __('title_select_country') %></option>
+                                                <% country.forEach(function(data) { %>
+                                                <option value="<%= data.name %>"><%= data.name %></option>
+                                                <% }); %>
+                                            </select>
+                                            <div id="countrycheck"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= __('title_currency_code') %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6" style="padding-left: 0;">
+                                                    <input type="text" class="form-control" name="currencycode" id="currencycode" value="" readonly/>
+                                                </div>
+                                                <div class="col-md-6" style="padding-right: 0;">
+                                                    <input type="text" class="form-control" name="currencysign" id="currencysign" value="" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                            <input type="hidden" class="form-control" name="countrycode" id='countrycode' />
+
+                                <input type="hidden" class="form-control" name="alpha2" id="alpha2"/>
+
+
+                                <input type="hidden" name="country_all_timezone" id="country_all_timezone"/>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= __('title_country_phone_code') %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countryphonecode" id='countryphonecode' readonly/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12 col-xs-12 control-label main_heading"><%= __('title_payment_to_driver') %></label>
+                                </div> 
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                                <label><input class="icheckbox" type="radio" name="is_auto_transfer" value="true" checked /> <span class="radio_label"><%= __('bank')%></span></label>
+                                        </div>
+                                        <div class="col-md-4">
+                                                <label><input class="icheckbox" type="radio" name="is_auto_transfer" value="false" /> <span class="radio_label"><%= __('manual_cash')%></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                        <label class="col-md-3 control-label"><%= __('title_auto_transfer_day') %></label>
+
+                                        <div class="col-md-9">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="auto_transfer_day" value="" onkeypress="return isNumberKey(event,false);"
+                                                />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= __('title_auto_transfer_time_zone') %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="countrytimezone" id="countrytimezone">
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label main_heading"><%= __('title_referral_in_country') %></label>
+
+                                    <div class="col-md-3 col-xs-3">
+                                        <div class="col-md-9">
+                                            <label class="switch">
+                                                <input type="checkbox" class="switch" value="1" name="is_referral" checked />
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_referral_bonus_to_user') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="referral_bonus_to_user" id="referral_bonus_to_user" value="0"
+                                                   onkeypress="return isNumberKey(event,false);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_bonus_to_referral_user') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="bonus_to_userreferral" value="0" onkeypress="return isNumberKey(event,false);"
+                                                   />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_user_referral_max_use') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="userreferral" value="0" onkeypress="return isNumberKey(event,false);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label main_heading"><%= __('title_provider_referral_in_country') %></label>
+
+                                    <div class="col-md-3 col-xs-3">
+                                        <div class="col-md-9">
+                                            <label class="switch">
+                                                <input type="checkbox" class="switch" value="1" name="is_provider_referral" checked />
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_referral_bonus_to_provider') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="referral_bonus_to_provider" id="referral_bonus_to_provider" value="0"
+                                                   onkeypress="return isNumberKey(event,false);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_default_bonus_to_referral_provider') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="bonus_to_providerreferral" value="0" onkeypress="return isNumberKey(event,false);"
+                                                   />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label"><%= __('title_provider_referral_max_use') %></label>
+
+                                    <div class="col-md-3">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="providerreferral" value="0" onkeypress="return isNumberKey(event,false);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label main_heading"><%= __('title_select_payment_gateway') %></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-6"> 
+                                        <label class="check text-capitalize">
+                                        <input type="radio" id="<%=PAYMENT_GATEWAY.stripe%>" value="<%=PAYMENT_GATEWAY.stripe%>" name="payment_gateways[]" class="icheckbox"/> <%=__('stripe')%></label>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label class="check text-capitalize">
+                                        <input type="radio" id="<%=PAYMENT_GATEWAY.paystack%>" value="<%=PAYMENT_GATEWAY.paystack%>" name="payment_gateways[]" class="icheckbox"/> <%=__('paystack')%></label>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <label class="check text-capitalize">
+                                        <input type="radio" id="<%=PAYMENT_GATEWAY.payu%>" value="<%=PAYMENT_GATEWAY.payu%>" name="payment_gateways[]" class="icheckbox"/> <%=__('payu')%></label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= __('button_submit') %></button>
+                    </div>
+                </div>
+            </form>
+            <% } %>
+
+        </div>
+    </div>
+
+</div>
+<!-- END PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".form-horizontal").validate({
+            rules: {
+                countryname: "required",
+                countrycode: "required",
+                currency: "required",
+                currencycode: "required",
+                currencysign: "required",
+                countrytimezone: "required",
+                countryphonecode: "required",
+                referral_bonus_to_user: "required",
+                bonus_to_userreferral: "required",
+                userreferral: "required"
+            },
+            errorPlacement: function(error, element) {
+                // $('.btn-primary').prop('disabled', true)
+                if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+                } else {
+                error.insertAfter(element);
+                }
+            },
+            submitHandler: function() {
+                $('.btn-primary').prop('disabled', true)
+                $(".form-horizontal").get(0).submit();
+            }
+        });
+
+        ////////// check country already added or not ////////////
+        $("#countryname").change(function () {
+            var value = this.value;
+
+            $("#submit").attr("disabled", true);
+
+            $.ajax({
+                type: 'POST',
+                url: '/check_country_available',
+                data: 'countryname=' + value,
+                dataType: "json",
+                success: function (res) {
+
+                    if (res == 1)
+                    {
+                        $("#submit").attr("disabled", true);
+                        //alert(document.getElementById('city').value);
+                        $("#countrycheck").html('<font color="red">Country  Already Added</font>');
+                    } 
+                    else
+                    {
+                        $("#countrycheck").html("");
+
+                        $("#submit").attr("disabled", false);
+                    }
+                }
+            });
+        });
+        /////////////// selcted country fill country code, timezone , currency code, sign and phone code ///////////
+
+        $('#countryname').change(function () {
+            $('#currencycode').empty();
+            $('#countrytimezone').empty();
+            var countryname = document.getElementById('countryname').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_country_detail',
+                data: { countryname : countryname },
+                dataType: "json",
+                success: function (res) {
+                    var country = res.country;
+                    if(country){
+                        document.getElementById("currencysign").value = country.sign;
+                        document.getElementById("countrycode").value = country.alpha3;
+                        document.getElementById("alpha2").value = country.alpha2;
+                        document.getElementById("countryphonecode").value = country.code;
+                        document.getElementById("currencycode").value = country.currency_code;
+
+                        var all_time_zone = [];
+                        if(res.country.timezones){
+                            res.country.timezones.forEach(timezone => {
+                                all_time_zone.push(timezone);
+                                $('#countrytimezone').append('<option>' + timezone + '</option>');
+                                $('#countrytimezone').selectpicker('refresh');
+                            });
+                        }
+                        document.getElementById("country_all_timezone").value = all_time_zone;
+                    }
+                }
+            });
+        });
+        ////////////////////////
+    });
+</script>
+<% include footer_form.html %>

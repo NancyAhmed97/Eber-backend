@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="new_design/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="new_design/css/magnific-popup.css" />
+  <link rel="stylesheet" type="text/css" href="new_design/css/style.css" />
+  <title>
+    <%= setting_detail.app_name %>
+  </title>
+  <script type="text/javascript" src="new_design/js/jquery.min.js"></script>
+  <script type="text/javascript" src="new_design/js/jquery-ui.js"></script>
+  <script type="text/javascript" src="new_design/js/jquery.magnific-popup.min.js"></script>
+  <script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>
+  <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+  <script src="new_design/js/owl.carousel.js"></script>
+  <script src="socket.io/socket.io.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="top shadownone" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;">
+      <div class="container">
+        <div class="top_l">
+          <h1><a href="javascript:window.location.href=window.location.href">Eber</a></h1>
+          <div class="menu">
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="top_r">
+          <div class="menu2">
+            <ul>
+              <li><a href="guest-user?token=<%= guest_token.token_value %>">Book</a></li>
+              <li class="active"><a href="javascript:window.location.href=window.location.href">Track</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </header>
+
+  <style>
+    .container {
+      max-width: unset;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0px 30px;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .cancel_trip {
+      background: #f00;
+      border-color: #f00;
+    }
+
+    .cancel_trip:hover {
+      background: rgb(180, 0, 0);
+      border-color: rgb(180, 0, 0);
+      ;
+    }
+
+    .map_page {
+      background-color: white;
+    }
+
+    /* Works on Firefox */
+    * {
+      scrollbar-width: 10px;
+      scrollbar-color: #d6dee1 white;
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background-color: white;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: #d6dee1;
+      border-radius: 20px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background-color: #a8bbbf;
+    }
+
+    .fareinfo {
+      padding-bottom: 15px !important;
+    }
+
+    @media only screen and (max-width: 375px) {
+      .container {
+        padding: 0px 10px !important;
+      }
+    }
+
+    #legend {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+    }
+  </style>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%=map_key%>&libraries=places"></script>
+
+  <script>
+    var map;
+    var iconBase = '/map_pin/';
+    var pickup_marker;
+    var destination_marker;
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+
+    var bounds;
+
+    var providerStartLocation;
+    var providerStartLocation_initialLocation;
+    var providerMarker;
+
+    var startTripLocation;
+    var startTripLocation_initialLocation;
+    var startTripMarker;
+
+    var endTripLocation;
+    var endTripLocation_initialLocation;
+    var endTripMarker;
+
+    var trip_path_array = [];
+    var trippath;
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+      navigator.permissions.query({
+        name: 'geolocation'
+      }).then((res) => {
+        var location_status = res.state;
+        if (location_status == "granted") {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            directionsDisplay = new google.maps.DirectionsRenderer();
+            var mapProp = {
+              center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+              zoom: 18,
+              streetViewControl: false,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              fullscreenControl: true, 
+              fullscreenControlOptions: {
+                position: google.maps.ControlPosition.LEFT_CENTER,
+              }
+            };
+
+            map = new google.maps.Map(document.getElementById("map"), mapProp);
+            directionsDisplay.setMap(map);
+
+            var legend = document.getElementById('legend');
+            legend.innerHTML = '<div><img src="/map_pin/driver.png " style="height:25px;vertical-align: middle;"/><span> Driver Location</span></div>' +
+              '<div><img src="/map_pin/pickup.png " style="height:25px;vertical-align: middle;"/><span> Pickup Location</span></div>' +
+              '<div><img src="/map_pin/destination.png " style="height:25px;vertical-align: middle;"/><span> Destination Location</span></div>';
+            map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
+
+            var trip_data = <%- JSON.stringify(trip_data) %>;
+            var trip_path_data = <%- JSON.stringify(trip_path_data) %>;
+            $('#cancel_trip_div').hide();
+            if (trip_data) {
+              set_trip_data(trip_data, trip_path_data);
+              init_socket(trip_data);
+            }
+          });
+        } else {
+          directionsDisplay = new google.maps.DirectionsRenderer();
+          var mapProp = {
+            center: new google.maps.LatLng(0, 0),
+            zoom: 18,
+            streetViewControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            fullscreenControl: true,
+            fullscreenControlOptions: {
+              position: google.maps.ControlPosition.LEFT_CENTER,
+            }
+          };
+
+          map = new google.maps.Map(document.getElementById("map"), mapProp);
+          directionsDisplay.setMap(map);
+
+          var legend = document.getElementById('legend');
+          legend.innerHTML = '<div><img src="/map_pin/driver.png " style="height:25px;vertical-align: middle;"/><span> Driver Location</span></div>' +
+            '<div><img src="/map_pin/pickup.png " style="height:25px;vertical-align: middle;"/><span> Pickup Location</span></div>' +
+            '<div><img src="/map_pin/destination.png " style="height:25px;vertical-align: middle;"/><span> Destination Location</span></div>';
+          map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
+
+          var trip_data = <%- JSON.stringify(trip_data) %>;
+          var trip_path_data = <%- JSON.stringify(trip_path_data) %>;
+          $('#cancel_trip_div').hide();
+          if (trip_data) {
+            set_trip_data(trip_data, trip_path_data);
+            init_socket(trip_data);
+          }
+        }
+      })
+    }
+
+    function set_trip_data(trip_data, trip_path_data) {
+      $('#cancel_trip_div').hide();
+      $('#form_info_fare_address').show();
+      $('#drop_box').show();
+
+      $('#_id').val(trip_data._id);
+      $('#trip_id').val(trip_data.unique_id);
+      $('#pickup_address').val(trip_data.source_address);
+      $('#pickup_latitude').val(trip_data.sourceLocation[0]);
+      $('#pickup_longitude').val(trip_data.sourceLocation[1]);
+      $('#destination_adress').val(trip_data.destination_address);
+      $('#destination_latitude').val(trip_data.destinationLocation[0]);
+      $('#destination_longitude').val(trip_data.destinationLocation[1]);
+
+      if (trip_data.is_trip_cancelled == 1) {
+        if (trip_data.is_trip_cancelled_by_provider == 1) {
+          $("#trip_status").html("Cancelled By Driver");
+        } else if (trip_data.is_trip_cancelled_by_user == 1) {
+          $("#trip_status").html("Cancelled By User");
+        } else {
+          $("#trip_status").html("Cancelled");
+        }
+      } else {
+        if (trip_data.is_provider_status == 2) {
+          $("#trip_status").html("Coming");
+        } else if (trip_data.is_provider_status == 4) {
+          $("#trip_status").html("Arrived");
+        } else if (trip_data.is_provider_status == 6) {
+          $("#trip_status").html("Started");
+        } else if (trip_data.is_provider_status == 9) {
+          $("#trip_status").html("Completed");
+        } else if (trip_data.is_provider_status == 1 || trip_data.is_provider_status == 0) {
+          if (trip_data.is_provider_accepted == 1) {
+            $("#trip_status").html("Accepted");
+          } else {
+            $("#trip_status").html("Waiting");
+          }
+        }
+      }
+
+      if (trip_data.is_provider_status >= 6) {
+        $('#total_time').html(convertMinsToHrsMins(trip_data.total_time));
+        $('#total_distance').html(trip_data.total_distance + " km");
+      }
+
+      if (trip_data.is_trip_cancelled == 0 && trip_data.is_trip_completed == 0 && trip_data.is_provider_status != 9) {
+        $('#cancel_trip_div').show();
+      } else {
+        $('#cancel_trip_div').hide();
+      }
+      draw_path(trip_data, trip_path_data);
+    }
+
+    function convertMinsToHrsMins(minutes) {
+      var h = Math.floor(minutes / 60);
+      var m = minutes % 60;
+      h = h < 10 ? '0' + h : h;
+      m = m < 10 ? '0' + m : m;
+      return h + ':' + m;
+    }
+
+    function draw_path(trip_data, trip_path_data) {
+      if (providerMarker) { providerMarker.setMap(null) }
+      if (startTripMarker) { startTripMarker.setMap(null) }
+      if (endTripMarker) { endTripMarker.setMap(null) }
+      if (trippath) { trippath.setMap(null) }
+
+      bounds = new google.maps.LatLngBounds();
+      if (trip_data.is_trip_cancelled != 1 && trip_data.is_provider_status >= 0 && trip_data.is_provider_status < 6) {
+        if (trip_data.providerLocation.length != 0) {
+          providerStartLocation = {
+            lat: trip_data.providerLocation[0],
+            lng: trip_data.providerLocation[1]
+          };
+          providerStartLocation_initialLocation = new google.maps.LatLng(providerStartLocation);
+          providerMarker = new google.maps.Marker({
+            position: providerStartLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'driver.png'
+          });
+          bounds.extend(providerStartLocation_initialLocation);
+        }
+
+        if (trip_data.sourceLocation.length != 0) {
+          startTripLocation = {
+            lat: trip_data.sourceLocation[0],
+            lng: trip_data.sourceLocation[1]
+          };
+          startTripLocation_initialLocation = new google.maps.LatLng(startTripLocation);
+          startTripMarker = new google.maps.Marker({
+            position: startTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'pickup.png'
+          });
+          bounds.extend(startTripLocation_initialLocation);
+        }
+
+        if (trip_data.destinationLocation.length != 0) {
+          endTripLocation = {
+            lat: trip_data.destinationLocation[0],
+            lng: trip_data.destinationLocation[1]
+          };
+          endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+          endTripMarker = new google.maps.Marker({
+            position: endTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'destination.png'
+          });
+          bounds.extend(endTripLocation_initialLocation);
+        }
+      } else if (typeof trip_path_data != 'undefined' && trip_data.is_trip_cancelled != 1 && trip_data.is_provider_status >= 6) {
+        startTripLocation = {
+          lat: trip_path_data.startTripLocation[0],
+          lng: trip_path_data.startTripLocation[1]
+        };
+        startTripLocation_initialLocation = new google.maps.LatLng(startTripLocation);
+        if (trip_path_data.startTripLocation[0] !== 0 && trip_path_data.startTripLocation[1] !== 0) {
+          startTripMarker = new google.maps.Marker({
+            position: startTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'pickup.png'
+          });
+          bounds.extend(startTripLocation_initialLocation);
+        }
+
+        endTripLocation = {
+          lat: trip_path_data.endTripLocation[0],
+          lng: trip_path_data.endTripLocation[1]
+        };
+        endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+        if (trip_path_data.endTripLocation[0] !== 0 && trip_path_data.endTripLocation[1] !== 0) {
+          endTripMarker = new google.maps.Marker({
+            position: endTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'destination.png'
+          });
+          bounds.extend(endTripLocation_initialLocation);
+
+          providerStartLocation = {
+            lat: trip_path_data.providerStartLocation[0],
+            lng: trip_path_data.providerStartLocation[1]
+          };
+          providerStartLocation_initialLocation = new google.maps.LatLng(providerStartLocation);
+          if (trip_path_data.providerStartLocation[0] !== 0 && trip_path_data.providerStartLocation[1] !== 0) {
+            providerMarker = new google.maps.Marker({
+              position: providerStartLocation_initialLocation,
+              map: map,
+              icon: iconBase + 'driver.png'
+            });
+            bounds.extend(providerStartLocation_initialLocation);
+          }
+        } else {
+          endTripLocation = {
+            lat: trip_path_data.startTripToEndTripLocations[trip_path_data.startTripToEndTripLocations.length - 1][0],
+            lng: trip_path_data.startTripToEndTripLocations[trip_path_data.startTripToEndTripLocations.length - 1][1]
+          };
+          endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+          bounds.extend(endTripLocation_initialLocation);
+
+          if (trip_data.providerLocation.length != 0) {
+            providerStartLocation = {
+              lat: trip_data.providerLocation[0],
+              lng: trip_data.providerLocation[1]
+            };
+            providerStartLocation_initialLocation = new google.maps.LatLng(providerStartLocation);
+            providerMarker = new google.maps.Marker({
+              position: providerStartLocation_initialLocation,
+              map: map,
+              icon: iconBase + 'driver.png'
+            });
+            bounds.extend(providerStartLocation_initialLocation);
+          }
+
+          if (trip_data.destinationLocation.length != 0) {
+            endTripLocation = {
+              lat: trip_data.destinationLocation[0],
+              lng: trip_data.destinationLocation[1]
+            };
+            endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+            endTripMarker = new google.maps.Marker({
+              position: endTripLocation_initialLocation,
+              map: map,
+              icon: iconBase + 'destination.png'
+            });
+            bounds.extend(endTripLocation_initialLocation);
+          }
+        }
+
+        trip_path_array = [];
+        trip_path_data.startTripToEndTripLocations.forEach(function(location) {
+          var lat = location[0];
+          var lng = location[1];
+          var trip_path = {
+            'lat': lat,
+            'lng': lng
+          };
+          trip_path_array.push(trip_path);
+        })
+
+        trippath = new google.maps.Polyline({
+          path: trip_path_array,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        trippath.setMap(map);
+      } else {
+        if (trip_data.sourceLocation.length != 0) {
+          startTripLocation = {
+            lat: trip_data.sourceLocation[0],
+            lng: trip_data.sourceLocation[1]
+          };
+          startTripLocation_initialLocation = new google.maps.LatLng(startTripLocation);
+          startTripMarker = new google.maps.Marker({
+            position: startTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'pickup.png'
+          });
+          bounds.extend(startTripLocation_initialLocation);
+        }
+
+        if (trip_data.destinationLocation.length != 0) {
+          endTripLocation = {
+            lat: trip_data.destinationLocation[0],
+            lng: trip_data.destinationLocation[1]
+          };
+          endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+          endTripMarker = new google.maps.Marker({
+            position: endTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'destination.png'
+          });
+          bounds.extend(endTripLocation_initialLocation);
+        }
+      }
+      map.fitBounds(bounds);
+    }
+
+    function cancel_by_admin() {
+      $.ajax({
+        type: 'POST',
+        url: '/tripcancelbyadmin',
+        data: {
+          trip_id: $("#_id").val()
+        },
+        dataType: "json",
+        success: function(res) {
+          if (res.success) {
+            alert("Trip Cancelled Successfully!");
+            location.reload()
+          }
+        }
+      });
+    }
+
+    function view_map() {
+      $('#map div.gm-style button[title="Toggle fullscreen view"]').trigger('click');
+    }
+
+    function start_track_trip(trip_data) {
+      if (trip_data.is_trip_cancelled != 1 && trip_data.is_trip_completed != 1 && trip_data.is_provider_status != 9) {
+        $.ajax({
+          type: 'POST',
+          url: '/get-track-trip-data',
+          data: {
+            "guest_user_token": $("#guest_user_token").val(),
+            "trip_id": $("#_id").val()
+          },
+          dataType: "json",
+          success: function(res) {
+            if (res.success) {
+              set_trip_data(res.trip_data, res.trip_path_data)
+            }
+          }
+        })
+      }
+    }
+
+    // let URL = "http://localhost:5000";
+    let URL = window.location.protocol + '//'+ window.location.hostname ;
+
+    let socket = io.connect(URL);
+
+    socket.on('connect', function() {
+      console.log("connect")
+    });
+
+    socket.on('disconnect', function() {
+      console.log("disconnect")
+    });
+
+    function init_socket(trip_data) {
+      socket.on("'" + trip_data._id + "'", function() {
+        start_track_trip(trip_data)
+      });
+    }
+  </script>
+
+  <body class="home">
+    <div class="inner_con">
+      <div class="map_page">
+        <div id="map" style="border:0; height: 100%;"></div>
+        <div id="legend"></div>
+        <div class="fareinfo">
+          <div class="form_info_fare" style="margin-top: 0;">
+            <div class="form_div" style="margin-bottom: 0;">
+              <form method="get" accept="track-trip">
+                <input type="hidden" id="token" name="token" value="<%= guest_token.token_value %>">
+                <input type="hidden" id="guest_user_token" name="guest_user_token" value="<%= guest_token._id %>">
+                <input type="text" id="trip_id" name="trip_unique_id" placeholder="Enter trip id" required>
+                <button type="submit" class="btn" style="height: 44px;width: 100%;margin-top: 1rem;">Search<i class="fa fa-long-arrow-right"></i></button>
+              </form>
+            </div>
+          </div>
+          <input type="hidden" id="_id" name="_id">
+          <div class="form_info_fare" id="form_info_fare_address" hidden>
+            <div class="left_line"></div>
+            <div class="form_div">
+              <input type="hidden" id="pickup_latitude" name="pickup_latitude">
+              <input type="hidden" id="pickup_longitude" name="pickup_longitude">
+              <input type="text" id="pickup_address" name="pickup_address" placeholder="Enter pickup location" readonly>
+            </div>
+            <div class="form_div2">
+              <input type="hidden" id="destination_latitude" name="destination_latitude">
+              <input type="hidden" id="destination_longitude" name="destination_longitude">
+              <input type="text" id="destination_adress" name="destination_adress" placeholder="Enter a destination" readonly>
+            </div>
+          </div>
+          <div class="drop_box" id="drop_box" hidden>
+            <ul class="option_list">
+              <li>
+                <a>
+                  <span class="fl">Trip Details</span>
+                  <span class="fr" id="trip_status">---</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span class="fl">Time</span>
+                  <span class="fr" id="total_time">---</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span class="fl">Distance</span>
+                  <span class="fr" id="total_distance">---</span>
+                </a>
+              </li>
+            </ul>
+            <div class="sign_btn" id="cancel_trip_div">
+              <button type="button" class="btn cancel_trip" onclick="cancel_by_admin()">Cancel Trip
+                <i class="fa fa-long-arrow-right"></i>
+              </button>
+            </div>
+            <div class="sign_btn" id="view_trip_map_div">
+              <button type="button" class="btn trip_map" onclick="view_map()">View Trip Map
+                <i class="fa fa-long-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
+<% include validation_script.html %>

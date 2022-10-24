@@ -1,0 +1,1093 @@
+<% include header.html %>
+
+<!--Script for File Upload Components-->
+<script type="text/javascript" src="js/plugins/fileinput/fileinput.min.js"></script>
+<script type="text/javascript" src="js/plugins/filetree/jqueryFileTree.js"></script>
+<div class="page-content-wrap">
+    <div class="page-title">
+        <% if(typeof message != 'undefined'){ %>
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= __('button_close') %></span></button>
+            <p align="center"> <strong><%= __(message) %></strong></p>
+        </div>
+        <% } %>
+    </div>
+
+    <div class="row">
+        <!-- SETTINGS WIDGET -->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= __('title_basic_app_settings') %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <% detail.forEach(function(data){ %>
+                    <div class="panel-body">
+                        <form action="admin_settings_update" role="form" id="admin_settings_update" class="form-horizontal" method="post">
+                            <input type="hidden" name="id" value="<%= data.id %>" />
+
+
+                            <div class="form-group">
+                                <label><%= __('title_admin_country') %></label>
+
+                                <% if( data.countryname == "" ) { %>
+                                <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="countryname" id="countryname">
+                                    <option selected disabled hidden style='display: none' ><%= __('title_select_country') %></option>
+                                    <% country.forEach(function(data) { %>
+                                    <option value="<%= data.name %>"><%= data.name %></option>
+                                    <% }); %>
+                                </select>
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="countryname" id="countryname" value="<%= data.countryname %>" readonly />
+                                <% } %>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_admin_currency_code') %></label>
+
+                                <% if(data.adminCurrencyCode == "") { %>
+                                <input type="text" class="form-control" name="adminCurrencyCode" id="adminCurrencyCode" placeholder="<%= __('admin_curency_code') %>"
+                                       />
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="adminCurrencyCode" id="adminCurrencyCode" value="<%= data.adminCurrencyCode %>"
+                                       readonly />
+                                <% } %>
+
+
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <label><%= __('title_admin_currency') %></label>
+
+                                <% if(data.adminCurrency == "") { %>
+                                <input type="text" class="form-control" name="adminCurrency" id="adminCurrency" placeholder="<%= __('admin_curency') %>" />
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="adminCurrency" id="adminCurrency" value="<%= data.adminCurrency %>" readonly
+                                       />
+                                <% } %>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label><%= __('title_admin_timezone') %></label>
+                                <% if( data.countryname == "" ) { %>
+                                <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" name="adminTimeZone" id="adminTimeZone">
+                                </select>
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="adminTimeZone" id="adminTimeZone" value="<%= data.adminTimeZone %>" readonly
+                                       />
+                                <% } %>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label><%= __('title_display_date_timezone') %></label>
+                                <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="timezone_for_display_date" id="timezone_for_display_date">
+                                    <% timezoneList.forEach(function(timezone){ %>
+                                        <% if(timezone == data.timezone_for_display_date) { %>
+                                            <option selected><%= timezone %></option>
+                                        <% } else { %>
+                                            <option><%= timezone %></option>
+                                        <% } %>
+                                        
+                                    <% }) %>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label><%= __('title_admin_phone_number') %></label>
+                                <% if(data.admin_phone == "" ) { %>
+                                <div class="input-group">
+                                    <input type="text" onkeypress="return isNumberKey(event);" class="form-control" name="admin_phone" placeholder="<%= __('this_is_admin_mobile_number')%>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_admin_phone_number') %>">?</button>
+                                    </span>
+
+                                </div>
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="admin_phone" value="<%= data.admin_phone %>" />
+
+                                <% } %>
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <label><%= __('title_admin_email_address') %></label>
+                                <% if(data.admin_email == "" ) { %>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="admin_email" placeholder="<%= __('this_email_address_will_get_email_notification_about_request')%>"
+                                           />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_admin_email_address') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="admin_email" value="<%= data.admin_email %>" />
+
+                                <% } %>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label><%= __('title_contact_email') %></label>
+                                <% if(data.contactUsEmail == "") { %>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="contactUsEmail" placeholder="<%= __('this_email_address_for_contact_us')%>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_contact_email') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="contactUsEmail" placeholder="This email address for contact Us." value="<%= data.contactUsEmail %>"
+                                       />
+
+                                <% } %>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_latitude') %></label>
+                                <% if(data.latitude == "") { %>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="latitude"  />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="">?</button>
+                                    </span>
+                                </div>
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="latitude" value="<%= data.location[0] %>"
+                                       />
+
+                                <% } %>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_longitude') %></label>
+                                <% if(data.longitude == "") { %>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="longitude"  />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="">?</button>
+                                    </span>
+                                </div>
+                                <% } else{ %>
+                                <input type="text" class="form-control" name="longitude" value="<%= data.location[1] %>"
+                                       />
+
+                                <% } %>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_provider_timeout_in_seconds') %></label>
+                                <% if(typeof data.provider_timeout != 'undefined') { %>
+                                <div class="input-group">
+                                    <input type="text" onkeypress="return decimalisNumberKey(event);" class="form-control" name="provider_timeout" placeholder="<%= __('maximum_time_for_provider_to_respond_for_a_request')%>"
+                                           value="<%= data.provider_timeout %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_provider_timeout_in_seconds') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } %>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label><%= __('title_provider_offline_min') %></label>
+                                <% if(typeof data.provider_offline_min != 'undefined') { %>
+                                <div class="input-group">
+                                    <input type="text" onkeypress="return decimalisNumberKey(event);" class="form-control" name="provider_offline_min" placeholder="<%= __('defalt_search_radius_to_look_for_providers')%>"
+                                           value="<%= data.provider_offline_min %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_provider_offline_min') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_default_search_radius') %></label>
+                                <% if(typeof data.default_Search_radious != 'undefined') { %>
+                                <div class="input-group">
+                                    <input type="text" onkeypress="return decimalisNumberKey(event);" class="form-control" name="default_Search_radious" placeholder="<%= __('defalt_search_radius_to_look_for_providers')%>"
+                                           value="<%= data.default_Search_radious %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_default_search_radius') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_scheduled_request_pre_start_minutes') %></label>
+                                <% if(typeof data.scheduled_request_pre_start_minute != 'undefined') { %>
+                                <div class="input-group">
+                                    <input type="text" onkeypress="return decimalisNumberKey(event);" class="form-control" name="scheduled_request_pre_start_minute" placeholder="<%= __('minutes_before_scheduled_request')%>"
+                                           value="<%= data.scheduled_request_pre_start_minute %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_scheduled_request_pre_start_minutes') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } %>
+                            </div>
+                            <div class="form-group">
+                                <label><%= __('title_number_of_loop_for_scheduled_requests') %></label>
+                                <% if(typeof data.number_of_try_for_scheduled_request != 'undefined') { %>
+                                <div class="input-group">
+                                    <input type="text" onkeypress="return decimalisNumberKey(event);" class="form-control" name="number_of_try_for_scheduled_request" placeholder="<%= __('number_of_times_system_should_retry')%>"
+                                           value="<%= data.number_of_try_for_scheduled_request %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_number_of_loop_for_scheduled_requests') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_find_nearest_driver_type') %></label>
+                                <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" data-live-search="true" name="find_nearest_driver_type" id="find_nearest_driver_type">
+                                    <% if(data.find_nearest_driver_type == constant_json.NEAREST_PROVIDER_TYPE_SINGLE) { %>
+                                        <option value="<%=constant_json.NEAREST_PROVIDER_TYPE_SINGLE%>" selected><%=__('single')%></option>
+                                        <option value="<%=constant_json.NEAREST_PROVIDER_TYPE_MULTIPLE%>"><%=__('multiple')%></option>
+                                    <% } else { %>
+                                        <option value="<%=constant_json.NEAREST_PROVIDER_TYPE_SINGLE%>"><%=__('single')%></option>
+                                        <option value="<%=constant_json.NEAREST_PROVIDER_TYPE_MULTIPLE%>" selected><%=__('multiple')%></option>
+                                    <% } %>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="request_send_to_no_of_providers_div">
+                                <label><%= __('title_request_send_to_no_of_providers') %></label>
+                                <% if(typeof data.request_send_to_no_of_providers != 'undefined') { %>
+                                <div class="input-group">
+                                    <input type="number" onkeypress="return decimalisNumberKey(event);" min="2" max="50" class="form-control" name="request_send_to_no_of_providers"
+                                           value="<%= data.request_send_to_no_of_providers %>" required />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('tooltip_request_send_to_no_of_providers') %>">?</button>
+                                    </span>
+                                </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <%= __('minimum_phone_number_length') %>
+                                </label>
+                                <input type="text" onkeypress="return decimalisNumberKey(event);" class="form-control"
+                                    name="minimum_phone_number_length" id="minimum_phone_number_length"
+                                    placeholder="<%= __('minimum_phone_number_length')%>" maxlength="2"
+                                    value="<%= data.minimum_phone_number_length %>" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <%= __('maximum_phone_number_length') %>
+                                </label>
+                                <input type="text" onkeypress="return decimalisNumberKey(event);" class="form-control"
+                                    name="maximum_phone_number_length" id="maximum_phone_number_length"
+                                    placeholder="<%= __('maximum_phone_number_length')%>" maxlength="2"
+                                    value="<%= data.maximum_phone_number_length %>" />
+                            </div>
+
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="submit" value="<%= __('button_update_changes') %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <!-- END SETTINGS WIDGET -->
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= __('title_notification_settings') %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <% detail.forEach(function(data){ %>
+
+
+                <div class="panel-body">
+                    <form action="update_notification_setting" role="form" class="form-horizontal" method="post">
+                        <input type="hidden" name="id" value="<%= data.id %>" />
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_sms_notification') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.sms_notification == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="sms_notification" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="sms_notification" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('send_sms_notification')%></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_email_notification') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.email_notification == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="email_notification" unchecked />
+                                    <% } else{ %>   
+                                    <input type="checkbox" class="switch" value="1" name="email_notification" checked /> 
+                                    <% } %>   
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('send_email_notification')%></span>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_user_path') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.userPath == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="userPath" unchecked />
+                                    <% } else{ %>   
+                                    <input type="checkbox" class="switch" value="1" name="userPath" checked /> 
+                                    <% } %>   
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('user_path')%></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_provider_path') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.providerPath == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="providerPath" unchecked />
+                                    <% } else{ %>   
+                                    <input type="checkbox" class="switch" value="1" name="providerPath" checked /> 
+                                    <% } %>   
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('provider_path')%></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_user_email_verification') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.userEmailVerification == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="userEmailVerification" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="userEmailVerification" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('send_email_verification_code')%></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_provider_email_verification') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.providerEmailVerification == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="providerEmailVerification" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="providerEmailVerification" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('send_email_verification_code')%></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_user_sms') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.userSms == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="userSms" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="userSms" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('send_sms_verification_code_user')%></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_provider_sms') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.providerSms == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="providerSms" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="providerSms" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('send_sms_verification_code_provider')%></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_is_trip') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_tip == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_tip" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_tip" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('tip_for_trip')%></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_is_toll') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_toll == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_toll" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_toll" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('toll_for_trip')%></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_android_user_app_force_update') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.android_user_app_force_update == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="android_user_app_force_update" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="android_user_app_force_update" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('android_user_app_force_update')%></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_android_provider_app_force_update') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.android_provider_app_force_update == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="android_provider_app_force_update" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="android_provider_app_force_update" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('android_provider_app_force_update')%></span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_ios_user_app_force_update') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.ios_user_app_force_update == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="ios_user_app_force_update" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="ios_user_app_force_update" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('ios_user_app_force_update')%></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_ios_provider_app_force_update') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.ios_provider_app_force_update == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="ios_provider_app_force_update" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="ios_provider_app_force_update" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('ios_provider_app_force_update')%></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('provider_initiate_trip')%></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_provider_initiate_trip == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_provider_initiate_trip" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_provider_initiate_trip" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('provider_initiate_trip')%></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_twilio_call_masking') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.twilio_call_masking == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="twilio_call_masking" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="twilio_call_masking" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('title_twilio_call_masking') %></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('is_show_estimation_in_provider_app') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_show_estimation_in_provider_app == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_show_estimation_in_provider_app" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_show_estimation_in_provider_app" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('is_show_estimation_in_provider_app') %></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('is_show_estimation_in_user_app') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_show_estimation_in_user_app == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_show_estimation_in_user_app" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_show_estimation_in_user_app" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('is_show_estimation_in_user_app') %></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('user_social_login') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_user_social_login == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_user_social_login" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_user_social_login" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('user_social_login') %></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('provider_social_login') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_provider_social_login == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_provider_social_login" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_provider_social_login" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('provider_social_login') %></span>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label class="col-md-4 control-label text-left"><%= __('title_otp_verification_to_start') %></label>
+                            <div class="col-md-3">
+                                <label class="switch">
+                                    <% if( data.is_otp_verification_start_trip == false ) { %>
+                                    <input type="checkbox" class="switch" value="1" name="is_otp_verification_start_trip" unchecked />
+                                    <% } else{ %>
+                                    <input type="checkbox" class="switch" value="1" name="is_otp_verification_start_trip" checked />
+                                    <% } %>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="help-block"><%= __('title_otp_verification_to_start_desc') %></span>
+                            </div>
+                        </div> -->
+
+
+                        <% }); %>
+
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="submit" value="<%= __('button_update_changes') %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= __('title_theme_setting') %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form role="form" class="form-horizontal" method="post" action="/upload_logo_images" enctype="multipart/form-data">
+                        <div class="form-group" id="div_logo_image">
+                            <label><%= __('title_logo_image_name') %></label>
+                            <img src="/web_images/logo.png" alt="Not upload any image" id="logo_img" height="45" style="margin-left: 15px; padding-bottom: 5px;">
+                            <input type="file" class="file" name="logo_image" id="logo_image" accept="image/png" data-preview-file-type="png" />
+                            <div id="logo_image_dimention"></div>
+                            <div>
+                                <span class="help-block"><%= __('please_upload_image_in_png_format')%>(dimention: <%= constant_json.LOGO_WIDTH %> x <%= constant_json.LOGO_HEIGHT %> ).</span>
+                            </div>
+                        </div>
+                        <div class="form-group" id="div_title_image">
+                            <label><%= __('title_title_image_name') %></label>
+                            <img src="/web_images/title_image.png" alt="Not upload any image" height="45" id="title_img" style="margin-left: 15px; padding-bottom: 5px;">
+                            <input type="file" class="file" name="title_image" id="title_image" accept="image/png" data-preview-file-type="png" />
+                            <div id="title_image_dimention"></div>
+                            <div>
+                                <span class="help-block"><%= __('please_upload_image_in_png_format')%>(dimention: <%= constant_json.TITLE_ICON_WIDTH %> x <%= constant_json.TITLE_ICON_HEIGHT %> ) .</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="div_mail_title_image">
+                            <label><%= __('title_mail_title_image_name') %></label>
+                            <img src="/web_images/mail_title_image.png" alt="Not upload any image" height="45" id="mail_title_img" style="margin-left: 15px; padding-bottom: 5px;">
+                            <input type="file" class="file" name="mail_title_image" id="mail_title_image" accept="image/png" data-preview-file-type="png" />
+                            <div id="mail_title_image_dimention"></div>
+                            <div>
+                                <span class="help-block"><%= __('please_upload_image_in_png_format')%>(dimention: <%= constant_json.MAIL_TITLE_WIDTH %> x <%= constant_json.MAIL_TITLE_HEIGHT %>).</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="div_authorised_image">
+                            <label><%= __('title_authorised_image_name') %></label>
+                            <img src="/web_images/authorised_image.png" alt="Not upload any image" height="45" id="authorised_img" style="margin-left: 15px; padding-bottom: 5px;">
+                            <input type="file" class="file" name="authorised_image" id="authorised_image" accept="image/png" data-preview-file-type="png" />
+                            <div id="authorised_title_image_dimention"></div>
+                            <div>
+                                <span class="help-block"><%= __('please_upload_image_in_png_format')%>(dimention: <%= constant_json.AUTHORISED_SIGNATURE_WIDTH %> x <%= constant_json.AUTHORISED_SIGNATURE_HEIGHT %> ).</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="div_user_logo">
+                            <label><%= __('title_user_panel') %></label>
+                            <img src="/web_images/user_logo.png" alt="Not upload any image" height="45" id="user_logo" style="margin-left: 15px; padding-bottom: 5px;">
+                            <input type="file" class="file" name="user_logo" id="user_logo" accept="image/png" data-preview-file-type="png" />
+                            <div id="authorised_title_image_dimention"></div>
+                            <div>
+                                <span class="help-block"><%= __('please_upload_image_in_png_format')%>(dimention: <%= constant_json.USER_LOGO_WIDTH %> x <%= constant_json.USER_LOGO_HEIGHT %> ).</span>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">
+                        <div class="col-md-4">
+                            <input type="submit" name="submit" value="Update Changes" class="btn btn-success btn-block">
+                        </div>
+                    </div>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= __('title_ios_certificates') %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <% detail.forEach(function(data){ %>
+                    <div class="panel-body">
+                        <form role="form" class="form-horizontal" method="post" action="/upload_ios_push_certificate" enctype="multipart/form-data">
+
+
+                            <div class="form-fgroup">
+                                <label><%= __('title_ios_certificate_mode') %><%= detail.ios_certificate_mode %></label>
+
+                                <select class="form-control select" data-none-selected-text="<%= __('title_nothing_selected') %>" name="ios_certificate_mode" id="ios_certificate_mode">
+                                    <%if(data.ios_certificate_mode == "sandbox"){%>
+                                    <option value="sandbox" selected><%= __('title_sandbox') %></option>
+                                    <option value="production"><%= __('title_production') %></option>
+
+                                    <%}else
+                                    {%>
+                                    <option value="sandbox"><%= __('title_sandbox') %></option>
+                                    <option value="production" selected><%= __('title_production') %></option>
+                                    <%}%>
+                                </select>
+
+                            </div>
+                            <div class="form-group" id="div_p8_push_file">
+                                <label><%= __('title_p8_push_file') %></label>
+                                <input type="file" accept=".p8" id="push_p8_file" required class="file" onchange="return fileValidation()" name="push_p8_file" />
+                                <div id="div_p8_push_file_error"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_user_bundle_id') %></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="user_bundle_id" placeholder="<%= __('title_user_bundle_id')%>" value="<%= data.user_bundle_id %>"
+                                           />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('title_user_bundle_id')%>">?</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_provider_bundle_id') %></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="provider_bundle_id" placeholder="<%= __('title_provider_bundle_id')%>" value="<%= data.provider_bundle_id %>"
+                                           />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('title_provider_bundle_id')%>">?</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_team_id') %></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="team_id" placeholder="<%= __('title_team_id')%>" value="<%= data.team_id %>"
+                                           />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('title_team_id')%>">?</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= __('title_key_id') %></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="key_id" placeholder="<%= __('title_key_id')%>" value="<%= data.key_id %>"
+                                           />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= __('title_key_id')%>">?</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" name="submit" value="<%= __('button_update_changes') %>" class="btn btn-success btn-block">
+                            </div>
+
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        if( charCode == 46)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function decimalisNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        
+            return false;
+        
+    }
+    return true;
+}
+
+    $(document).ready(function () {
+        $("#admin_settings_update").validate({
+            rules: {
+                maximum_phone_number_length: {
+                    required: true,
+                    min: function() {
+                        if ($("#minimum_phone_number_length").val() !== "") {
+                            return Number($("#minimum_phone_number_length").val());
+                        }
+                    }
+                },
+                minimum_phone_number_length: {
+                    required: true,
+                    max: function() {
+                        if ($("#maximum_phone_number_length").val() !== "") {
+                            return Number($("#maximum_phone_number_length").val());
+                        }
+                    }
+                }
+            },
+            submitHandler: function(updateform) {
+                updateform.submit();
+            }
+        });
+
+
+        <% if(detail[0].find_nearest_driver_type != constant_json.NEAREST_PROVIDER_TYPE_MULTIPLE){ %>
+            $('#request_send_to_no_of_providers_div').hide();
+        <% } %>
+        $('#find_nearest_driver_type').change(function(){
+            var find_nearest_driver_type = $('#find_nearest_driver_type :selected').val();
+            if(find_nearest_driver_type == '<%=constant_json.NEAREST_PROVIDER_TYPE_MULTIPLE%>'){
+                $('#request_send_to_no_of_providers_div').show();
+            } else {
+                $('#request_send_to_no_of_providers_div').hide();
+            }
+        })
+
+        $('#countryname').change(function () {
+            $('#adminCurrencyCode').empty();
+            $('#adminCurrency').empty();
+            $('#adminTimeZone').empty();
+            var countryname = document.getElementById('countryname').value;
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_country_detail',
+                data: { countryname : countryname },
+                dataType: "json",
+                success: function (res) {                    
+                    var country = res.country;
+                    if(country){
+                        document.getElementById("adminCurrency").value = country.sign;
+                        document.getElementById("adminCurrencyCode").value = country.currency_code;
+                        
+                        if(res.country.timezones){
+                            res.country.timezones.forEach(timezone => {
+                                $('#adminTimeZone').append('<option>' + timezone + '</option>');
+                                $('#adminTimeZone').selectpicker('refresh');
+                            });
+                        }
+                    }
+                }
+            });
+        });
+
+        var _URL = window.URL || window.webkitURL;
+        $("#logo_image").change(function (e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    if (this.width == "<%= constant_json.LOGO_WIDTH %>" && this.height == "<%= constant_json.LOGO_HEIGHT %>")
+                    {
+                        $("#logo_image_dimention").html('<font color="red"></font>');
+                        $('#div_logo_image .kv-fileinput-upload').prop('disabled', false);
+                    } else
+                    {
+                        $('#div_logo_image .kv-fileinput-upload').prop('disabled', true);
+                        $("#logo_image_dimention").html('<font color="red">Select file with appropriate dimention</font>');
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+        $('#div_logo_image .fileinput-remove-button').click(function () {
+            $("#logo_image_dimention").html('<font color="red"></font>');
+            $('#div_logo_image .kv-fileinput-upload').prop('disabled', false);
+        });
+
+        $("#title_image").change(function (e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    if (this.width == "<%= constant_json.TITLE_ICON_WIDTH %>" && this.height == "<%= constant_json.TITLE_ICON_HEIGHT %>")
+                    {
+                        $("#title_image_dimention").html('<font color="red"></font>');
+                        $('#div_title_image .kv-fileinput-upload').prop('disabled', false);
+                    } else
+                    {
+                        $('#div_title_image .kv-fileinput-upload').prop('disabled', true);
+                        $("#title_image_dimention").html('<font color="red">Select file with appropriate dimention</font>');
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+        $('#div_title_image .fileinput-remove-button').click(function () {
+            $("#title_image_dimention").html('<font color="red"></font>');
+            $('#div_title_image .kv-fileinput-upload').prop('disabled', false);
+        });
+
+        $("#mail_title_image").change(function (e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    if (this.width == "<%= constant_json.MAIL_TITLE_WIDTH %>" && this.height == "<%= constant_json.MAIL_TITLE_HEIGHT %>")
+                    {
+                        $("#mail_title_image_dimention").html('<font color="red"></font>');
+                        $('#div_mail_title_image .kv-fileinput-upload').prop('disabled', false);
+                    } else
+                    {
+                        $('#div_mail_title_image .kv-fileinput-upload').prop('disabled', true);
+                        $("#mail_title_image_dimention").html('<font color="red">Select file with appropriate dimention</font>');
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+        $('#div_mail_title_image .fileinput-remove-button').click(function () {
+            $("#mail_title_image_dimention").html('<font color="red"></font>');
+            $('#div_mail_title_image .kv-fileinput-upload').prop('disabled', false);
+        });
+
+
+
+
+
+        $("#authorised_image").change(function (e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    if (this.width == "<%= constant_json.AUTHORISED_SIGNATURE_WIDTH %>" && this.height == "<%= constant_json.AUTHORISED_SIGNATURE_HEIGHT %>")
+                    {
+                        $("#authorised_title_image_dimention").html('<font color="red"></font>');
+                        $('#div_authorised_image .kv-fileinput-upload').prop('disabled', false);
+                    } else
+                    {
+                        $('#div_authorised_image .kv-fileinput-upload').prop('disabled', true);
+                        $("#authorised_title_image_dimention").html('<font color="red">Select file with appropriate dimention</font>');
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+        $('#div_authorised_image .fileinput-remove-button').click(function () {
+            $("#authorised_title_image_dimention").html('<font color="red"></font>');
+            $('#div_authorised_image .kv-fileinput-upload').prop('disabled', false);
+        });
+    });
+
+    function fileValidation() {
+        var fileInput = 
+            document.getElementById('push_p8_file');
+            
+        var filePath = fileInput.value;
+        
+        // Allowing file type
+        var allowedExtensions = /(\.p8)$/i;
+
+        $("#div_p8_push_file_error").html('<font color="red"></font>');
+        $('#div_p8_push_file .kv-fileinput-upload').prop('disabled', false);
+            
+        if (!allowedExtensions.exec(filePath)) {
+            fileInput.value = '';
+            $('#div_p8_push_file .kv-fileinput-upload').prop('disabled', true);
+            $("#div_p8_push_file_error").html('<font color="red">Select file with .p8 extension</font>');
+            return false;
+        } 
+    }
+</script>
+
+<% include footer_form.html %>
